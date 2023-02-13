@@ -1,6 +1,7 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/screens/main/main_screen.dart';
+import 'package:chef_timer/utils/transition/fade_transition_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -13,10 +14,6 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  late final readyProvider = StateProvider.autoDispose<bool>((ref) {
-    return true;
-  });
-
   @override
   void initState() {
     super.initState();
@@ -25,10 +22,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(readyProvider, (previous, next) async {
-      if (next == true) {
-        Navigator.pushReplacementNamed(context, MainScreen.routeName);
-      }
+    Future.delayed(const Duration(seconds: 5)).then((val) {
+      Navigator.of(context)
+          .pushReplacement(FadeTransitionRoute(const MainScreen()));
     });
 
     return Container(

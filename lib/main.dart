@@ -1,13 +1,22 @@
 import 'package:chef_timer/screens/main/main_screen.dart';
 import 'package:chef_timer/screens/splash/splash_screen.dart';
+import 'package:chef_timer/utils/global_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  runApp(const MainApp());
+  final container = ProviderContainer();
+
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -17,9 +26,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        appBarTheme: GlobalTheme.appBarTheme(),
       ),
       home: const SplashScreen(),
       routes: {
