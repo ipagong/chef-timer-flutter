@@ -22,17 +22,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 5)).then((val) {
+    Future.delayed(const Duration(seconds: 2)).then((val) {
       Navigator.of(context)
           .pushReplacement(FadeTransitionRoute(const MainScreen()));
     });
 
     return Container(
-      color: ColorSet.black00,
+      color: ColorSet.neutral0,
       child: const Center(
         child: Text(
           StringSet.splashTitle,
-          style: TextStyle(color: ColorSet.white01),
+          style: TextStyle(color: ColorSet.neutral00),
         ),
       ),
     );

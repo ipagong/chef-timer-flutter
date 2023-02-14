@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class FadeTransitionRoute<T> extends PageRoute<T> {
   FadeTransitionRoute(this.child);
   @override
-  Color get barrierColor => ColorSet.black00;
+  Color get barrierColor => ColorSet.neutral0;
 
   @override
   String get barrierLabel => '';
@@ -24,5 +24,5 @@ class FadeTransitionRoute<T> extends PageRoute<T> {
   bool get maintainState => true;
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 500);
+  Duration get transitionDuration => const Duration(milliseconds: 300);
 }
