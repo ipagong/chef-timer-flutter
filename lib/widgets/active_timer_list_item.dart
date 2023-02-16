@@ -39,9 +39,8 @@ class ActiveTimerListItem extends StatelessWidget {
             const Spacer(),
             InkWell(
                 onTap: () => onPressedToggle(timer),
-                child: timer.isActive
-                    ? SvgSet.timerOff.asset()
-                    : SvgSet.timerOn.asset())
+                child:
+                    (timer.isActive ? SvgSet.timerOff : SvgSet.timerOn).asset())
           ],
         ),
       ),
