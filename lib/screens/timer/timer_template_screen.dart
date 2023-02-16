@@ -5,19 +5,19 @@ import 'package:chef_timer/widgets/timer_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserTimerScreen extends ConsumerStatefulWidget {
-  const UserTimerScreen({Key? key}) : super(key: key);
+class TimerTemplateScreen extends ConsumerStatefulWidget {
+  const TimerTemplateScreen({Key? key}) : super(key: key);
 
-  static const String routeName = '/custom';
+  static const String routeName = '/template';
 
   @override
-  ConsumerState<UserTimerScreen> createState() => _UserTimerScreenState();
+  ConsumerState<TimerTemplateScreen> createState() =>
+      _TimerTemplateScreenState();
 }
 
-class _UserTimerScreenState extends BaseScreenState<UserTimerScreen>
+class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
-  final int count = 5;
 
   @override
   void initState() {
@@ -44,22 +44,10 @@ class _UserTimerScreenState extends BaseScreenState<UserTimerScreen>
       body: SafeArea(
         child: Container(
           color: ColorSet.neutral0,
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.all(16),
-                sliver: SliverGrid.builder(
-                  itemCount: timerItems.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 165 / 221,
-                      crossAxisSpacing: 10),
-                  itemBuilder: (BuildContext ctx, int index) =>
-                      TimerGridItem(timerItems[index]),
-                ),
-              ),
-            ],
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(31, 0, 30, 0),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center, children: []),
           ),
         ),
       ),

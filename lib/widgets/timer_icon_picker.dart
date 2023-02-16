@@ -4,18 +4,16 @@ import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:flutter/material.dart';
 
-class UserTimerSelector extends StatefulWidget {
-  final int count;
+class TimerIconPicker extends StatefulWidget {
   final VoidCallback onPressed;
 
-  const UserTimerSelector(this.count, this.onPressed, {Key? key})
-      : super(key: key);
+  const TimerIconPicker(this.onPressed, {Key? key}) : super(key: key);
 
   @override
-  State<UserTimerSelector> createState() => _UserTimerSelectorState();
+  State<TimerIconPicker> createState() => _UserTimerSelectorState();
 }
 
-class _UserTimerSelectorState extends State<UserTimerSelector> {
+class _UserTimerSelectorState extends State<TimerIconPicker> {
   @override
   Widget build(BuildContext context) {
     return Padding(

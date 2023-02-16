@@ -1,8 +1,8 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
+import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MainTitleAddTimer extends StatelessWidget {
   final VoidCallback onPressed;
@@ -22,12 +22,7 @@ class MainTitleAddTimer extends StatelessWidget {
             Text(StringSet.mainTitle,
                 style: TextStyleSet.headlineLarge(ColorSet.neutral100)),
             const Spacer(),
-            SvgPicture.asset(
-              'assets/images/plus_white.svg',
-              width: 32,
-              height: 32,
-              fit: BoxFit.cover,
-            ),
+            SvgSet.plusWhite.asset()
           ],
         ),
       ),

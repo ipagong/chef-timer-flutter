@@ -2,7 +2,8 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
-import 'package:chef_timer/screens/user_timer/user_timer_screen.dart';
+import 'package:chef_timer/screens/timer/timer_template_screen.dart';
+import 'package:chef_timer/screens/user_timer/user_timer_list_screen.dart';
 import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/active_timer_list_item.dart';
 import 'package:chef_timer/widgets/main_bottom_add_timer.dart';
@@ -70,7 +71,8 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                     child: CustomScrollView(
                       slivers: [
                         SliverToBoxAdapter(
-                          child: MainTitleAddTimer(() => {}),
+                          child: MainTitleAddTimer(() => Navigator.pushNamed(
+                              context, TimerTemplateScreen.routeName)),
                         ),
                         SliverList(
                           delegate: SliverChildListDelegate(List.from(
@@ -83,10 +85,8 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                         SliverToBoxAdapter(
                           child: UserTimerSelector(
                             count,
-                            () => {
-                              Navigator.pushNamed(
-                                  context, UserTimerScreen.routeName)
-                            },
+                            () => Navigator.pushNamed(
+                                context, UserTimerListScreen.routeName),
                           ),
                         ),
                         SliverPadding(
@@ -100,7 +100,7 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                                     childAspectRatio: 165 / 221,
                                     crossAxisSpacing: 10),
                             itemBuilder: (BuildContext ctx, int index) =>
-                                TimerGridItem(timerItems[index]),
+                                TimerGridItem(timerItems[index], (item) => {}),
                           ),
                         ),
                         const SliverToBoxAdapter(child: SizedBox(height: 45))
@@ -110,7 +110,11 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                   const SizedBox(height: 45)
                 ]),
                 Column(
-                  children: [const Spacer(), MainBottomAddTimer(() => {})],
+                  children: [
+                    const Spacer(),
+                    MainBottomAddTimer(() => Navigator.pushNamed(
+                        context, TimerTemplateScreen.routeName))
+                  ],
                 )
               ],
             )),

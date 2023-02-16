@@ -1,6 +1,6 @@
 import 'package:chef_timer/constants/color_set.dart';
+import 'package:chef_timer/constants/svg_set.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MainBottomAddTimer extends StatelessWidget {
   final VoidCallback onPressed;
@@ -20,12 +20,7 @@ class MainBottomAddTimer extends StatelessWidget {
         child: InkWell(
           onTap: () => onPressed(),
           child: Center(
-            child: SvgPicture.asset(
-              'assets/images/plus_black.svg',
-              width: 32,
-              height: 32,
-              fit: BoxFit.cover,
-            ),
+            child: SvgSet.plusBlack.asset(),
           ),
         ),
       ),

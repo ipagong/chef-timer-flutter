@@ -4,10 +4,14 @@ import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:flutter/material.dart';
 
+typedef TimerItemCallback = void Function(TimerItem item);
+
 class TimerGridItem extends StatelessWidget {
   final TimerItem item;
+  final TimerItemCallback onPressedItem;
 
-  const TimerGridItem(this.item, {Key? key}) : super(key: key);
+  const TimerGridItem(this.item, this.onPressedItem, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
