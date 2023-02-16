@@ -24,7 +24,7 @@ mixin _$TimerItem {
   String get image => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get subtitle => throw _privateConstructorUsedError;
-  int get value => throw _privateConstructorUsedError;
+  int get duration => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,8 @@ abstract class $TimerItemCopyWith<$Res> {
   factory $TimerItemCopyWith(TimerItem value, $Res Function(TimerItem) then) =
       _$TimerItemCopyWithImpl<$Res, TimerItem>;
   @useResult
-  $Res call({int id, String image, String title, String subtitle, int value});
+  $Res call(
+      {int id, String image, String title, String subtitle, int duration});
 }
 
 /// @nodoc
@@ -57,7 +58,7 @@ class _$TimerItemCopyWithImpl<$Res, $Val extends TimerItem>
     Object? image = null,
     Object? title = null,
     Object? subtitle = null,
-    Object? value = null,
+    Object? duration = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -76,9 +77,9 @@ class _$TimerItemCopyWithImpl<$Res, $Val extends TimerItem>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -91,7 +92,8 @@ abstract class _$$_TimerItemCopyWith<$Res> implements $TimerItemCopyWith<$Res> {
       __$$_TimerItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String image, String title, String subtitle, int value});
+  $Res call(
+      {int id, String image, String title, String subtitle, int duration});
 }
 
 /// @nodoc
@@ -109,7 +111,7 @@ class __$$_TimerItemCopyWithImpl<$Res>
     Object? image = null,
     Object? title = null,
     Object? subtitle = null,
-    Object? value = null,
+    Object? duration = null,
   }) {
     return _then(_$_TimerItem(
       id: null == id
@@ -128,9 +130,9 @@ class __$$_TimerItemCopyWithImpl<$Res>
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -144,7 +146,7 @@ class _$_TimerItem implements _TimerItem {
       required this.image,
       required this.title,
       required this.subtitle,
-      required this.value});
+      required this.duration});
 
   factory _$_TimerItem.fromJson(Map<String, dynamic> json) =>
       _$$_TimerItemFromJson(json);
@@ -158,11 +160,11 @@ class _$_TimerItem implements _TimerItem {
   @override
   final String subtitle;
   @override
-  final int value;
+  final int duration;
 
   @override
   String toString() {
-    return 'TimerItem(id: $id, image: $image, title: $title, subtitle: $subtitle, value: $value)';
+    return 'TimerItem(id: $id, image: $image, title: $title, subtitle: $subtitle, duration: $duration)';
   }
 
   @override
@@ -175,13 +177,14 @@ class _$_TimerItem implements _TimerItem {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.subtitle, subtitle) ||
                 other.subtitle == subtitle) &&
-            (identical(other.value, value) || other.value == value));
+            (identical(other.duration, duration) ||
+                other.duration == duration));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, image, title, subtitle, value);
+      Object.hash(runtimeType, id, image, title, subtitle, duration);
 
   @JsonKey(ignore: true)
   @override
@@ -203,7 +206,7 @@ abstract class _TimerItem implements TimerItem {
       required final String image,
       required final String title,
       required final String subtitle,
-      required final int value}) = _$_TimerItem;
+      required final int duration}) = _$_TimerItem;
 
   factory _TimerItem.fromJson(Map<String, dynamic> json) =
       _$_TimerItem.fromJson;
@@ -217,7 +220,7 @@ abstract class _TimerItem implements TimerItem {
   @override
   String get subtitle;
   @override
-  int get value;
+  int get duration;
   @override
   @JsonKey(ignore: true)
   _$$_TimerItemCopyWith<_$_TimerItem> get copyWith =>

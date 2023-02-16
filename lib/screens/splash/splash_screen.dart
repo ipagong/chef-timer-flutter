@@ -27,14 +27,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           .pushReplacement(FadeTransitionRoute(const MainScreen()));
     });
 
-    return Container(
+    return Scaffold(
+        body: Container(
       color: ColorSet.neutral0,
       child: const Center(
         child: Text(
           StringSet.splashTitle,
-          style: TextStyle(color: ColorSet.neutral00),
+          style: TextStyle(color: ColorSet.neutral100),
         ),
       ),
-    );
+    ));
   }
 }

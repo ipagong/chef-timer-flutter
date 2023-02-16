@@ -1,7 +1,14 @@
 import 'package:chef_timer/constants/color_set.dart';
+import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
-import 'package:chef_timer/utils/duration.dart';
+import 'package:chef_timer/screens/user_timer/user_timer_screen.dart';
+import 'package:chef_timer/utils/service.dart';
+import 'package:chef_timer/widgets/active_timer_list_item.dart';
+import 'package:chef_timer/widgets/main_bottom_add_timer.dart';
+import 'package:chef_timer/widgets/main_title_add_timer.dart';
+import 'package:chef_timer/widgets/user_timer_selector.dart';
+import 'package:chef_timer/widgets/timer_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,6 +24,7 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends BaseScreenState<MainScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
+  final int count = 5;
 
   @override
   void initState() {
@@ -24,35 +32,90 @@ class _MainScreenState extends BaseScreenState<MainScreen>
     WidgetsBinding.instance.addObserver(this);
   }
 
+  List<ActiveTimer> get activeItems {
+    final timers = List.generate(2, (index) => index)
+        .map((index) => TimerItem(
+              id: index,
+              title: "반숙 달걀 삶기",
+              subtitle: "반숙 달걀 삶기",
+              image: "assets/images/timer_placeholder.png",
+              duration: 10,
+            ))
+        .map((e) => e.active());
+    return List.from(timers);
+  }
+
+  List<TimerItem> get timerItems {
+    final timers = List.generate(10, (index) => index).map((index) => TimerItem(
+        id: index,
+        title: "반숙 달걀 삶기",
+        subtitle: "반숙 달걀 삶기",
+        image: "assets/images/timer_placeholder.png",
+        duration: 10));
+    return List.from(timers);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: ColorSet.neutral0,
-          title: const Text('Sample Code'),
-        ),
-        body: Container(
-          color: ColorSet.neutral0,
-          child: GridView.builder(
-            padding: const EdgeInsets.all(10),
-            itemCount: 30,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                childAspectRatio: 165 / 221,
-                crossAxisSpacing: 10),
-            itemBuilder: (BuildContext ctx, int index) {
-              // TODO: setup local data.
-              return TimerListItem(TimerItem(
-                  id: index,
-                  title: "반숙 달걀 삶기",
-                  subtitle: "반숙 달걀 삶기",
-                  image: "assets/images/timer_placeholder.png",
-                  value: 10));
-            },
-          ),
-        ));
+      key: _scaffoldKey,
+      backgroundColor: ColorSet.neutral0,
+      body: SafeArea(
+        child: Container(
+            color: ColorSet.neutral0,
+            child: Stack(
+              children: [
+                Column(children: [
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: MainTitleAddTimer(() => {}),
+                        ),
+                        SliverList(
+                          delegate: SliverChildListDelegate(List.from(
+                              activeItems.map((item) => ActiveTimerListItem(
+                                    item,
+                                    (item) => {},
+                                    (item) => {},
+                                  )))),
+                        ),
+                        SliverToBoxAdapter(
+                          child: UserTimerSelector(
+                            count,
+                            () => {
+                              Navigator.pushNamed(
+                                  context, UserTimerScreen.routeName)
+                            },
+                          ),
+                        ),
+                        SliverPadding(
+                          padding: const EdgeInsets.all(16),
+                          sliver: SliverGrid.builder(
+                            itemCount: timerItems.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 10,
+                                    childAspectRatio: 165 / 221,
+                                    crossAxisSpacing: 10),
+                            itemBuilder: (BuildContext ctx, int index) =>
+                                TimerGridItem(timerItems[index]),
+                          ),
+                        ),
+                        const SliverToBoxAdapter(child: SizedBox(height: 45))
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 45)
+                ]),
+                Column(
+                  children: [const Spacer(), MainBottomAddTimer(() => {})],
+                )
+              ],
+            )),
+      ),
+    );
   }
 
   @override
@@ -65,50 +128,5 @@ class _MainScreenState extends BaseScreenState<MainScreen>
   void dispose() {
     super.dispose();
     debugPrint("disposed.");
-  }
-}
-
-class TimerListItem extends StatelessWidget {
-  final TimerItem item;
-
-  const TimerListItem(this.item, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: ColorSet.primary100,
-            borderRadius: BorderRadius.circular(30)),
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-              width: 30,
-              height: 30,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  color: ColorSet.neutral0,
-                  borderRadius: BorderRadius.circular(8)),
-              child: Image.asset(item.image, fit: BoxFit.scaleDown),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              item.title,
-              style: const TextStyle(
-                  fontSize: 24,
-                  color: ColorSet.neutral0,
-                  fontWeight: FontWeight.w800),
-            ),
-            const Spacer(),
-            Text(
-              Duration(seconds: item.value).toTimer(),
-              style: const TextStyle(
-                  fontSize: 24,
-                  color: ColorSet.opacity3,
-                  fontWeight: FontWeight.w800),
-            ),
-          ]),
-        ));
   }
 }

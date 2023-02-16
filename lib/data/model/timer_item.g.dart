@@ -11,7 +11,7 @@ _$_TimerItem _$$_TimerItemFromJson(Map<String, dynamic> json) => _$_TimerItem(
       image: json['image'] as String,
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
-      value: json['value'] as int,
+      duration: json['duration'] as int,
     );
 
 Map<String, dynamic> _$$_TimerItemToJson(_$_TimerItem instance) =>
@@ -20,5 +20,5 @@ Map<String, dynamic> _$$_TimerItemToJson(_$_TimerItem instance) =>
       'image': instance.image,
       'title': instance.title,
       'subtitle': instance.subtitle,
-      'value': instance.value,
+      'duration': instance.duration,
     };

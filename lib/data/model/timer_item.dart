@@ -10,7 +10,7 @@ class TimerItem with _$TimerItem {
     required String image,
     required String title,
     required String subtitle,
-    required int value,
+    required int duration,
   }) = _TimerItem;
 
   factory TimerItem.fromJson(Map<String, dynamic> json) =>
