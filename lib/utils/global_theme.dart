@@ -15,4 +15,15 @@ class GlobalTheme {
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       );
+
+  static textSelectionTheme() => const TextSelectionThemeData(
+        cursorColor: Colors.white,
+        selectionColor: Colors.grey,
+        selectionHandleColor: Colors.black,
+      );
+
+  static inputDecorationTheme() => const InputDecorationTheme(
+        enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+        focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+      );
 }

@@ -38,6 +38,8 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: GlobalTheme.colorScheme(),
         appBarTheme: GlobalTheme.appBarTheme(),
+        textSelectionTheme: GlobalTheme.textSelectionTheme(),
+        inputDecorationTheme: GlobalTheme.inputDecorationTheme(),
       ),
       home: const SplashScreen(),
       routes: {

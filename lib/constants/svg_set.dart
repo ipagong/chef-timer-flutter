@@ -1,21 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:format/format.dart';
-
-class SvgAsset {
-  final String name;
-  final String path = "assets/svg/{}.svg";
-
-  const SvgAsset(this.name);
-
-  SvgPicture asset({double? width, double? height, BoxFit? fit}) =>
-      SvgPicture.asset(
-        format(path, name),
-        width: width,
-        height: height,
-        fit: fit ?? BoxFit.contain,
-      );
-}
+import 'package:chef_timer/utils/service_asset.dart';
 
 class SvgSet {
   static const SvgAsset chveronLeft = SvgAsset("chevron_left");
@@ -23,4 +6,10 @@ class SvgSet {
   static const SvgAsset timerOff = SvgAsset("timer_off");
   static const SvgAsset plusBlack = SvgAsset("plus_black");
   static const SvgAsset plusWhite = SvgAsset("plus_white");
+
+  static const SvgAsset alarmGreen = SvgAsset("alarm_green");
+  static const SvgAsset checkGrey = SvgAsset("check_grey");
+  static const SvgAsset checkWhite = SvgAsset("check_white");
+  static const SvgAsset start = SvgAsset("start");
+  static const SvgAsset stop = SvgAsset("stop");
 }

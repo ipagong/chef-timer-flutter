@@ -14,17 +14,19 @@ class MainTitleAddTimer extends StatelessWidget {
     return Container(
       height: 86,
       padding: const EdgeInsets.fromLTRB(24, 10, 24, 10),
-      child: InkWell(
-        onTap: onPressed,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(StringSet.mainTitle,
-                style: TextStyleSet.headlineLarge(ColorSet.neutral100)),
-            const Spacer(),
-            SvgSet.plusWhite.asset()
-          ],
-        ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            StringSet.mainTitle,
+            style: TextStyleSet.headlineLarge(ColorSet.neutral100),
+          ),
+          const Spacer(),
+          InkWell(
+            onTap: onPressed,
+            child: SvgSet.plusWhite.asset(),
+          )
+        ],
       ),
     );
   }

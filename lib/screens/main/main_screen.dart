@@ -34,7 +34,7 @@ class _MainScreenState extends BaseScreenState<MainScreen>
   }
 
   List<ActiveTimer> get activeItems {
-    final timers = List.generate(2, (index) => index)
+    return List.generate(2, (index) => index)
         .map((index) => TimerItem(
               id: index,
               title: "반숙 달걀 삶기",
@@ -42,18 +42,19 @@ class _MainScreenState extends BaseScreenState<MainScreen>
               image: "assets/images/timer_placeholder.png",
               duration: 10,
             ))
-        .map((e) => e.active());
-    return List.from(timers);
+        .map((e) => e.active())
+        .toList();
   }
 
   List<TimerItem> get timerItems {
-    final timers = List.generate(10, (index) => index).map((index) => TimerItem(
-        id: index,
-        title: "반숙 달걀 삶기",
-        subtitle: "반숙 달걀 삶기",
-        image: "assets/images/timer_placeholder.png",
-        duration: 10));
-    return List.from(timers);
+    return List.generate(10, (index) => index)
+        .map((index) => TimerItem(
+            id: index,
+            title: "반숙 달걀 삶기",
+            subtitle: "반숙 달걀 삶기",
+            image: "assets/images/timer_placeholder.png",
+            duration: 10))
+        .toList();
   }
 
   @override

@@ -1,26 +1,35 @@
 // ignore_for_file: constant_identifier_names
 
-enum TimerIconType {
+import 'package:chef_timer/utils/service_asset.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/svg.dart';
+
+enum TimerIcon {
   spaghetti,
   egg,
   potato,
-  sweet_potato,
+  sweetPotato,
   etc,
-}
-
-class TimerIcon {
-  final TimerIconType icon;
-  const TimerIcon(this.icon);
+  empty,
 }
 
 extension Utils on TimerIcon {
-  String get rawValue => icon.toString().split('.').last;
+  String get rawValue => toString().split('.').last;
 
-  static TimerIcon fromString(String value) {
-    final icon = TimerIconType.values.firstWhere(
-        (e) => e.toString().split('.').last == value,
-        orElse: () => TimerIconType.etc);
+  static TimerIcon fromString(
+    String value,
+  ) =>
+      TimerIcon.values.firstWhere((e) => e.toString().split('.').last == value,
+          orElse: () => TimerIcon.etc);
 
-    return TimerIcon(icon);
-  }
+  SvgPicture asset({
+    double? width,
+    double? height,
+    BoxFit? fit = BoxFit.scaleDown,
+  }) =>
+      SvgAsset("timer_icon/$rawValue").asset(
+        width: width,
+        height: height,
+        fit: fit,
+      );
 }
