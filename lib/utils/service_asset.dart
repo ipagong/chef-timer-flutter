@@ -32,6 +32,6 @@ class SvgAsset extends ServiceAsset {
         format(path, name),
         width: width,
         height: height,
-        fit: fit ?? BoxFit.contain,
+        fit: fit ?? BoxFit.scaleDown,
       );
 }

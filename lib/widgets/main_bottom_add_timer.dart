@@ -1,5 +1,6 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/svg_set.dart';
+import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 class MainBottomAddTimer extends StatelessWidget {
@@ -17,8 +18,9 @@ class MainBottomAddTimer extends StatelessWidget {
         decoration: BoxDecoration(
             color: ColorSet.neutral100,
             borderRadius: BorderRadius.circular(30)),
-        child: InkWell(
+        child: MaterialInkWell(
           onTap: () => onPressed(),
+          borderRadius: BorderRadius.circular(30),
           child: Center(
             child: SvgSet.plusBlack.asset(),
           ),

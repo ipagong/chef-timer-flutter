@@ -1,8 +1,8 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
-import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:chef_timer/widgets/timer_check_time_input.dart';
 import 'package:chef_timer/widgets/timer_icon_picker.dart';
 import 'package:chef_timer/widgets/timer_wrap_option_item.dart';
@@ -27,16 +27,6 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-  }
-
-  List<TimerItem> get timerItems {
-    final timers = List.generate(10, (index) => index).map((index) => TimerItem(
-        id: index,
-        title: "반숙 달걀 삶기",
-        subtitle: "반숙 달걀 삶기",
-        image: "assets/images/timer_placeholder.png",
-        duration: 10));
-    return List.from(timers);
   }
 
   @override
@@ -85,10 +75,30 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                       runSpacing: 8,
                       spacing: 8,
                       children: [
-                        TimerWrapOptionItem("약불", true, (selected) => {}),
-                        TimerWrapOptionItem("중불", true, (selected) => {}),
-                        TimerWrapOptionItem("강불", true, (selected) => {}),
-                        TimerWrapOptionItem("끓는 물에", true, (selected) => {}),
+                        TimerWrapOptionItem(
+                          "약불",
+                          true,
+                          (selected) => {},
+                          TimerOptionColorSet.tempalteSet,
+                        ),
+                        TimerWrapOptionItem(
+                          "중불",
+                          true,
+                          (selected) => {},
+                          TimerOptionColorSet.tempalteSet,
+                        ),
+                        TimerWrapOptionItem(
+                          "강불",
+                          true,
+                          (selected) => {},
+                          TimerOptionColorSet.tempalteSet,
+                        ),
+                        TimerWrapOptionItem(
+                          "끓는 물에",
+                          true,
+                          (selected) => {},
+                          TimerOptionColorSet.tempalteSet,
+                        ),
                       ],
                     ),
 
@@ -105,12 +115,12 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Container(
                   height: 80,
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   decoration: BoxDecoration(
                       color: ColorSet.primary100,
                       borderRadius: BorderRadius.circular(50)),
-                  child: InkWell(
+                  child: MaterialInkWell(
                     onTap: () => {},
+                    borderRadius: BorderRadius.circular(50),
                     child: Center(
                       child: Text(
                         StringSet.templateConfirmButton,

@@ -2,6 +2,7 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
+import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 class UserTimerSelector extends StatefulWidget {
@@ -25,7 +26,8 @@ class _UserTimerSelectorState extends State<UserTimerSelector> {
         decoration: BoxDecoration(
             color: ColorSet.neutral100,
             borderRadius: BorderRadius.circular(50)),
-        child: InkWell(
+        child: MaterialInkWell(
+          borderRadius: BorderRadius.circular(50),
           onTap: () => widget.onPressed(),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(32, 0, 24, 0),
@@ -50,7 +52,7 @@ class _UserTimerSelectorState extends State<UserTimerSelector> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                SvgSet.chveronLeft.asset()
+                SvgSet.chveronRight.asset()
               ],
             ),
           ),

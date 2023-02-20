@@ -1,7 +1,7 @@
 import 'package:chef_timer/utils/service_asset.dart';
 
 class SvgSet {
-  static const SvgAsset chveronLeft = SvgAsset("chevron_left");
+  static const SvgAsset chveronRight = SvgAsset("chevron_right");
   static const SvgAsset timerOn = SvgAsset("timer_on");
   static const SvgAsset timerOff = SvgAsset("timer_off");
   static const SvgAsset plusBlack = SvgAsset("plus_black");
@@ -12,4 +12,8 @@ class SvgSet {
   static const SvgAsset checkWhite = SvgAsset("check_white");
   static const SvgAsset start = SvgAsset("start");
   static const SvgAsset stop = SvgAsset("stop");
+
+  static const SvgAsset lockOn = SvgAsset("lock_on");
+  static const SvgAsset lockOff = SvgAsset("lock_off");
+  static const SvgAsset reset = SvgAsset("reset");
 }

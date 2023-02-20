@@ -3,6 +3,7 @@ import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/utils/service.dart';
+import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 typedef TimerCallback = void Function(ActiveTimer timer);
@@ -19,11 +20,11 @@ class ActiveTimerListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 86,
-      padding: const EdgeInsets.fromLTRB(24, 10, 24, 10),
-      child: InkWell(
-        onTap: () => onPressedItem(timer),
+    return MaterialInkWell(
+      onTap: () => onPressedItem(timer),
+      child: Container(
+        height: 86,
+        padding: const EdgeInsets.fromLTRB(24, 10, 24, 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -37,7 +38,8 @@ class ActiveTimerListItem extends StatelessWidget {
             Text(timer.remainTimeString,
                 style: TextStyleSet.headlineLarge(ColorSet.neutral100)),
             const Spacer(),
-            InkWell(
+            MaterialInkWell(
+                borderRadius: BorderRadius.circular(30),
                 onTap: () => onPressedToggle(timer),
                 child:
                     (timer.isActive ? SvgSet.timerOff : SvgSet.timerOn).asset())

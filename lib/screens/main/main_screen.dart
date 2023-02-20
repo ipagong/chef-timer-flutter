@@ -2,8 +2,9 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/screens/timer/timer_action_screen.dart';
 import 'package:chef_timer/screens/timer/timer_template_screen.dart';
-import 'package:chef_timer/screens/user_timer/user_timer_list_screen.dart';
+import 'package:chef_timer/screens/user_timer_list/user_timer_list_screen.dart';
 import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/active_timer_list_item.dart';
 import 'package:chef_timer/widgets/main_bottom_add_timer.dart';
@@ -64,61 +65,57 @@ class _MainScreenState extends BaseScreenState<MainScreen>
       backgroundColor: ColorSet.neutral0,
       body: SafeArea(
         child: Container(
-            color: ColorSet.neutral0,
-            child: Stack(
-              children: [
-                Column(children: [
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: MainTitleAddTimer(() => Navigator.pushNamed(
-                              context, TimerTemplateScreen.routeName)),
-                        ),
-                        SliverList(
-                          delegate: SliverChildListDelegate(List.from(
-                              activeItems.map((item) => ActiveTimerListItem(
-                                    item,
-                                    (item) => {},
-                                    (item) => {},
-                                  )))),
-                        ),
-                        SliverToBoxAdapter(
-                          child: UserTimerSelector(
-                            count,
-                            () => Navigator.pushNamed(
-                                context, UserTimerListScreen.routeName),
-                          ),
-                        ),
-                        SliverPadding(
-                          padding: const EdgeInsets.all(16),
-                          sliver: SliverGrid.builder(
-                            itemCount: timerItems.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 10,
-                                    childAspectRatio: 165 / 221,
-                                    crossAxisSpacing: 10),
-                            itemBuilder: (BuildContext ctx, int index) =>
-                                TimerGridItem(timerItems[index], (item) => {}),
-                          ),
-                        ),
-                        const SliverToBoxAdapter(child: SizedBox(height: 45))
-                      ],
+          color: ColorSet.neutral0,
+          child: Column(children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: MainTitleAddTimer(() => Navigator.pushNamed(
+                        context, TimerTemplateScreen.routeName)),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                        List.from(activeItems.map((item) => ActiveTimerListItem(
+                              item,
+                              (item) => Navigator.pushNamed(
+                                  context, TimerActionScreen.routeName),
+                              (item) => {},
+                            )))),
+                  ),
+                  SliverToBoxAdapter(
+                    child: UserTimerSelector(
+                      count,
+                      () => Navigator.pushNamed(
+                          context, UserTimerListScreen.routeName),
                     ),
                   ),
-                  const SizedBox(height: 45)
-                ]),
-                Column(
-                  children: [
-                    const Spacer(),
-                    MainBottomAddTimer(() => Navigator.pushNamed(
-                        context, TimerTemplateScreen.routeName))
-                  ],
-                )
-              ],
-            )),
+                  SliverPadding(
+                    padding: const EdgeInsets.all(16),
+                    sliver: SliverGrid.builder(
+                      itemCount: timerItems.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 165 / 221,
+                              crossAxisSpacing: 10),
+                      itemBuilder: (BuildContext ctx, int index) =>
+                          TimerGridItem(
+                        timerItems[index],
+                        (item) => Navigator.pushNamed(
+                            context, TimerActionScreen.routeName),
+                      ),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                      child: MainBottomAddTimer(() => Navigator.pushNamed(
+                          context, TimerTemplateScreen.routeName)))
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

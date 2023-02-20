@@ -1,6 +1,7 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
 import 'package:chef_timer/widgets/bottom_sheet_drag_line.dart';
+import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 typedef TimerIconCallBack = void Function(TimerIcon icon);
@@ -29,8 +30,12 @@ class _TimerIconPicker extends State<TimerIconPicker> {
     return Container(
       width: 48,
       height: 48,
-      color: ColorSet.neutral0,
-      child: InkWell(
+      decoration: BoxDecoration(
+        color: ColorSet.neutral0,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: MaterialInkWell(
+        borderRadius: BorderRadius.circular(5),
         onTap: () => {
           showModalBottomSheet(
               backgroundColor: Colors.transparent,
