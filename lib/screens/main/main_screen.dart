@@ -78,8 +78,12 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                     delegate: SliverChildListDelegate(
                         List.from(activeItems.map((item) => ActiveTimerListItem(
                               item,
-                              (item) => Navigator.pushNamed(
-                                  context, TimerActionScreen.routeName),
+                              (item) => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TimerActionScreen(item),
+                                ),
+                              ),
                               (item) => {},
                             )))),
                   ),
@@ -103,8 +107,13 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                       itemBuilder: (BuildContext ctx, int index) =>
                           TimerGridItem(
                         timerItems[index],
-                        (item) => Navigator.pushNamed(
-                            context, TimerActionScreen.routeName),
+                        (item) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TimerActionScreen(item.standBy()),
+                          ),
+                        ),
                       ),
                     ),
                   ),

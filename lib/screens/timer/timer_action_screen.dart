@@ -1,20 +1,21 @@
 import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/data/model/timer_item.dart';
+import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
-import 'package:chef_timer/utils/service_asset.dart';
+import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:chef_timer/widgets/timer_wrap_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TimerActionScreen extends ConsumerStatefulWidget {
-  const TimerActionScreen({Key? key}) : super(key: key);
-
-  static const String routeName = '/timer';
+  final ActiveTimer timer;
+  const TimerActionScreen(
+    this.timer, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   ConsumerState<TimerActionScreen> createState() => _TimerActionScreenState();
@@ -24,8 +25,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  bool active = false;
-  bool isLocked = false;
+  var isLocked = false;
 
   @override
   void initState() {
@@ -39,11 +39,11 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
       key: _scaffoldKey,
       backgroundColor: ColorSet.primary100,
       appBar: AppBar(
-        backgroundColor: ColorSet.primary100,
+        backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
         child: Container(
-          color: ColorSet.primary100,
+          color: Colors.transparent,
           child: Column(
             children: [
               SingleChildScrollView(
@@ -64,13 +64,13 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                     const SizedBox(height: 16),
                     //  요리 이름
                     Text(
-                      "무엇인가 요리",
+                      widget.timer.item.title,
                       textAlign: TextAlign.center,
                       style: TextStyleSet.titleLarge(ColorSet.neutral0),
                     ),
                     //  시간 설정
                     Text(
-                      "10:00",
+                      widget.timer.remainTimeString,
                       textAlign: TextAlign.center,
                       style: TextStyleSet.displayLarge(ColorSet.neutral0),
                     ),
@@ -114,7 +114,9 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                     borderRadius: BorderRadius.circular(50),
                     onTap: () => {},
                     child: Center(
-                        child: (active ? SvgSet.start : SvgSet.stop).asset()),
+                        child:
+                            (widget.timer.isActive ? SvgSet.stop : SvgSet.start)
+                                .asset()),
                   ),
                 ),
               ),

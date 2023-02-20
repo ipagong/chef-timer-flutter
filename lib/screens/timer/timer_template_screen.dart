@@ -2,6 +2,7 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/widgets/duration_picker_container.dart';
 import 'package:chef_timer/widgets/material_ink_well.dart';
 import 'package:chef_timer/widgets/timer_check_time_input.dart';
 import 'package:chef_timer/widgets/timer_icon_picker.dart';
@@ -57,14 +58,20 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                       ),
                     ),
                     //  시간 설정
-                    TextField(
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      cursorColor: ColorSet.neutral100,
-                      style: TextStyleSet.displayLarge(ColorSet.neutral100),
-                      decoration: InputDecoration(
-                        hintText: StringSet.templateTime,
-                        hintStyle: TextStyleSet.displayLarge(ColorSet.opacity2),
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (ctx) {
+                              return DurationPickerContainer(
+                                  100, (duration) {});
+                            });
+                      },
+                      child: Text(
+                        "00:00",
+                        textAlign: TextAlign.center,
+                        style: TextStyleSet.displayLarge(ColorSet.opacity2),
                       ),
                     ),
 
@@ -104,7 +111,7 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
 
                     const SizedBox(height: 50),
                     // 중간 타이머 옵션.
-                    const TimerCheckTimeInput(10, true),
+                    TimerCheckTimeInput(10, true, (duration) => {}),
                   ],
                 ),
               ),

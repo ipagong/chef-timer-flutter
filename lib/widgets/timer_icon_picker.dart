@@ -38,45 +38,50 @@ class _TimerIconPicker extends State<TimerIconPicker> {
         borderRadius: BorderRadius.circular(5),
         onTap: () => {
           showModalBottomSheet(
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (ctx) {
-                return Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  padding: const EdgeInsets.fromLTRB(34, 0, 34, 34),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)),
-                    color: ColorSet.neutral100,
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (ctx) {
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.4,
+                padding: const EdgeInsets.fromLTRB(34, 0, 34, 34),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 12),
-                      const BottomSheetDragLine(),
-                      const SizedBox(height: 33),
-                      Expanded(
-                          child: GridView.builder(
+                  color: ColorSet.neutral100,
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 12),
+                    const BottomSheetDragLine(),
+                    const SizedBox(height: 33),
+                    Expanded(
+                      child: GridView.builder(
                         itemCount: 100,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 5,
-                                mainAxisSpacing: 32,
-                                crossAxisSpacing: 10),
+                          crossAxisCount: 5,
+                          mainAxisSpacing: 32,
+                          crossAxisSpacing: 10,
+                        ),
                         itemBuilder: (BuildContext ctx, int index) => InkWell(
-                            onTap: () {
-                              widget.onSelected(allTimerIcons[index]);
-                              Navigator.pop(context);
-                            },
-                            child: allTimerIcons[index].asset(
-                              width: 40,
-                              height: 40,
-                            )),
-                      )),
-                    ],
-                  ),
-                );
-              })
+                          onTap: () {
+                            widget.onSelected(allTimerIcons[index]);
+                            Navigator.pop(context);
+                          },
+                          child: allTimerIcons[index].asset(
+                            width: 40,
+                            height: 40,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
         },
         child: (widget.icon ?? TimerIcon.empty).asset(),
       ),

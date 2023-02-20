@@ -46,7 +46,6 @@ class MainApp extends StatelessWidget {
       routes: {
         MainScreen.routeName: (context) => const MainScreen(),
         UserTimerListScreen.routeName: (context) => const UserTimerListScreen(),
-        TimerActionScreen.routeName: (context) => const TimerActionScreen(),
         TimerTemplateScreen.routeName: (context) => const TimerTemplateScreen(),
       },
     );

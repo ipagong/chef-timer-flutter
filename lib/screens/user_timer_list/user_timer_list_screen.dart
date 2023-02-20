@@ -2,6 +2,7 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/screens/timer/timer_action_screen.dart';
+import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/timer_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,9 +58,14 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
                     crossAxisSpacing: 10,
                   ),
                   itemBuilder: (BuildContext ctx, int index) => TimerGridItem(
-                      timerItems[index],
-                      (item) => Navigator.pushNamed(
-                          context, TimerActionScreen.routeName)),
+                    timerItems[index],
+                    (item) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TimerActionScreen(item.standBy()),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

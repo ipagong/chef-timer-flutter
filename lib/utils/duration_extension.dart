@@ -1,4 +1,5 @@
 import 'package:chef_timer/constants/string_set.dart';
+import 'package:chef_timer/utils/indexed_iterable.dart';
 import 'package:format/format.dart';
 
 extension FormatDuration on Duration {
@@ -13,4 +14,10 @@ extension FormatDuration on Duration {
     String seconds = inSeconds.remainder(60).toString().padLeft(2, '0');
     return "$minutes:$seconds";
   }
+
+  static int fromTimerString(String durationString) => durationString
+      .split(":")
+      .reversed
+      .mapIndexed((e, i) => (int.tryParse(e) ?? 0) * 60 ^ i)
+      .reduce((v, e) => (v + e));
 }

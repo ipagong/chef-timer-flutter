@@ -13,6 +13,16 @@ extension Activation on TimerItem {
       endAt: endAt,
     );
   }
+
+  ActiveTimer standBy() {
+    return ActiveTimer(
+      uuid: const Uuid().v4().toString(),
+      item: this,
+      startAt: null,
+      endAt: null,
+      remainTime: duration,
+    );
+  }
 }
 
 extension Utils on ActiveTimer {
