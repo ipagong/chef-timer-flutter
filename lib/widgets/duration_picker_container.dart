@@ -1,7 +1,7 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
-import 'package:chef_timer/utils/indexed_iterable.dart';
+import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/bottom_sheet_drag_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +21,8 @@ class DurationPickerContainer extends StatefulWidget {
 
 class _DurationPickerContainer extends State<DurationPickerContainer> {
   late int _duration = widget.duration;
-  late String _minute =
-      Duration(seconds: widget.duration).toRemainTime().split(":").first;
-  late String _second =
-      Duration(seconds: widget.duration).toRemainTime().split(":").last;
+  late String _minute;
+  late String _second;
 
   List<String> get minuteList =>
       List.generate(1000, (index) => index.toString().padLeft(2, '0'))
@@ -37,13 +35,19 @@ class _DurationPickerContainer extends State<DurationPickerContainer> {
   final backgroundColor = ColorSet.neutral100;
   final textColor = ColorSet.neutral0;
 
+  @override
+  initState() {
+    super.initState();
+
+    final timeString =
+        Duration(seconds: widget.duration).toRemainTime().split(":");
+    _minute = timeString.first;
+    _second = timeString.last;
+  }
+
   void updateDuration() {
     setState(() {
-      _duration = "$_minute:$_second"
-          .split(":")
-          .reversed
-          .mapIndexed((e, i) => (int.tryParse(e) ?? 0) * (i > 0 ? 60 ^ i : 1))
-          .reduce((v, e) => (v + e));
+      _duration = "$_minute:$_second".toTimerDuration();
       widget.onSelected(_duration);
     });
   }
@@ -52,7 +56,7 @@ class _DurationPickerContainer extends State<DurationPickerContainer> {
   Widget build(BuildContext context) {
     return Container(
       height: 320,
-      padding: const EdgeInsets.fromLTRB(34, 0, 34, 0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -79,6 +83,7 @@ class _DurationPickerContainer extends State<DurationPickerContainer> {
                 child: CupertinoPicker.builder(
                   itemExtent: 35,
                   childCount: minuteList.length,
+                  magnification: 1.1,
                   scrollController: FixedExtentScrollController(
                       initialItem: int.tryParse(_minute) ?? 0),
                   onSelectedItemChanged: (i) {
@@ -112,6 +117,7 @@ class _DurationPickerContainer extends State<DurationPickerContainer> {
                 child: CupertinoPicker.builder(
                   itemExtent: 35,
                   childCount: secondList.length,
+                  magnification: 1.1,
                   scrollController: FixedExtentScrollController(
                       initialItem: int.tryParse(_second) ?? 0),
                   onSelectedItemChanged: (i) {

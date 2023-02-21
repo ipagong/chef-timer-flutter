@@ -10,4 +10,6 @@ class ColorSet {
   static const Color opacity4 = Color.fromRGBO(0, 0, 0, 0.3);
 
   static const Color dark = Color.fromRGBO(50, 50, 50, 1);
+
+  static const Color secondary100 = Color.fromRGBO(222, 98, 106, 1);
 }

@@ -48,15 +48,20 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                   children: [
                     TimerIconPicker(null, () => {}, (icon) => {}),
                     //  요리 이름
-                    TextField(
-                      textAlign: TextAlign.center,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyleSet.titleLarge(ColorSet.neutral100),
-                      decoration: InputDecoration(
-                        hintText: StringSet.templateTitle,
-                        hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
+                    IntrinsicWidth(
+                      child: TextFormField(
+                        maxLines: null,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.multiline,
+                        textAlignVertical: TextAlignVertical.bottom,
+                        style: TextStyleSet.titleLarge(ColorSet.neutral100),
+                        decoration: InputDecoration(
+                          hintText: StringSet.templateTitle,
+                          hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
+                        ),
                       ),
                     ),
+
                     //  시간 설정
                     InkWell(
                       onTap: () {

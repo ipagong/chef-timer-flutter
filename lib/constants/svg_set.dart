@@ -16,4 +16,6 @@ class SvgSet {
   static const SvgAsset lockOn = SvgAsset("lock_on");
   static const SvgAsset lockOff = SvgAsset("lock_off");
   static const SvgAsset reset = SvgAsset("reset");
+
+  static const SvgAsset trash = SvgAsset("trash");
 }

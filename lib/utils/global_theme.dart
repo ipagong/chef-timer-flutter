@@ -25,5 +25,8 @@ class GlobalTheme {
   static inputDecorationTheme() => const InputDecorationTheme(
         enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
         focusedBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+        fillColor: ColorSet.neutral100,
+        suffixIconColor: ColorSet.neutral100,
+        prefixIconColor: ColorSet.neutral100,
       );
 }

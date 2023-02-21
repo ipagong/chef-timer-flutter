@@ -44,7 +44,7 @@ class _TimerCheckTimeInput extends State<TimerCheckTimeInput> {
                 });
           },
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 1),
             child: Text(
               Duration(seconds: _duration).toRemainTime(),
               textAlign: TextAlign.center,

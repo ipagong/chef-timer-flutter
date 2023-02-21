@@ -1,6 +1,7 @@
 import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
+import 'package:chef_timer/utils/indexed_iterable.dart';
 import 'package:uuid/uuid.dart';
 
 extension Activation on TimerItem {
@@ -58,4 +59,11 @@ extension Utils on ActiveTimer {
             DateTime.now().add(Duration(seconds: remainTime ?? item.duration)),
         remainTime: null);
   }
+}
+
+extension TimerString on String {
+  int toTimerDuration() => split(":")
+      .reversed
+      .mapIndexed((e, i) => (int.tryParse(e) ?? 0) * (i > 0 ? 60 ^ i : 1))
+      .reduce((v, e) => (v + e));
 }
