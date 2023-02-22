@@ -54,10 +54,11 @@ class ActiveTimerListItem extends StatelessWidget {
                   style: TextStyleSet.headlineLarge(ColorSet.neutral100)),
               const Spacer(),
               MaterialInkWell(
-                  borderRadius: BorderRadius.circular(30),
-                  onTap: () => onPressedToggle(timer),
-                  child: (timer.isActive ? SvgSet.timerOff : SvgSet.timerOn)
-                      .asset())
+                borderRadius: BorderRadius.circular(30),
+                onTap: () => onPressedToggle(timer),
+                child:
+                    (timer.isActive ? SvgSet.timerOff : SvgSet.timerOn).asset(),
+              )
             ],
           ),
         ),

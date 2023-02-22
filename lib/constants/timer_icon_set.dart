@@ -5,12 +5,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
 enum TimerIcon {
-  spaghetti,
-  egg,
-  potato,
-  sweetPotato,
   etc,
   empty,
+
+  apple,
+  avocado,
+  banana,
+  blueberry,
+  cherry,
+  coconut,
+  grape,
+  greenapple,
+  kiwi,
+  lemon,
+  quince,
+  melon,
+  orange,
+  orientalmelon,
+  peach,
+  persimmons,
+  pineapple,
+  spaghetti,
+  strawberry,
+  watermelon,
 }
 
 extension Utils on TimerIcon {

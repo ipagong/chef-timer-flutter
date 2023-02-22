@@ -1,9 +1,12 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
+import 'package:chef_timer/constants/timer_icon_set.dart';
+import 'package:chef_timer/constants/timer_option_set.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:chef_timer/widgets/duration_picker_container.dart';
-import 'package:chef_timer/widgets/material_ink_well.dart';
+import 'package:chef_timer/widgets/primary_confirm_button.dart';
 import 'package:chef_timer/widgets/timer_check_time_input.dart';
 import 'package:chef_timer/widgets/timer_icon_picker.dart';
 import 'package:chef_timer/widgets/timer_wrap_option_item.dart';
@@ -20,9 +23,22 @@ class TimerTemplateScreen extends ConsumerStatefulWidget {
       _TimerTemplateScreenState();
 }
 
+class TimerInput {
+  TimerIcon? icon;
+  String? title;
+  int? timerDuration;
+  int? checkDuration;
+  TimerOptionFire fireOption = TimerOptionFire.medium;
+  TimerOptionWater waterOption = TimerOptionWater.normal;
+
+  bool get isValid =>
+      icon != null && title != null && (timerDuration ?? 0) > 0 && true;
+}
+
 class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
+  final timerInput = TimerInput();
 
   @override
   void initState() {
@@ -42,16 +58,18 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
           child: Column(
             children: [
               SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(31, 0, 30, 0),
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TimerIconPicker(null, () => {}, (icon) => {}),
+                    TimerIconPicker(timerInput.icon,
+                        (icon) => {setState(() => timerInput.icon = icon)}),
                     //  요리 이름
                     IntrinsicWidth(
                       child: TextFormField(
                         maxLines: null,
                         textAlign: TextAlign.start,
+                        enableInteractiveSelection: false,
                         keyboardType: TextInputType.multiline,
                         textAlignVertical: TextAlignVertical.bottom,
                         style: TextStyleSet.titleLarge(ColorSet.neutral100),
@@ -59,6 +77,8 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                           hintText: StringSet.templateTitle,
                           hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
                         ),
+                        onChanged: (value) =>
+                            setState(() => timerInput.title = value),
                       ),
                     ),
 
@@ -70,53 +90,77 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                             context: context,
                             builder: (ctx) {
                               return DurationPickerContainer(
-                                  100, (duration) {});
+                                  duration: timerInput.timerDuration,
+                                  onSelected: (duration) {
+                                    setState(() =>
+                                        timerInput.timerDuration = duration);
+                                  });
                             });
                       },
                       child: Text(
-                        "00:00",
+                        Duration(seconds: timerInput.timerDuration ?? 0)
+                            .toRemainTime(),
                         textAlign: TextAlign.center,
-                        style: TextStyleSet.displayLarge(ColorSet.opacity2),
+                        style: TextStyleSet.displayLarge(
+                            timerInput.timerDuration != null &&
+                                    timerInput.timerDuration! > 0
+                                ? ColorSet.neutral100
+                                : ColorSet.opacity2),
                       ),
                     ),
 
                     // 아이템 선택
-                    Wrap(
-                      direction: Axis.horizontal,
-                      alignment: WrapAlignment.center,
-                      runSpacing: 8,
-                      spacing: 8,
-                      children: [
-                        TimerWrapOptionItem(
-                          "약불",
-                          true,
-                          (selected) => {},
-                          TimerOptionColorSet.tempalteSet,
-                        ),
-                        TimerWrapOptionItem(
-                          "중불",
-                          true,
-                          (selected) => {},
-                          TimerOptionColorSet.tempalteSet,
-                        ),
-                        TimerWrapOptionItem(
-                          "강불",
-                          true,
-                          (selected) => {},
-                          TimerOptionColorSet.tempalteSet,
-                        ),
-                        TimerWrapOptionItem(
-                          "끓는 물에",
-                          true,
-                          (selected) => {},
-                          TimerOptionColorSet.tempalteSet,
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        alignment: WrapAlignment.center,
+                        runSpacing: 8,
+                        spacing: 8,
+                        children: [
+                          TimerWrapOptionItem(
+                            title: StringSet.templateOptionFireHigh,
+                            selected:
+                                timerInput.fireOption == TimerOptionFire.high,
+                            onSelected: (_) => setState(() =>
+                                timerInput.fireOption = TimerOptionFire.high),
+                          ),
+                          TimerWrapOptionItem(
+                            title: StringSet.templateOptionFireMedium,
+                            selected:
+                                timerInput.fireOption == TimerOptionFire.medium,
+                            onSelected: (_) => setState(() =>
+                                timerInput.fireOption = TimerOptionFire.medium),
+                          ),
+                          TimerWrapOptionItem(
+                            title: StringSet.templateOptionFireLow,
+                            selected:
+                                timerInput.fireOption == TimerOptionFire.low,
+                            onSelected: (_) => setState(() =>
+                                timerInput.fireOption = TimerOptionFire.low),
+                          ),
+                          TimerWrapOptionItem(
+                            title: StringSet.templateOptionWaterBoiled,
+                            selected: timerInput.waterOption ==
+                                TimerOptionWater.boiled,
+                            onSelected: (selected) => {
+                              setState(() => timerInput.waterOption = (selected
+                                  ? TimerOptionWater.boiled
+                                  : TimerOptionWater.normal))
+                            },
+                          ),
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 50),
+
                     // 중간 타이머 옵션.
-                    TimerCheckTimeInput(10, true, (duration) => {}),
+                    TimerCheckTimeInput(
+                      duration: timerInput.checkDuration,
+                      onSelected: (duration) =>
+                          setState(() => timerInput.checkDuration = duration),
+                    ),
                   ],
                 ),
               ),
@@ -124,22 +168,12 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
 
               // bottom Button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Container(
+                padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                child: PrimaryConfirmButton(
+                  StringSet.templateConfirmButton,
+                  onTap: () {},
                   height: 80,
-                  decoration: BoxDecoration(
-                      color: ColorSet.primary100,
-                      borderRadius: BorderRadius.circular(50)),
-                  child: MaterialInkWell(
-                    onTap: () => {},
-                    borderRadius: BorderRadius.circular(50),
-                    child: Center(
-                      child: Text(
-                        StringSet.templateConfirmButton,
-                        style: TextStyleSet.titleSmall(ColorSet.neutral0),
-                      ),
-                    ),
-                  ),
+                  isValid: timerInput.isValid,
                 ),
               ),
             ],

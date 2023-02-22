@@ -15,4 +15,14 @@ class StringSet {
   static const templateCheckTimeString = "에 중간 알람이 필요해요";
 
   static const templateConfirmButton = "타이머 만들기";
+
+  static const templateOptionFireHigh = "강불";
+  static const templateOptionFireMedium = "중불";
+  static const templateOptionFireLow = "약불";
+
+  static const templateOptionWaterNormal = "기본";
+  static const templateOptionWaterBoiled = "끓는 물에";
+
+  static const templateTimerPickerMinute = "분";
+  static const templateTimerPickerSecond = "초";
 }

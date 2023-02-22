@@ -5,12 +5,14 @@ class MaterialInkWell extends StatelessWidget {
   final Widget? child;
   final Color? inkColor;
   final BorderRadius? borderRadius;
+  final bool? isEnabled;
 
   const MaterialInkWell(
       {this.onTap,
       this.child,
       this.inkColor = Colors.transparent,
       this.borderRadius = BorderRadius.zero,
+      this.isEnabled = true,
       Key? key})
       : super(key: key);
 
@@ -20,8 +22,11 @@ class MaterialInkWell extends StatelessWidget {
       color: inkColor,
       borderRadius: borderRadius,
       child: InkWell(
+        splashColor: isEnabled == false ? Colors.transparent : null,
+        highlightColor: isEnabled == false ? Colors.transparent : null,
         borderRadius: borderRadius,
         onTap: () {
+          if (isEnabled == false) return;
           if (onTap == null) return;
           onTap!();
         },

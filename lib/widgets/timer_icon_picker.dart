@@ -8,10 +8,9 @@ typedef TimerIconCallBack = void Function(TimerIcon icon);
 
 class TimerIconPicker extends StatefulWidget {
   final TimerIcon? icon;
-  final VoidCallback onPressed;
   final TimerIconCallBack onSelected;
 
-  const TimerIconPicker(this.icon, this.onPressed, this.onSelected, {Key? key})
+  const TimerIconPicker(this.icon, this.onSelected, {Key? key})
       : super(key: key);
 
   @override
@@ -19,11 +18,9 @@ class TimerIconPicker extends StatefulWidget {
 }
 
 class _TimerIconPicker extends State<TimerIconPicker> {
-  List<TimerIcon> get allTimerIcons {
-    return List.generate(100, (index) => index)
-        .map((_) => TimerIcon.spaghetti)
-        .toList();
-  }
+  List<TimerIcon> get allTimerIcons => TimerIcon.values
+      .where((e) => !["etc", "empty"].contains(e.rawValue))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +55,7 @@ class _TimerIconPicker extends State<TimerIconPicker> {
                     const SizedBox(height: 33),
                     Expanded(
                       child: GridView.builder(
-                        itemCount: 100,
+                        itemCount: allTimerIcons.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 5,

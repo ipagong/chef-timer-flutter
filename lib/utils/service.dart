@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:chef_timer/data/model/active_timer.dart';
 import 'package:chef_timer/data/model/timer_item.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
@@ -64,6 +66,7 @@ extension Utils on ActiveTimer {
 extension TimerString on String {
   int toTimerDuration() => split(":")
       .reversed
-      .mapIndexed((e, i) => (int.tryParse(e) ?? 0) * (i > 0 ? 60 ^ i : 1))
+      .mapIndexed(
+          (e, i) => (int.tryParse(e) ?? 0) * (i > 0 ? pow(60, i).toInt() : 1))
       .reduce((v, e) => (v + e));
 }

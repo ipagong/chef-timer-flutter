@@ -83,16 +83,16 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                       spacing: 8,
                       children: [
                         TimerWrapOptionItem(
-                          "강불",
-                          true,
-                          (selected) => {},
-                          TimerOptionColorSet.actionSet,
+                          title: "강불",
+                          selected: true,
+                          onSelected: (selected) => {},
+                          colorSet: TimerOptionColorSet.actionSet,
                         ),
                         TimerWrapOptionItem(
-                          "끓는 물에",
-                          true,
-                          (selected) => {},
-                          TimerOptionColorSet.actionSet,
+                          title: "끓는 물에",
+                          selected: true,
+                          onSelected: (selected) => {},
+                          colorSet: TimerOptionColorSet.actionSet,
                         ),
                       ],
                     )

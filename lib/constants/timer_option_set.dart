@@ -6,7 +6,7 @@ enum TimerOptionFire {
 
 enum TimerOptionWater {
   normal,
-  hot,
+  boiled,
 }
 
 extension FireUtils on TimerOptionFire {

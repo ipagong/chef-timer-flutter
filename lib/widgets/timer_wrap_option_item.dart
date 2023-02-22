@@ -24,34 +24,41 @@ class TimerWrapOptionItem extends StatefulWidget {
   final String title;
   final bool selected;
   final TimerOptionCallBack onSelected;
-  final TimerOptionColorSet colorSet;
+  final TimerOptionColorSet? colorSet;
 
-  const TimerWrapOptionItem(
-      this.title, this.selected, this.onSelected, this.colorSet,
-      {Key? key})
-      : super(key: key);
+  const TimerWrapOptionItem({
+    Key? key,
+    required this.title,
+    required this.selected,
+    required this.onSelected,
+    this.colorSet,
+  }) : super(key: key);
 
   @override
   State<TimerWrapOptionItem> createState() => _TimerWrapOptionItem();
 }
 
 class _TimerWrapOptionItem extends State<TimerWrapOptionItem> {
+  late TimerOptionColorSet colorSet =
+      widget.colorSet ?? TimerOptionColorSet.tempalteSet;
   @override
   Widget build(BuildContext context) {
     return Container(
         height: 32,
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: widget.selected
-                ? widget.colorSet.backgroundColor
-                : widget.colorSet.selectedColor),
+                ? colorSet.backgroundColor
+                : colorSet.selectedColor),
         child: MaterialInkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: () => widget.onSelected(!widget.selected),
-          child: Text(
-            widget.title,
-            style: TextStyleSet.labelLarge(widget.colorSet.titleColor),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Text(
+              widget.title,
+              style: TextStyleSet.labelLarge(colorSet.titleColor),
+            ),
           ),
         ));
   }
