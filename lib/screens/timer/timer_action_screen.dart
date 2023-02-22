@@ -2,11 +2,11 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/data/model/active_timer.dart';
+import 'package:chef_timer/data/models/active_timer.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/material_ink_well.dart';
-import 'package:chef_timer/widgets/timer_wrap_option_item.dart';
+import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
+import 'package:chef_timer/widgets/stateful/timer_wrap_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -58,7 +58,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                       decoration: BoxDecoration(
                           color: ColorSet.neutral0,
                           borderRadius: BorderRadius.circular(14)),
-                      child: TimerIcon.spaghetti.asset(),
+                      child: TimerIcon.etc.asset(),
                     ),
 
                     const SizedBox(height: 16),
@@ -165,17 +165,5 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
         ),
       ),
     );
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    debugPrint(state.toString());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    debugPrint("disposed.");
   }
 }

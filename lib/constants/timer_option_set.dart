@@ -9,24 +9,16 @@ enum TimerOptionWater {
   boiled,
 }
 
-extension FireUtils on TimerOptionFire {
+extension FireUtils on Enum {
   String get rawValue => toString().split('.').last;
-
-  static TimerOptionFire fromString(
-    String value,
-  ) =>
-      TimerOptionFire.values.firstWhere(
-          (e) => e.toString().split('.').last == value,
-          orElse: () => TimerOptionFire.high);
 }
 
-extension WaterUtils on TimerOptionWater {
-  String get rawValue => toString().split('.').last;
+extension TimerOptionTransfer on String {
+  TimerOptionFire get toWaterOption => TimerOptionFire.values.firstWhere(
+      (e) => e.toString().split('.').last == this,
+      orElse: () => TimerOptionFire.high);
 
-  static TimerOptionWater fromString(
-    String value,
-  ) =>
-      TimerOptionWater.values.firstWhere(
-          (e) => e.toString().split('.').last == value,
-          orElse: () => TimerOptionWater.normal);
+  TimerOptionWater get toFireOption => TimerOptionWater.values.firstWhere(
+      (e) => e.toString().split('.').last == this,
+      orElse: () => TimerOptionWater.normal);
 }

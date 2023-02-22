@@ -1,16 +1,16 @@
 import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/data/model/active_timer.dart';
-import 'package:chef_timer/data/model/timer_item.dart';
+import 'package:chef_timer/data/models/active_timer.dart';
+import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/screens/timer/timer_action_screen.dart';
 import 'package:chef_timer/screens/timer/timer_template_screen.dart';
 import 'package:chef_timer/screens/user_timer_list/user_timer_list_screen.dart';
 import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/active_timer_list_item.dart';
-import 'package:chef_timer/widgets/main_bottom_add_timer.dart';
-import 'package:chef_timer/widgets/main_title_add_timer.dart';
-import 'package:chef_timer/widgets/user_timer_selector.dart';
-import 'package:chef_timer/widgets/timer_grid_item.dart';
+import 'package:chef_timer/widgets/stateless/active_timer_list_item.dart';
+import 'package:chef_timer/widgets/stateless/main_bottom_add_timer.dart';
+import 'package:chef_timer/widgets/stateless/main_title_add_timer.dart';
+import 'package:chef_timer/widgets/stateful/user_timer_selector.dart';
+import 'package:chef_timer/widgets/stateless/timer_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,25 +36,14 @@ class _MainScreenState extends BaseScreenState<MainScreen>
 
   List<ActiveTimer> get activeItems {
     return List.generate(2, (index) => index)
-        .map((index) => TimerItem(
-              id: index,
-              title: "반숙 달걀 삶기",
-              subtitle: "반숙 달걀 삶기",
-              image: "assets/images/timer_placeholder.png",
-              duration: 10,
-            ))
+        .map((_) => TimerItem.createDummy())
         .map((e) => e.active())
         .toList();
   }
 
   List<TimerItem> get timerItems {
     return List.generate(10, (index) => index)
-        .map((index) => TimerItem(
-            id: index,
-            title: "반숙 달걀 삶기",
-            subtitle: "반숙 달걀 삶기",
-            image: "assets/images/timer_placeholder.png",
-            duration: 10))
+        .map((_) => TimerItem.createDummy())
         .toList();
   }
 
@@ -127,17 +116,5 @@ class _MainScreenState extends BaseScreenState<MainScreen>
         ),
       ),
     );
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    debugPrint(state.toString());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    debugPrint("disposed.");
   }
 }

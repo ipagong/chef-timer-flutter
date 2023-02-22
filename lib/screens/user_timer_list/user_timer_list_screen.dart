@@ -1,9 +1,9 @@
 import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/data/model/timer_item.dart';
+import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/screens/timer/timer_action_screen.dart';
 import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/timer_grid_item.dart';
+import 'package:chef_timer/widgets/stateless/timer_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -27,12 +27,8 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
   }
 
   List<TimerItem> get timerItems {
-    final timers = List.generate(10, (index) => index).map((index) => TimerItem(
-        id: index,
-        title: "반숙 달걀 삶기",
-        subtitle: "반숙 달걀 삶기",
-        image: "assets/images/timer_placeholder.png",
-        duration: 10));
+    final timers = List.generate(10, (index) => index)
+        .map((index) => TimerItem.createDummy());
     return List.from(timers);
   }
 
@@ -73,17 +69,5 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
         ),
       ),
     );
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    debugPrint(state.toString());
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    debugPrint("disposed.");
   }
 }

@@ -1,0 +1,56 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 13H23V19H8C5.79086 19 4 17.6569 4 16C4 14.3431 5.79086 13 8 13Z" fill="#FFC773"/>
+<mask id="mask0_76_5453" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="13" width="19" height="6">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 13H23V19H8C5.79086 19 4 17.6569 4 16C4 14.3431 5.79086 13 8 13Z" fill="#EDB868"/>
+</mask>
+<g mask="url(#mask0_76_5453)">
+<path d="M23 18H-5.96046e-07V19H23V18Z" fill="#FDB549"/>
+<path d="M20 16H-0.999999V17H20V16Z" fill="#FDB549"/>
+<path d="M23 14H-1V15H23V14Z" fill="#FDB549"/>
+</g>
+<ellipse cx="4.5" cy="3" rx="4.5" ry="3" transform="matrix(-1 0 0 1 28 13)" fill="#FFD597"/>
+<ellipse cx="3.5" cy="2" rx="3.5" ry="2" transform="matrix(-1 0 0 1 27 14)" fill="#FAA72B"/>
+<mask id="mask1_76_5453" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="20" y="14" width="7" height="4">
+<ellipse cx="3.5" cy="2" rx="3.5" ry="2" transform="matrix(-1 0 0 1 27 14)" fill="#FAA72B"/>
+</mask>
+<g mask="url(#mask1_76_5453)">
+<path d="M27 15H6V16H27V15Z" fill="#EA971A"/>
+<path d="M27 17H6V18H27V17Z" fill="#EA971A"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M24 26H9V20H24C26.2091 20 28 21.3431 28 23C28 24.6569 26.2091 26 24 26Z" fill="#FFC773"/>
+<mask id="mask2_76_5453" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="20" width="19" height="6">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M24 26H9V20H24C26.2091 20 28 21.3431 28 23C28 24.6569 26.2091 26 24 26Z" fill="#EDB868"/>
+</mask>
+<g mask="url(#mask2_76_5453)">
+<path d="M9 21H32V20H9V21Z" fill="#FDB549"/>
+<path d="M12 23H33V22H12V23Z" fill="#FDB549"/>
+<path d="M9 25H33V24H9V25Z" fill="#FDB549"/>
+</g>
+<ellipse cx="4.5" cy="3" rx="4.5" ry="3" transform="matrix(1 0 0 -1 4 26)" fill="#FFD597"/>
+<ellipse cx="3.5" cy="2" rx="3.5" ry="2" transform="matrix(1 0 0 -1 5 25)" fill="#FAA72B"/>
+<mask id="mask3_76_5453" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="21" width="7" height="4">
+<ellipse cx="3.5" cy="2" rx="3.5" ry="2" transform="matrix(1 0 0 -1 5 25)" fill="#FAA72B"/>
+</mask>
+<g mask="url(#mask3_76_5453)">
+<path d="M5 24H26V23H5V24Z" fill="#EA971A"/>
+<path d="M5 22H26V21H5V22Z" fill="#EA971A"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M24 12H9V6H24C26.2091 6 28 7.34315 28 9C28 10.6569 26.2091 12 24 12Z" fill="#FFC773"/>
+<mask id="mask4_76_5453" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="6" width="19" height="6">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M24 12H9V6H24C26.2091 6 28 7.34315 28 9C28 10.6569 26.2091 12 24 12Z" fill="#EDB868"/>
+</mask>
+<g mask="url(#mask4_76_5453)">
+<path d="M9 7H32V6H9V7Z" fill="#FDB549"/>
+<path d="M12 9H33V8H12V9Z" fill="#FDB549"/>
+<path d="M9 11H33V10H9V11Z" fill="#FDB549"/>
+</g>
+<ellipse cx="4.5" cy="3" rx="4.5" ry="3" transform="matrix(1 0 0 -1 4 12)" fill="#FFD597"/>
+<ellipse cx="3.5" cy="2" rx="3.5" ry="2" transform="matrix(1 0 0 -1 5 11)" fill="#FAA72B"/>
+<mask id="mask5_76_5453" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="7" width="7" height="4">
+<ellipse cx="3.5" cy="2" rx="3.5" ry="2" transform="matrix(1 0 0 -1 5 11)" fill="#FAA72B"/>
+</mask>
+<g mask="url(#mask5_76_5453)">
+<path d="M5 10H26V9H5V10Z" fill="#EA971A"/>
+<path d="M5 8H26V7H5V8Z" fill="#EA971A"/>
+</g>
+</svg>

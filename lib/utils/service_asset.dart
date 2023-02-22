@@ -27,11 +27,12 @@ class SvgAsset extends ServiceAsset {
   const SvgAsset(String name) : super(name, "assets/svg/{}.svg");
 
   @override
-  SvgPicture asset({double? width, double? height, BoxFit? fit}) =>
-      SvgPicture.asset(
-        format(path, name),
-        width: width,
-        height: height,
-        fit: fit ?? BoxFit.scaleDown,
-      );
+  SvgPicture asset({double? width, double? height, BoxFit? fit}) {
+    return SvgPicture.asset(
+      format(path, name),
+      width: width,
+      height: height,
+      fit: fit ?? BoxFit.scaleDown,
+    );
+  }
 }

@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:chef_timer/data/model/active_timer.dart';
-import 'package:chef_timer/data/model/timer_item.dart';
+import 'package:chef_timer/data/models/active_timer.dart';
+import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:chef_timer/utils/indexed_iterable.dart';
 import 'package:uuid/uuid.dart';
