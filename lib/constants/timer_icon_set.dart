@@ -149,14 +149,12 @@ enum TimerIcon {
 }
 
 extension Utils on TimerIcon {
-  String get rawValue => toString().split('.').last;
-
   SvgPicture asset({
     double? width,
     double? height,
     BoxFit? fit = BoxFit.scaleDown,
   }) =>
-      SvgAsset("timer_icon/$rawValue").asset(
+      SvgAsset("timer_icon/$name").asset(
         width: width,
         height: height,
         fit: fit,
@@ -164,7 +162,6 @@ extension Utils on TimerIcon {
 }
 
 extension TimerIconTransfer on String {
-  TimerIcon get toTimerIcon =>
-      TimerIcon.values.firstWhere((e) => e.toString().split('.').last == this,
-          orElse: () => TimerIcon.etc);
+  TimerIcon get toTimerIcon => TimerIcon.values
+      .firstWhere((e) => e.name == this, orElse: () => TimerIcon.etc);
 }

@@ -45,7 +45,6 @@ dependencies:
   flutter_svg: ^2.0.1
   format: ^1.1.1
   uuid: ^3.0.7
-  sqflite: ^2.2.4+1
 
 dev_dependencies:
   build_runner: ^2.3.3
@@ -76,6 +75,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/svg/timer_icon/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

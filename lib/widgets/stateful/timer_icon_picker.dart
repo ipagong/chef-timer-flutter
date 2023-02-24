@@ -19,7 +19,7 @@ class TimerIconPicker extends StatefulWidget {
 
 class _TimerIconPicker extends State<TimerIconPicker> {
   List<TimerIcon> get allTimerIcons => TimerIcon.values
-      .where((e) => !["etc", "empty"].contains(e.rawValue))
+      .where((e) => !["etc", "empty"].contains(e.name))
       .toList();
 
   @override

@@ -16,6 +16,7 @@ class TimerItem with _$TimerItem {
     required int checkDuration,
     required String fireOption,
     required String waterOption,
+    required DateTime? favoriteAt,
   }) = _TimerItem;
 
   factory TimerItem.fromJson(Map<String, dynamic> json) =>
@@ -23,11 +24,31 @@ class TimerItem with _$TimerItem {
 
   factory TimerItem.createDummy() => TimerItem(
         uuid: const Uuid().v4().toString(),
-        icon: TimerIcon.etc.rawValue,
+        icon: TimerIcon.etc.name,
         title: "반숙 달걀 삶기",
         duration: 10,
         checkDuration: 0,
-        fireOption: TimerOptionFire.low.rawValue,
-        waterOption: TimerOptionWater.normal.rawValue,
+        fireOption: TimerOptionFire.low.name,
+        waterOption: TimerOptionWater.normal.name,
+        favoriteAt: null,
+      );
+
+  factory TimerItem.preset({
+    required TimerIcon icon,
+    required String title,
+    required int duration,
+    required TimerOptionFire fire,
+    required TimerOptionWater water,
+    int? checkDuration,
+  }) =>
+      TimerItem(
+        uuid: const Uuid().v4().toString(),
+        icon: icon.name,
+        title: title,
+        duration: duration,
+        checkDuration: checkDuration ?? 0,
+        fireOption: fire.name,
+        waterOption: water.name,
+        favoriteAt: null,
       );
 }

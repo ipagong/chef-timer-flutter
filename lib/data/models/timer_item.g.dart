@@ -14,6 +14,9 @@ _$_TimerItem _$$_TimerItemFromJson(Map<String, dynamic> json) => _$_TimerItem(
       checkDuration: json['checkDuration'] as int,
       fireOption: json['fireOption'] as String,
       waterOption: json['waterOption'] as String,
+      favoriteAt: json['favoriteAt'] == null
+          ? null
+          : DateTime.parse(json['favoriteAt'] as String),
     );
 
 Map<String, dynamic> _$$_TimerItemToJson(_$_TimerItem instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$$_TimerItemToJson(_$_TimerItem instance) =>
       'checkDuration': instance.checkDuration,
       'fireOption': instance.fireOption,
       'waterOption': instance.waterOption,
+      'favoriteAt': instance.favoriteAt?.toIso8601String(),
     };

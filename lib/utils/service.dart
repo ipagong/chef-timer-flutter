@@ -26,6 +26,9 @@ extension Activation on TimerItem {
       remainTime: duration,
     );
   }
+
+  TimerItem toggleFavorite() =>
+      copyWith(favoriteAt: favoriteAt == null ? DateTime.now() : null);
 }
 
 extension Utils on ActiveTimer {
