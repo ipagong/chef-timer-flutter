@@ -77,24 +77,24 @@ class PreferenceSourceImpl extends PreferenceSource {
 
   @override
   Future<List<TimerItem>> addUserTimer(TimerItem timer) async {
-    _presetTimerList = await getUserTimerList()
+    _userTimerList = await getUserTimerList()
       ..add(timer);
 
     return setElementList(
       _Key.userTimers.name,
-      list: _presetTimerList!,
+      list: _userTimerList!,
       toJson: (e) => e.toJson(),
     );
   }
 
   @override
   Future<List<TimerItem>> removeUserTimer(String uuid) async {
-    _presetTimerList = await getUserTimerList()
+    _userTimerList = await getUserTimerList()
       ..removeWhere((e) => e.uuid == uuid);
 
     return setElementList(
       _Key.userTimers.name,
-      list: _presetTimerList!,
+      list: _userTimerList!,
       toJson: (e) => e.toJson(),
     );
   }

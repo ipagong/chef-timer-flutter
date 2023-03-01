@@ -35,7 +35,7 @@ class TimerItemStateNotifier extends AsyncNotifier<TimerItemState> {
     try {
       state = const AsyncLoading();
       await _timerRepository.addUserTimerItem(item);
-      ref.invalidate(provider);
+      ref.invalidate(provider); // TODO : 무슨 의미인지 찾아볼것.
     } catch (e, st) {
       state = AsyncError(e, st);
     }
