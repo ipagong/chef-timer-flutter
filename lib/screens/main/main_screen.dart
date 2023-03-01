@@ -1,10 +1,10 @@
 import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/data/models/active_timer.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/screens/timer/timer_action_screen.dart';
 import 'package:chef_timer/screens/timer/timer_template_screen.dart';
 import 'package:chef_timer/screens/user_timer_list/user_timer_list_screen.dart';
+import 'package:chef_timer/states/active_timer_state.dart';
+import 'package:chef_timer/states/timer_item_state.dart';
 import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/stateless/active_timer_list_item.dart';
 import 'package:chef_timer/widgets/stateless/main_bottom_add_timer.dart';
@@ -26,7 +26,6 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends BaseScreenState<MainScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
-  final int count = 5;
 
   @override
   void initState() {
@@ -34,21 +33,17 @@ class _MainScreenState extends BaseScreenState<MainScreen>
     WidgetsBinding.instance.addObserver(this);
   }
 
-  List<ActiveTimer> get activeItems {
-    return List.generate(2, (index) => index)
-        .map((_) => TimerItem.createDummy())
-        .map((e) => e.active())
-        .toList();
-  }
-
-  List<TimerItem> get timerItems {
-    return List.generate(10, (index) => index)
-        .map((_) => TimerItem.createDummy())
-        .toList();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final timerItemState =
+        ref.watch(TimerItemStateNotifier.provider).valueOrNull;
+    final activeTimerState =
+        ref.watch(ActiveTimerStateNotifier.provider).valueOrNull;
+
+    final activeTimerList = activeTimerState?.activeTimerList ?? [];
+    final userTimerCount = timerItemState?.userTimerList.length ?? 0;
+    final presetTimerList = timerItemState?.presetTimerList ?? [];
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorSet.neutral0,
@@ -64,8 +59,8 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                         context, TimerTemplateScreen.routeName)),
                   ),
                   SliverList(
-                    delegate: SliverChildListDelegate(
-                        List.from(activeItems.map((item) => ActiveTimerListItem(
+                    delegate: SliverChildListDelegate(List.from(
+                        activeTimerList.map((item) => ActiveTimerListItem(
                               item,
                               (item) => Navigator.push(
                                 context,
@@ -77,16 +72,18 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                             )))),
                   ),
                   SliverToBoxAdapter(
-                    child: UserTimerSelector(
-                      count,
-                      () => Navigator.pushNamed(
-                          context, UserTimerListScreen.routeName),
-                    ),
+                    child: userTimerCount > 0
+                        ? UserTimerSelector(
+                            userTimerCount,
+                            () => Navigator.pushNamed(
+                                context, UserTimerListScreen.routeName),
+                          )
+                        : const SizedBox(),
                   ),
                   SliverPadding(
                     padding: const EdgeInsets.all(16),
                     sliver: SliverGrid.builder(
-                      itemCount: timerItems.length,
+                      itemCount: presetTimerList.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
@@ -95,7 +92,7 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                               crossAxisSpacing: 10),
                       itemBuilder: (BuildContext ctx, int index) =>
                           TimerGridItem(
-                        timerItems[index],
+                        presetTimerList[index],
                         (item) => Navigator.push(
                           context,
                           MaterialPageRoute(

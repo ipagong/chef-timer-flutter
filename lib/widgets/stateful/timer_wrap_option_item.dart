@@ -1,5 +1,6 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
+import 'package:chef_timer/utils/service_asset.dart';
 import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
@@ -23,14 +24,16 @@ class TimerOptionColorSet {
 class TimerWrapOptionItem extends StatefulWidget {
   final String title;
   final bool selected;
-  final TimerOptionCallBack onSelected;
+  final SvgAsset? icon;
+  final TimerOptionCallBack? onSelected;
   final TimerOptionColorSet? colorSet;
 
   const TimerWrapOptionItem({
     Key? key,
     required this.title,
     required this.selected,
-    required this.onSelected,
+    this.icon,
+    this.onSelected,
     this.colorSet,
   }) : super(key: key);
 
@@ -44,22 +47,33 @@ class _TimerWrapOptionItem extends State<TimerWrapOptionItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 32,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: widget.selected
-                ? colorSet.backgroundColor
-                : colorSet.selectedColor),
-        child: MaterialInkWell(
+      height: 32,
+      decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          onTap: () => widget.onSelected(!widget.selected),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Text(
-              widget.title,
-              style: TextStyleSet.labelLarge(colorSet.titleColor),
-            ),
+          color: widget.selected
+              ? colorSet.backgroundColor
+              : colorSet.selectedColor),
+      child: MaterialInkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () => widget.onSelected != null
+            ? widget.onSelected!(!widget.selected)
+            : null,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Wrap(
+            children: [
+              widget.icon != null
+                  ? widget.icon!.asset(width: 16, height: 16)
+                  : const SizedBox(),
+              widget.icon != null ? const SizedBox(width: 4) : const SizedBox(),
+              Text(
+                widget.title,
+                style: TextStyleSet.labelLarge(colorSet.titleColor),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

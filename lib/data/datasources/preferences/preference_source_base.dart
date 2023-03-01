@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class PreferenceSourceBase {
@@ -21,6 +22,7 @@ abstract class PreferenceSourceBase {
     required Map<String, dynamic> Function(Element element) toJson,
   }) async {
     final datas = list.map((e) => json.encode(toJson(e))).toList();
+    debugPrint("setElementList => $datas");
     await preferences.setStringList(key, datas);
     return list;
   }

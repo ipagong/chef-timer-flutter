@@ -38,8 +38,9 @@ class PreferenceSourceImpl extends PreferenceSource {
           fromJson: (e) => ActiveTimer.fromJson(e));
 
   Future<void> _setupPreset() async {
-    if (_presetTimerList!.isNotEmpty) return;
-    setPresetTimerList(PreferencePresetTimers.list());
+    if (_presetTimerList == null || _presetTimerList!.isEmpty) {
+      setPresetTimerList(PreferencePresetTimers.list());
+    }
   }
 
   @override

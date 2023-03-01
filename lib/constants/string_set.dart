@@ -8,6 +8,7 @@ class StringSet {
   static const splashTitle = "YOTA";
 
   static const timerFormat = "{0}분 {1}초";
+  static const timerSecondsFormat = "{0}초";
 
   static const templateTitle = "요리 이름";
   static const templateTime = "00:00";

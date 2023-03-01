@@ -19,14 +19,25 @@ class TimerItemStateNotifier extends AsyncNotifier<TimerItemState> {
   static final provider =
       AsyncNotifierProvider<TimerItemStateNotifier, TimerItemState>(
           () => TimerItemStateNotifier());
+
   late final TimerItemRepository _timerRepository =
       ref.read(TimerItemRepository.provider);
 
   @override
   FutureOr<TimerItemState> build() async {
-    final presetTimers = await _timerRepository.getUserTimerItemList();
+    final presetTimers = await _timerRepository.getPresetTimerItemList();
     final userTimers = await _timerRepository.getUserTimerItemList();
     return TimerItemState(
         presetTimerList: presetTimers, userTimerList: userTimers);
+  }
+
+  void addTimerItem(TimerItem item) async {
+    try {
+      state = const AsyncLoading();
+      await _timerRepository.addUserTimerItem(item);
+      ref.invalidate(provider);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
   }
 }

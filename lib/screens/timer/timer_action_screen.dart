@@ -2,8 +2,10 @@ import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
+import 'package:chef_timer/constants/timer_option_set.dart';
 import 'package:chef_timer/data/models/active_timer.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
 import 'package:chef_timer/widgets/stateful/timer_wrap_option_item.dart';
@@ -35,6 +37,10 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
   @override
   Widget build(BuildContext context) {
+    final fireOption = widget.timer.item.fireOption.toFireOption;
+    final waterOption = widget.timer.item.waterOption.toWaterOption;
+    final checkTime = widget.timer.item.checkDuration;
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorSet.primary100,
@@ -58,7 +64,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                       decoration: BoxDecoration(
                           color: ColorSet.neutral0,
                           borderRadius: BorderRadius.circular(14)),
-                      child: TimerIcon.etc.asset(),
+                      child: widget.timer.item.icon.toTimerIcon.asset(),
                     ),
 
                     const SizedBox(height: 16),
@@ -83,17 +89,26 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                       spacing: 8,
                       children: [
                         TimerWrapOptionItem(
-                          title: "강불",
+                          title: fireOption.localString,
                           selected: true,
-                          onSelected: (selected) => {},
                           colorSet: TimerOptionColorSet.actionSet,
                         ),
-                        TimerWrapOptionItem(
-                          title: "끓는 물에",
-                          selected: true,
-                          onSelected: (selected) => {},
-                          colorSet: TimerOptionColorSet.actionSet,
-                        ),
+                        waterOption == TimerOptionWater.boiled
+                            ? TimerWrapOptionItem(
+                                title: waterOption.localString,
+                                selected: true,
+                                colorSet: TimerOptionColorSet.actionSet,
+                              )
+                            : const SizedBox(),
+                        checkTime > 0
+                            ? TimerWrapOptionItem(
+                                icon: SvgSet.chipTimer,
+                                title:
+                                    Duration(seconds: checkTime).toRemainTime(),
+                                selected: true,
+                                colorSet: TimerOptionColorSet.actionSet,
+                              )
+                            : const SizedBox(),
                       ],
                     )
                   ],

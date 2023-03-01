@@ -3,7 +3,9 @@ import 'package:chef_timer/constants/string_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
 import 'package:chef_timer/constants/timer_option_set.dart';
+import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/states/timer_item_state.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:chef_timer/widgets/stateful/duration_picker_container.dart';
 import 'package:chef_timer/widgets/stateless/primary_confirm_button.dart';
@@ -33,6 +35,14 @@ class TimerInput {
 
   bool get isValid =>
       icon != null && title != null && (timerDuration ?? 0) > 0 && true;
+
+  TimerItem toTimerItem() => TimerItem.custom(
+      icon: icon!,
+      title: title!,
+      duration: timerDuration!,
+      checkDuration: checkDuration,
+      fire: fireOption,
+      water: waterOption);
 }
 
 class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
@@ -48,6 +58,13 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(TimerItemStateNotifier.provider, (previous, next) {
+      if ((previous?.value?.userTimerList.length ?? 0) <
+          (next.value?.userTimerList.length ?? 0)) {
+        Navigator.pop(context);
+      }
+    });
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorSet.neutral0,
@@ -167,7 +184,12 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
         padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
         child: PrimaryConfirmButton(
           StringSet.templateConfirmButton,
-          onTap: () {},
+          onTap: () {
+            if (!timerInput.isValid) return;
+            ref
+                .read(TimerItemStateNotifier.provider.notifier)
+                .addTimerItem(timerInput.toTimerItem());
+          },
           height: 80,
           isValid: timerInput.isValid,
         ),

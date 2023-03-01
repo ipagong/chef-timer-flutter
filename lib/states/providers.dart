@@ -6,5 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> initProviders() async {
   final preference =
       PreferenceSourceImpl(await SharedPreferences.getInstance());
+  await preference.initialize();
   PreferenceSource.provider = Provider((ref) => preference);
 }

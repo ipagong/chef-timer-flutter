@@ -14,6 +14,8 @@ abstract class TimerItemRepository {
   Future<int> getUserTimerItemCount();
   Future<List<TimerItem>> getUserTimerItemList();
   Future<TimerItem> getUserTimerItem(String uuid);
+  Future<List<TimerItem>> addUserTimerItem(TimerItem item);
+  Future<List<TimerItem>> deleteUserTimerItem(String uuid);
 }
 
 class _TimerItemRepositoryImpl extends TimerItemRepository {
@@ -45,4 +47,12 @@ class _TimerItemRepositoryImpl extends TimerItemRepository {
   @override
   Future<List<TimerItem>> getUserTimerItemList() async =>
       await _preference.getUserTimerList();
+
+  @override
+  Future<List<TimerItem>> addUserTimerItem(TimerItem item) async =>
+      await _preference.addUserTimer(item);
+
+  @override
+  Future<List<TimerItem>> deleteUserTimerItem(String uuid) async =>
+      await _preference.removeUserTimer(uuid);
 }

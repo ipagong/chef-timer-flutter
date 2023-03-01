@@ -51,4 +51,23 @@ class TimerItem with _$TimerItem {
         waterOption: water.name,
         favoriteAt: null,
       );
+
+  factory TimerItem.custom({
+    required TimerIcon icon,
+    required String title,
+    required int duration,
+    required TimerOptionFire fire,
+    required TimerOptionWater water,
+    int? checkDuration,
+  }) =>
+      TimerItem(
+        uuid: const Uuid().v4().toString(),
+        icon: icon.name,
+        title: title,
+        duration: duration,
+        checkDuration: checkDuration ?? 0,
+        fireOption: fire.name,
+        waterOption: water.name,
+        favoriteAt: null,
+      );
 }
