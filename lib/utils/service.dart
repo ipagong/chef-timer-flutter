@@ -73,6 +73,10 @@ extension Utils on ActiveTimer {
       copyWith(remainTime: item.duration, startAt: null, endAt: null);
 
   ActiveTimer favorite(bool on) => copyWith(item: item.toggleFavorite(on));
+
+  double get timeRate =>
+      (item.duration.toDouble() - remainTimeSeconds.toDouble()) /
+      item.duration.toDouble();
 }
 
 extension TimerString on String {
