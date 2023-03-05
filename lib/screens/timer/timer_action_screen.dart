@@ -79,7 +79,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
               height:
                   MediaQuery.of(context).size.height * (timer?.timeRate ?? 0.0),
               duration: const Duration(seconds: 1),
-              curve: Curves.easeIn,
+              curve: Curves.linear,
             );
           },
         ),
