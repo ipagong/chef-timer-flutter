@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ActiveTimerState {
+  ActiveTimer? get targetTimer => throw _privateConstructorUsedError;
   List<ActiveTimer> get activeTimerList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +30,9 @@ abstract class $ActiveTimerStateCopyWith<$Res> {
           ActiveTimerState value, $Res Function(ActiveTimerState) then) =
       _$ActiveTimerStateCopyWithImpl<$Res, ActiveTimerState>;
   @useResult
-  $Res call({List<ActiveTimer> activeTimerList});
+  $Res call({ActiveTimer? targetTimer, List<ActiveTimer> activeTimerList});
+
+  $ActiveTimerCopyWith<$Res>? get targetTimer;
 }
 
 /// @nodoc
@@ -45,14 +48,31 @@ class _$ActiveTimerStateCopyWithImpl<$Res, $Val extends ActiveTimerState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? targetTimer = freezed,
     Object? activeTimerList = null,
   }) {
     return _then(_value.copyWith(
+      targetTimer: freezed == targetTimer
+          ? _value.targetTimer
+          : targetTimer // ignore: cast_nullable_to_non_nullable
+              as ActiveTimer?,
       activeTimerList: null == activeTimerList
           ? _value.activeTimerList
           : activeTimerList // ignore: cast_nullable_to_non_nullable
               as List<ActiveTimer>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ActiveTimerCopyWith<$Res>? get targetTimer {
+    if (_value.targetTimer == null) {
+      return null;
+    }
+
+    return $ActiveTimerCopyWith<$Res>(_value.targetTimer!, (value) {
+      return _then(_value.copyWith(targetTimer: value) as $Val);
+    });
   }
 }
 
@@ -64,7 +84,10 @@ abstract class _$$_ActiveTimerStateCopyWith<$Res>
       __$$_ActiveTimerStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ActiveTimer> activeTimerList});
+  $Res call({ActiveTimer? targetTimer, List<ActiveTimer> activeTimerList});
+
+  @override
+  $ActiveTimerCopyWith<$Res>? get targetTimer;
 }
 
 /// @nodoc
@@ -78,9 +101,14 @@ class __$$_ActiveTimerStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? targetTimer = freezed,
     Object? activeTimerList = null,
   }) {
     return _then(_$_ActiveTimerState(
+      targetTimer: freezed == targetTimer
+          ? _value.targetTimer
+          : targetTimer // ignore: cast_nullable_to_non_nullable
+              as ActiveTimer?,
       activeTimerList: null == activeTimerList
           ? _value._activeTimerList
           : activeTimerList // ignore: cast_nullable_to_non_nullable
@@ -93,9 +121,13 @@ class __$$_ActiveTimerStateCopyWithImpl<$Res>
 
 class _$_ActiveTimerState implements _ActiveTimerState {
   const _$_ActiveTimerState(
-      {final List<ActiveTimer> activeTimerList = const []})
+      {this.targetTimer = null,
+      final List<ActiveTimer> activeTimerList = const []})
       : _activeTimerList = activeTimerList;
 
+  @override
+  @JsonKey()
+  final ActiveTimer? targetTimer;
   final List<ActiveTimer> _activeTimerList;
   @override
   @JsonKey()
@@ -107,7 +139,7 @@ class _$_ActiveTimerState implements _ActiveTimerState {
 
   @override
   String toString() {
-    return 'ActiveTimerState(activeTimerList: $activeTimerList)';
+    return 'ActiveTimerState(targetTimer: $targetTimer, activeTimerList: $activeTimerList)';
   }
 
   @override
@@ -115,13 +147,15 @@ class _$_ActiveTimerState implements _ActiveTimerState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ActiveTimerState &&
+            (identical(other.targetTimer, targetTimer) ||
+                other.targetTimer == targetTimer) &&
             const DeepCollectionEquality()
                 .equals(other._activeTimerList, _activeTimerList));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_activeTimerList));
+  int get hashCode => Object.hash(runtimeType, targetTimer,
+      const DeepCollectionEquality().hash(_activeTimerList));
 
   @JsonKey(ignore: true)
   @override
@@ -131,9 +165,12 @@ class _$_ActiveTimerState implements _ActiveTimerState {
 }
 
 abstract class _ActiveTimerState implements ActiveTimerState {
-  const factory _ActiveTimerState({final List<ActiveTimer> activeTimerList}) =
-      _$_ActiveTimerState;
+  const factory _ActiveTimerState(
+      {final ActiveTimer? targetTimer,
+      final List<ActiveTimer> activeTimerList}) = _$_ActiveTimerState;
 
+  @override
+  ActiveTimer? get targetTimer;
   @override
   List<ActiveTimer> get activeTimerList;
   @override

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:chef_timer/data/models/active_timer.dart';
 import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
@@ -32,10 +31,10 @@ extension Activation on TimerItem {
 }
 
 extension Utils on ActiveTimer {
-  String get remainTimeString {
+  String remainTimeString() {
     if (startAt != null && endAt != null) {
-      final diff = endAt!.difference(startAt!).inSeconds;
-      return Duration(seconds: diff).toRemainTime();
+      final diff = endAt!.difference(DateTime.now()!).inSeconds;
+      return Duration(seconds: diff > 0 ? diff : 0).toRemainTime();
     }
 
     if (remainTime != null) {
@@ -52,18 +51,23 @@ extension Utils on ActiveTimer {
 
   ActiveTimer toggle() {
     if (startAt != null && endAt != null) {
+      final diff = endAt!.difference(DateTime.now()).inSeconds;
       return copyWith(
-          remainTime: endAt!.difference(startAt!).inSeconds,
-          startAt: null,
-          endAt: null);
+        remainTime: diff > 0 ? diff : 0,
+        startAt: null,
+        endAt: null,
+      );
+    } else {
+      return copyWith(
+          startAt: DateTime.now(),
+          endAt: DateTime.now()
+              .add(Duration(seconds: remainTime ?? item.duration)),
+          remainTime: null);
     }
-
-    return copyWith(
-        startAt: DateTime.now(),
-        endAt:
-            DateTime.now().add(Duration(seconds: remainTime ?? item.duration)),
-        remainTime: null);
   }
+
+  ActiveTimer reset() =>
+      copyWith(remainTime: item.duration, startAt: null, endAt: null);
 }
 
 extension TimerString on String {

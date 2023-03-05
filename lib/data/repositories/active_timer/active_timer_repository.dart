@@ -7,8 +7,11 @@ abstract class ActiveTimerRepository {
       (ref) => _ActiveTimerRepositoryImpl(ref.read(PreferenceSource.provider)));
 
   Future<List<ActiveTimer>> getActiveTimerList();
-  Future<ActiveTimer> getActiveTimer(String uuid);
-  Future<ActiveTimer> toggleActiveTimer(ActiveTimer timer);
+  Future<ActiveTimer?> getActiveTimer(String uuid);
+  Future<List<ActiveTimer>> addActiveTimer(ActiveTimer timer);
+  Future<ActiveTimer?> toggleActiveTimer(ActiveTimer timer);
+  Future<ActiveTimer?> resetActiveTimer(ActiveTimer timer);
+  Future<List<ActiveTimer>> removeActiveTimer(ActiveTimer timer);
 }
 
 class _ActiveTimerRepositoryImpl extends ActiveTimerRepository {
@@ -17,9 +20,8 @@ class _ActiveTimerRepositoryImpl extends ActiveTimerRepository {
   _ActiveTimerRepositoryImpl(this._preference);
 
   @override
-  Future<ActiveTimer> getActiveTimer(String uuid) async {
-    return (await _preference.getActiveTimers())
-        .firstWhere((e) => e.uuid == uuid);
+  Future<ActiveTimer?> getActiveTimer(String uuid) async {
+    return await _preference.getActiveTimer(uuid);
   }
 
   @override
@@ -28,7 +30,22 @@ class _ActiveTimerRepositoryImpl extends ActiveTimerRepository {
   }
 
   @override
-  Future<ActiveTimer> toggleActiveTimer(ActiveTimer timer) async {
-    return _preference.toggleActiveTimer(timer.uuid);
+  Future<List<ActiveTimer>> addActiveTimer(ActiveTimer timer) async {
+    return _preference.addActiveTimer(timer);
+  }
+
+  @override
+  Future<ActiveTimer?> toggleActiveTimer(ActiveTimer timer) async {
+    return _preference.toggleActiveTimer(timer);
+  }
+
+  @override
+  Future<ActiveTimer?> resetActiveTimer(ActiveTimer timer) async {
+    return _preference.resetActiveTimer(timer);
+  }
+
+  @override
+  Future<List<ActiveTimer>> removeActiveTimer(ActiveTimer timer) async {
+    return _preference.removeActiveTimer(timer.uuid);
   }
 }

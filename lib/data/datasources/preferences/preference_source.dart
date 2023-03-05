@@ -19,7 +19,9 @@ abstract class PreferenceSource extends PreferenceSourceBase {
   Future<List<TimerItem>> removeUserTimer(String uuid);
 
   Future<List<ActiveTimer>> getActiveTimers();
+  Future<ActiveTimer?> getActiveTimer(String uuid);
   Future<List<ActiveTimer>> addActiveTimer(ActiveTimer timer);
   Future<List<ActiveTimer>> removeActiveTimer(String uuid);
-  Future<ActiveTimer> toggleActiveTimer(String uuid);
+  Future<ActiveTimer?> toggleActiveTimer(ActiveTimer timer);
+  Future<ActiveTimer?> resetActiveTimer(ActiveTimer timer);
 }

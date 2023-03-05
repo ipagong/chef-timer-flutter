@@ -5,12 +5,14 @@ import 'package:chef_timer/constants/timer_icon_set.dart';
 import 'package:chef_timer/constants/timer_option_set.dart';
 import 'package:chef_timer/data/models/active_timer.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
+import 'package:chef_timer/states/active_timer_state.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
 import 'package:chef_timer/widgets/stateful/timer_wrap_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class TimerActionScreen extends ConsumerStatefulWidget {
   final ActiveTimer timer;
@@ -37,6 +39,11 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
   @override
   Widget build(BuildContext context) {
+    final provider = ActiveTimerStateNotifier.provider(widget.timer);
+    final state = ref.watch(provider).valueOrNull;
+    final notifier = ref.read(provider.notifier);
+    final timer = state?.targetTimer;
+
     final fireOption = widget.timer.item.fireOption.toFireOption;
     final waterOption = widget.timer.item.waterOption.toWaterOption;
     final checkTime = widget.timer.item.checkDuration;
@@ -74,11 +81,17 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                       textAlign: TextAlign.center,
                       style: TextStyleSet.titleLarge(ColorSet.neutral0),
                     ),
+
                     //  시간 설정
-                    Text(
-                      widget.timer.remainTimeString,
-                      textAlign: TextAlign.center,
-                      style: TextStyleSet.displayLarge(ColorSet.neutral0),
+                    TimerBuilder.periodic(
+                      const Duration(seconds: 1),
+                      builder: (context) {
+                        return Text(
+                          timer?.remainTimeString() ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyleSet.displayLarge(ColorSet.neutral0),
+                        );
+                      },
                     ),
 
                     // 아이템 선택
@@ -116,29 +129,34 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
               ),
               const Spacer(),
 
-              // bottom Button
+              // bottom start/stop button.
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Container(
-                  height: 200, // TODO: vh
+                  height: MediaQuery.of(context).size.height > 800
+                      ? 200
+                      : MediaQuery.of(context).size.height * 0.25,
                   decoration: BoxDecoration(
                     color: ColorSet.neutral100,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: MaterialInkWell(
                     borderRadius: BorderRadius.circular(50),
-                    onTap: () => {},
+                    onTap: () {
+                      notifier.targetToggle();
+                    },
                     child: Center(
-                        child:
-                            (widget.timer.isActive ? SvgSet.stop : SvgSet.start)
-                                .asset()),
+                        child: (timer?.isActive == true
+                                ? SvgSet.stop
+                                : SvgSet.start)
+                            .asset()),
                   ),
                 ),
               ),
 
               const SizedBox(height: 12),
 
-              // bottom buttons
+              // bottom side buttons
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 12, 30, 10),
                 child: Row(
@@ -152,7 +170,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: MaterialInkWell(
-                        onTap: () => {},
+                        onTap: () {},
                         borderRadius: BorderRadius.circular(30),
                         child:
                             (isLocked ? SvgSet.lockOff : SvgSet.lockOn).asset(),
@@ -167,7 +185,9 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: MaterialInkWell(
-                        onTap: () => {},
+                        onTap: () {
+                          notifier.targetReset();
+                        },
                         borderRadius: BorderRadius.circular(30),
                         child: SvgSet.reset.asset(),
                       ),

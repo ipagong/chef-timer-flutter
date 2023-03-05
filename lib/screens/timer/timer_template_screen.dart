@@ -171,10 +171,11 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
 
                 // 중간 타이머 옵션.
                 TimerCheckTimeInput(
-                  duration: timerInput.checkDuration,
-                  onSelected: (duration) =>
-                      setState(() => timerInput.checkDuration = duration),
-                ),
+                    duration: timerInput.checkDuration,
+                    onSelected: (duration) {
+                      debugPrint(duration.toString());
+                      setState(() => timerInput.checkDuration = duration);
+                    }),
               ],
             ),
           ),

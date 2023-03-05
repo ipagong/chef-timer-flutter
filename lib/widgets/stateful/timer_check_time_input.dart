@@ -40,6 +40,7 @@ class _TimerCheckTimeInput extends State<TimerCheckTimeInput> {
                 if (duration == 0) return;
                 _selected = true;
                 _duration = duration;
+                widget.onSelected(duration);
               });
             },
           );

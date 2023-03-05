@@ -3,6 +3,7 @@ import 'package:chef_timer/data/datasources/preferences/preference_source.dart';
 import 'package:chef_timer/data/models/active_timer.dart';
 import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/utils/service.dart';
+import 'package:collection/collection.dart';
 
 enum _Key {
   presetTimers,
@@ -129,9 +130,14 @@ class PreferenceSourceImpl extends PreferenceSource {
   }
 
   @override
-  Future<ActiveTimer> toggleActiveTimer(String uuid) async {
+  Future<ActiveTimer?> getActiveTimer(String uuid) async {
+    return (await getActiveTimers()).singleWhereOrNull((e) => e.uuid == uuid);
+  }
+
+  @override
+  Future<ActiveTimer?> toggleActiveTimer(ActiveTimer timer) async {
     _activeTimerList = (await getActiveTimers())
-        .map((e) => e.uuid == uuid ? e.toggle() : e)
+        .map((e) => e.uuid == timer.uuid ? e.toggle() : e)
         .toList();
 
     setElementList(
@@ -140,6 +146,21 @@ class PreferenceSourceImpl extends PreferenceSource {
       toJson: (e) => e.toJson(),
     );
 
-    return _activeTimerList!.firstWhere((e) => e.uuid == uuid);
+    return getActiveTimer(timer.uuid);
+  }
+
+  @override
+  Future<ActiveTimer?> resetActiveTimer(ActiveTimer timer) async {
+    _activeTimerList = (await getActiveTimers())
+        .map((e) => e.uuid == timer.uuid ? e.reset() : e)
+        .toList();
+
+    setElementList(
+      _Key.activeTimers.name,
+      list: _activeTimerList!,
+      toJson: (e) => e.toJson(),
+    );
+
+    return getActiveTimer(timer.uuid);
   }
 }

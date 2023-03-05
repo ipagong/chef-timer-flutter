@@ -59,16 +59,15 @@ class _TimerWrapOptionItem extends State<TimerWrapOptionItem> {
             ? widget.onSelected!(!widget.selected)
             : null,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 6),
           child: Wrap(
             children: [
-              widget.icon != null
-                  ? widget.icon!.asset(width: 16, height: 16)
-                  : const SizedBox(),
+              widget.icon != null ? widget.icon!.asset() : const SizedBox(),
               widget.icon != null ? const SizedBox(width: 4) : const SizedBox(),
               Text(
                 widget.title,
                 style: TextStyleSet.labelLarge(colorSet.titleColor),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

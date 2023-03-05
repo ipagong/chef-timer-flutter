@@ -45,6 +45,8 @@ dependencies:
   flutter_svg: ^2.0.1
   format: ^1.1.1
   uuid: ^3.0.7
+  collection: ^1.17.0
+  timer_builder: ^2.0.0
 
 dev_dependencies:
   build_runner: ^2.3.3
