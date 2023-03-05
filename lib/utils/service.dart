@@ -26,23 +26,26 @@ extension Activation on TimerItem {
     );
   }
 
-  TimerItem toggleFavorite() =>
-      copyWith(favoriteAt: favoriteAt == null ? DateTime.now() : null);
+  TimerItem toggleFavorite(bool on) =>
+      copyWith(favoriteAt: on ? DateTime.now() : null);
+
+  bool get isFavorite => favoriteAt != null;
+
+  int get favortieSeconds => favoriteAt?.millisecondsSinceEpoch ?? 1;
 }
 
 extension Utils on ActiveTimer {
-  String remainTimeString() {
+  int get remainTimeSeconds {
     if (startAt != null && endAt != null) {
-      final diff = endAt!.difference(DateTime.now()!).inSeconds;
-      return Duration(seconds: diff > 0 ? diff : 0).toRemainTime();
+      final diff = endAt!.difference(DateTime.now()).inSeconds;
+      return diff > 0 ? diff : 0;
+    } else {
+      return remainTime ?? 0;
     }
-
-    if (remainTime != null) {
-      return Duration(seconds: remainTime!).toRemainTime();
-    }
-
-    return const Duration(seconds: 0).toRemainTime();
   }
+
+  String get remainTimeString =>
+      Duration(seconds: remainTimeSeconds).toRemainTime();
 
   bool get isActive {
     if (startAt == null && endAt == null) return false;
@@ -68,6 +71,8 @@ extension Utils on ActiveTimer {
 
   ActiveTimer reset() =>
       copyWith(remainTime: item.duration, startAt: null, endAt: null);
+
+  ActiveTimer favorite(bool on) => copyWith(item: item.toggleFavorite(on));
 }
 
 extension TimerString on String {

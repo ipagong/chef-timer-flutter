@@ -3,6 +3,7 @@ import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
 import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
+import 'package:chef_timer/utils/service.dart';
 import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,8 @@ class TimerGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: ColorSet.primary100, borderRadius: BorderRadius.circular(30)),
+          color: item.isFavorite ? ColorSet.secondary80 : ColorSet.primary100,
+          borderRadius: BorderRadius.circular(30)),
       child: MaterialInkWell(
         onTap: () => onPressedItem(item),
         borderRadius: BorderRadius.circular(30),

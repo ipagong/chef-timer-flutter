@@ -19,4 +19,9 @@ class SvgSet {
   static const SvgAsset chipTimer = SvgAsset("chip_timer");
 
   static const SvgAsset trash = SvgAsset("trash");
+
+  static const SvgAsset favoriteOn = SvgAsset("favorite_on");
+  static const SvgAsset favoriteOff = SvgAsset("favorite_off");
+  static const SvgAsset backWhite = SvgAsset("back_white");
+  static const SvgAsset backBlack = SvgAsset("back_black");
 }

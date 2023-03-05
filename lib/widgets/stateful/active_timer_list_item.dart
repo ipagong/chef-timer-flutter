@@ -54,32 +54,37 @@ class _ActiveTimerListItem extends State<ActiveTimerListItem>
         child: Container(
           height: 100,
           padding: const EdgeInsets.fromLTRB(24, 10, 24, 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 32,
-                height: 32,
-                padding: const EdgeInsets.all(6),
-                child: widget.timer.item.icon.toTimerIcon.asset(),
-              ),
-              const SizedBox(width: 8),
-              TimerBuilder.periodic(
-                const Duration(seconds: 1),
-                builder: (context) {
-                  return Text(widget.timer.remainTimeString(),
-                      style: TextStyleSet.headlineLarge(ColorSet.neutral100));
-                },
-              ),
-              const Spacer(),
-              MaterialInkWell(
-                borderRadius: BorderRadius.circular(30),
-                onTap: () => widget.onPressedToggle(widget.timer),
-                child:
-                    (widget.timer.isActive ? SvgSet.timerOff : SvgSet.timerOn)
-                        .asset(),
-              )
-            ],
+          child: TimerBuilder.periodic(
+            const Duration(seconds: 1),
+            builder: (context) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    padding: const EdgeInsets.all(6),
+                    child: widget.timer.item.icon.toTimerIcon.asset(),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.timer.remainTimeString,
+                    style: TextStyleSet.headlineLarge(ColorSet.neutral100),
+                  ),
+                  const Spacer(),
+                  widget.timer.remainTimeSeconds > 0
+                      ? MaterialInkWell(
+                          borderRadius: BorderRadius.circular(30),
+                          onTap: () => widget.onPressedToggle(widget.timer),
+                          child: (widget.timer.isActive
+                                  ? SvgSet.timerOff
+                                  : SvgSet.timerOn)
+                              .asset(),
+                        )
+                      : const SizedBox()
+                ],
+              );
+            },
           ),
         ),
       ),

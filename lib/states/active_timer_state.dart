@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:chef_timer/data/models/active_timer.dart';
+import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/data/repositories/active_timer/active_timer_repository.dart';
+import 'package:chef_timer/data/repositories/timer_item/timer_item_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -11,6 +13,7 @@ part 'active_timer_state.freezed.dart';
 class ActiveTimerState with _$ActiveTimerState {
   const factory ActiveTimerState({
     @Default(null) ActiveTimer? targetTimer,
+    @Default(null) TimerItem? targetItem,
     @Default([]) List<ActiveTimer> activeTimerList,
   }) = _ActiveTimerState;
 }
@@ -24,20 +27,39 @@ class ActiveTimerStateNotifier
   late final ActiveTimerRepository _activeRepository =
       ref.read(ActiveTimerRepository.provider);
 
+  late final TimerItemRepository _timerRepository =
+      ref.read(TimerItemRepository.provider);
+
   @override
   FutureOr<ActiveTimerState> build(arg) async {
-    final targetTimer = arg != null ? await findActiveTimer(arg) : null;
+    final targetTimer =
+        arg != null ? await _activeRepository.getActiveTimer(arg.uuid) : null;
+    final targetItem = arg != null
+        ? await _timerRepository.findTimerItem(arg.item.uuid)
+        : null;
     final activeTimers = await _activeRepository.getActiveTimerList();
 
     return ActiveTimerState(
-      targetTimer: targetTimer,
+      targetTimer: targetTimer ?? arg,
+      targetItem: targetItem ?? arg?.item,
       activeTimerList: activeTimers,
     );
   }
 
   void toggle(ActiveTimer? timer) async {
     if (timer == null) return;
+    if (await _activeRepository.getActiveTimer(timer.uuid) == null) {
+      await _activeRepository.addActiveTimer(timer);
+    }
     _refreshAction(() => _activeRepository.toggleActiveTimer(timer));
+  }
+
+  void favorite(ActiveTimer? timer, bool on) async {
+    if (timer == null) return;
+
+    _refreshAction(() async {
+      _activeRepository.favoriteToggleActiveTimer(timer, on);
+    });
   }
 
   void reset(ActiveTimer? timer) async {
@@ -62,9 +84,12 @@ class ActiveTimerStateNotifier
     remove(state.valueOrNull?.targetTimer);
   }
 
-  Future<ActiveTimer> findActiveTimer(ActiveTimer timer) async {
+  void targetFavorite(bool on) async {
+    favorite(state.valueOrNull?.targetTimer, on);
+  }
+
+  Future<ActiveTimer?> findActiveTimer(ActiveTimer timer) async {
     final result = await _activeRepository.getActiveTimer(timer.uuid);
-    if (result == null) await _activeRepository.addActiveTimer(timer);
     return result ?? timer;
   }
 

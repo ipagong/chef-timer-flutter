@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/data/repositories/timer_item/timer_item_repository.dart';
+import 'package:chef_timer/utils/service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -25,8 +26,13 @@ class TimerItemStateNotifier extends AsyncNotifier<TimerItemState> {
 
   @override
   FutureOr<TimerItemState> build() async {
-    final presetTimers = await _timerRepository.getPresetTimerItemList();
-    final userTimers = await _timerRepository.getUserTimerItemList();
+    List<TimerItem> presetTimers =
+        await _timerRepository.getPresetTimerItemList();
+    List<TimerItem> userTimers = await _timerRepository.getUserTimerItemList();
+
+    presetTimers.sort((a, b) => b.favortieSeconds.compareTo(a.favortieSeconds));
+    userTimers.sort((a, b) => b.favortieSeconds.compareTo(a.favortieSeconds));
+
     return TimerItemState(
         presetTimerList: presetTimers, userTimerList: userTimers);
   }
@@ -39,5 +45,20 @@ class TimerItemStateNotifier extends AsyncNotifier<TimerItemState> {
     } catch (e, st) {
       state = AsyncError(e, st);
     }
+  }
+
+  void favoriteToggle(TimerItem? item, bool on) async {
+    if (item == null) return;
+    try {
+      state = const AsyncLoading();
+      await _timerRepository.favoriteToggleTimerItem(item.uuid, on);
+      ref.invalidate(provider);
+    } catch (e, st) {
+      state = AsyncError(e, st);
+    }
+  }
+
+  Future<TimerItem?> getTimerItem(String uuid) async {
+    return _timerRepository.findTimerItem(uuid);
   }
 }

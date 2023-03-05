@@ -40,8 +40,8 @@ class _UserTimerSelectorState extends State<UserTimerSelector> {
                 ),
                 const Spacer(),
                 Container(
-                  width: 32,
                   height: 32,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: ColorSet.neutral0,

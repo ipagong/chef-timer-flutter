@@ -22,17 +22,6 @@ class TimerItem with _$TimerItem {
   factory TimerItem.fromJson(Map<String, dynamic> json) =>
       _$TimerItemFromJson(json);
 
-  factory TimerItem.createDummy() => TimerItem(
-        uuid: const Uuid().v4().toString(),
-        icon: TimerIcon.etc.name,
-        title: "반숙 달걀 삶기",
-        duration: 10,
-        checkDuration: 0,
-        fireOption: TimerOptionFire.low.name,
-        waterOption: TimerOptionWater.normal.name,
-        favoriteAt: null,
-      );
-
   factory TimerItem.preset({
     required TimerIcon icon,
     required String title,

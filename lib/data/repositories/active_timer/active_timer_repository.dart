@@ -12,6 +12,7 @@ abstract class ActiveTimerRepository {
   Future<ActiveTimer?> toggleActiveTimer(ActiveTimer timer);
   Future<ActiveTimer?> resetActiveTimer(ActiveTimer timer);
   Future<List<ActiveTimer>> removeActiveTimer(ActiveTimer timer);
+  Future<ActiveTimer?> favoriteToggleActiveTimer(ActiveTimer timer, bool on);
 }
 
 class _ActiveTimerRepositoryImpl extends ActiveTimerRepository {
@@ -47,5 +48,11 @@ class _ActiveTimerRepositoryImpl extends ActiveTimerRepository {
   @override
   Future<List<ActiveTimer>> removeActiveTimer(ActiveTimer timer) async {
     return _preference.removeActiveTimer(timer.uuid);
+  }
+
+  @override
+  Future<ActiveTimer?> favoriteToggleActiveTimer(
+      ActiveTimer timer, bool on) async {
+    return _preference.favoriteActiveTimer(timer, on);
   }
 }

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ActiveTimerState {
   ActiveTimer? get targetTimer => throw _privateConstructorUsedError;
+  TimerItem? get targetItem => throw _privateConstructorUsedError;
   List<ActiveTimer> get activeTimerList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,9 +31,13 @@ abstract class $ActiveTimerStateCopyWith<$Res> {
           ActiveTimerState value, $Res Function(ActiveTimerState) then) =
       _$ActiveTimerStateCopyWithImpl<$Res, ActiveTimerState>;
   @useResult
-  $Res call({ActiveTimer? targetTimer, List<ActiveTimer> activeTimerList});
+  $Res call(
+      {ActiveTimer? targetTimer,
+      TimerItem? targetItem,
+      List<ActiveTimer> activeTimerList});
 
   $ActiveTimerCopyWith<$Res>? get targetTimer;
+  $TimerItemCopyWith<$Res>? get targetItem;
 }
 
 /// @nodoc
@@ -49,6 +54,7 @@ class _$ActiveTimerStateCopyWithImpl<$Res, $Val extends ActiveTimerState>
   @override
   $Res call({
     Object? targetTimer = freezed,
+    Object? targetItem = freezed,
     Object? activeTimerList = null,
   }) {
     return _then(_value.copyWith(
@@ -56,6 +62,10 @@ class _$ActiveTimerStateCopyWithImpl<$Res, $Val extends ActiveTimerState>
           ? _value.targetTimer
           : targetTimer // ignore: cast_nullable_to_non_nullable
               as ActiveTimer?,
+      targetItem: freezed == targetItem
+          ? _value.targetItem
+          : targetItem // ignore: cast_nullable_to_non_nullable
+              as TimerItem?,
       activeTimerList: null == activeTimerList
           ? _value.activeTimerList
           : activeTimerList // ignore: cast_nullable_to_non_nullable
@@ -74,6 +84,18 @@ class _$ActiveTimerStateCopyWithImpl<$Res, $Val extends ActiveTimerState>
       return _then(_value.copyWith(targetTimer: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $TimerItemCopyWith<$Res>? get targetItem {
+    if (_value.targetItem == null) {
+      return null;
+    }
+
+    return $TimerItemCopyWith<$Res>(_value.targetItem!, (value) {
+      return _then(_value.copyWith(targetItem: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -84,10 +106,15 @@ abstract class _$$_ActiveTimerStateCopyWith<$Res>
       __$$_ActiveTimerStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ActiveTimer? targetTimer, List<ActiveTimer> activeTimerList});
+  $Res call(
+      {ActiveTimer? targetTimer,
+      TimerItem? targetItem,
+      List<ActiveTimer> activeTimerList});
 
   @override
   $ActiveTimerCopyWith<$Res>? get targetTimer;
+  @override
+  $TimerItemCopyWith<$Res>? get targetItem;
 }
 
 /// @nodoc
@@ -102,6 +129,7 @@ class __$$_ActiveTimerStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? targetTimer = freezed,
+    Object? targetItem = freezed,
     Object? activeTimerList = null,
   }) {
     return _then(_$_ActiveTimerState(
@@ -109,6 +137,10 @@ class __$$_ActiveTimerStateCopyWithImpl<$Res>
           ? _value.targetTimer
           : targetTimer // ignore: cast_nullable_to_non_nullable
               as ActiveTimer?,
+      targetItem: freezed == targetItem
+          ? _value.targetItem
+          : targetItem // ignore: cast_nullable_to_non_nullable
+              as TimerItem?,
       activeTimerList: null == activeTimerList
           ? _value._activeTimerList
           : activeTimerList // ignore: cast_nullable_to_non_nullable
@@ -122,12 +154,16 @@ class __$$_ActiveTimerStateCopyWithImpl<$Res>
 class _$_ActiveTimerState implements _ActiveTimerState {
   const _$_ActiveTimerState(
       {this.targetTimer = null,
+      this.targetItem = null,
       final List<ActiveTimer> activeTimerList = const []})
       : _activeTimerList = activeTimerList;
 
   @override
   @JsonKey()
   final ActiveTimer? targetTimer;
+  @override
+  @JsonKey()
+  final TimerItem? targetItem;
   final List<ActiveTimer> _activeTimerList;
   @override
   @JsonKey()
@@ -139,7 +175,7 @@ class _$_ActiveTimerState implements _ActiveTimerState {
 
   @override
   String toString() {
-    return 'ActiveTimerState(targetTimer: $targetTimer, activeTimerList: $activeTimerList)';
+    return 'ActiveTimerState(targetTimer: $targetTimer, targetItem: $targetItem, activeTimerList: $activeTimerList)';
   }
 
   @override
@@ -149,12 +185,14 @@ class _$_ActiveTimerState implements _ActiveTimerState {
             other is _$_ActiveTimerState &&
             (identical(other.targetTimer, targetTimer) ||
                 other.targetTimer == targetTimer) &&
+            (identical(other.targetItem, targetItem) ||
+                other.targetItem == targetItem) &&
             const DeepCollectionEquality()
                 .equals(other._activeTimerList, _activeTimerList));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, targetTimer,
+  int get hashCode => Object.hash(runtimeType, targetTimer, targetItem,
       const DeepCollectionEquality().hash(_activeTimerList));
 
   @JsonKey(ignore: true)
@@ -167,10 +205,13 @@ class _$_ActiveTimerState implements _ActiveTimerState {
 abstract class _ActiveTimerState implements ActiveTimerState {
   const factory _ActiveTimerState(
       {final ActiveTimer? targetTimer,
+      final TimerItem? targetItem,
       final List<ActiveTimer> activeTimerList}) = _$_ActiveTimerState;
 
   @override
   ActiveTimer? get targetTimer;
+  @override
+  TimerItem? get targetItem;
   @override
   List<ActiveTimer> get activeTimerList;
   @override

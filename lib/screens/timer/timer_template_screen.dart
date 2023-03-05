@@ -1,5 +1,6 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/string_set.dart';
+import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/constants/text_style_set.dart';
 import 'package:chef_timer/constants/timer_icon_set.dart';
 import 'package:chef_timer/constants/timer_option_set.dart';
@@ -8,6 +9,7 @@ import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/states/timer_item_state.dart';
 import 'package:chef_timer/utils/duration_extension.dart';
 import 'package:chef_timer/widgets/stateful/duration_picker_container.dart';
+import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
 import 'package:chef_timer/widgets/stateless/primary_confirm_button.dart';
 import 'package:chef_timer/widgets/stateful/timer_check_time_input.dart';
 import 'package:chef_timer/widgets/stateful/timer_icon_picker.dart';
@@ -68,7 +70,20 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorSet.neutral0,
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leadingWidth: 80,
+        leading: Container(
+          padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
+          child: MaterialInkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            borderRadius: BorderRadius.circular(100),
+            child: SvgSet.backWhite.asset(),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           color: ColorSet.neutral0,

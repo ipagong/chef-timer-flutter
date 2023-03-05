@@ -1,6 +1,6 @@
-import 'dart:async';
-
 import 'package:chef_timer/constants/color_set.dart';
+import 'package:chef_timer/data/models/active_timer.dart';
+import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/screens/timer/timer_action_screen.dart';
 import 'package:chef_timer/screens/timer/timer_template_screen.dart';
@@ -13,6 +13,7 @@ import 'package:chef_timer/widgets/stateless/main_bottom_add_timer.dart';
 import 'package:chef_timer/widgets/stateless/main_title_add_timer.dart';
 import 'package:chef_timer/widgets/stateful/user_timer_selector.dart';
 import 'package:chef_timer/widgets/stateless/timer_grid_item.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,47 +30,14 @@ class _MainScreenState extends BaseScreenState<MainScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  DateTime now = DateTime.now();
-  Timer? everySecond;
+  List<ActiveTimer> activeTimerList = [];
+  List<TimerItem> presetTimerList = [];
+  int userTimerCount = 0;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _startTimer();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.resumed) {
-      _startTimer();
-    } else if (state == AppLifecycleState.inactive) {
-      if (everySecond != null) {
-        everySecond?.cancel();
-        everySecond = null;
-      }
-    }
-  }
-
-  @override
-  void dispose() {
-    everySecond?.cancel();
-    everySecond = null;
-    super.dispose();
-  }
-
-  void _startTimer() {
-    if (everySecond != null) {
-      everySecond?.cancel();
-      everySecond = null;
-    }
-    everySecond = Timer.periodic(const Duration(seconds: 1), (timer) {
-      debugPrint("update plz");
-      setState(() {
-        now = DateTime.now();
-      });
-    });
   }
 
   @override
@@ -80,9 +48,9 @@ class _MainScreenState extends BaseScreenState<MainScreen>
     final activeTimerState = ref.watch(activeTimerProvider).valueOrNull;
     final activeTimerNotifier = ref.read(activeTimerProvider.notifier);
 
-    final activeTimerList = activeTimerState?.activeTimerList ?? [];
-    final userTimerCount = timerItemState?.userTimerList.length ?? 0;
-    final presetTimerList = timerItemState?.presetTimerList ?? [];
+    userTimerCount = timerItemState?.userTimerList.length ?? 0;
+    activeTimerList = activeTimerState?.activeTimerList ?? activeTimerList;
+    presetTimerList = timerItemState?.presetTimerList ?? presetTimerList;
 
     return Scaffold(
       key: _scaffoldKey,

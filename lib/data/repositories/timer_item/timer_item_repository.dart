@@ -1,5 +1,6 @@
 import 'package:chef_timer/data/datasources/preferences/preference_source.dart';
 import 'package:chef_timer/data/models/timer_item.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class TimerItemRepository {
@@ -9,13 +10,14 @@ abstract class TimerItemRepository {
   Future<TimerItem?> findTimerItem(String uuid);
 
   Future<List<TimerItem>> getPresetTimerItemList();
-  Future<TimerItem> getPresetTimerItem(String uuid);
+  Future<TimerItem?> getPresetTimerItem(String uuid);
 
   Future<int> getUserTimerItemCount();
   Future<List<TimerItem>> getUserTimerItemList();
-  Future<TimerItem> getUserTimerItem(String uuid);
+  Future<TimerItem?> getUserTimerItem(String uuid);
   Future<List<TimerItem>> addUserTimerItem(TimerItem item);
   Future<List<TimerItem>> deleteUserTimerItem(String uuid);
+  Future<TimerItem?> favoriteToggleTimerItem(String uuid, bool on);
 }
 
 class _TimerItemRepositoryImpl extends TimerItemRepository {
@@ -24,20 +26,21 @@ class _TimerItemRepositoryImpl extends TimerItemRepository {
   _TimerItemRepositoryImpl(this._preference);
 
   @override
-  Future<TimerItem?> findTimerItem(Comparable<String> uuid) async =>
-      (await _preference.getAllTimerList()).firstWhere((e) => e.uuid == uuid);
+  Future<TimerItem?> findTimerItem(String uuid) async =>
+      (await _preference.getAllTimerList())
+          .singleWhereOrNull((e) => e.uuid == uuid);
 
   @override
-  Future<TimerItem> getPresetTimerItem(String uuid) async =>
+  Future<TimerItem?> getPresetTimerItem(String uuid) async =>
       (await _preference.getPresetTimerList())
-          .firstWhere((e) => e.uuid == uuid);
+          .singleWhereOrNull((e) => e.uuid == uuid);
 
   @override
   Future<List<TimerItem>> getPresetTimerItemList() async =>
       await _preference.getPresetTimerList();
 
   @override
-  Future<TimerItem> getUserTimerItem(String uuid) async =>
+  Future<TimerItem?> getUserTimerItem(String uuid) async =>
       (await _preference.getUserTimerList()).firstWhere((e) => e.uuid == uuid);
 
   @override
@@ -55,4 +58,8 @@ class _TimerItemRepositoryImpl extends TimerItemRepository {
   @override
   Future<List<TimerItem>> deleteUserTimerItem(String uuid) async =>
       await _preference.removeUserTimer(uuid);
+
+  @override
+  Future<TimerItem?> favoriteToggleTimerItem(String uuid, bool on) async =>
+      await _preference.favoriteToggleTimer(uuid, on);
 }

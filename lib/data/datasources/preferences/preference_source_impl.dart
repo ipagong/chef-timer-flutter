@@ -100,6 +100,39 @@ class PreferenceSourceImpl extends PreferenceSource {
     );
   }
 
+  @override
+  Future<TimerItem?> favoriteToggleTimer(String uuid, bool on) async {
+    if (_userTimerList?.singleWhereOrNull((e) => e.uuid == uuid) != null) {
+      _userTimerList = (await getUserTimerList())
+          .map((e) => e.uuid == uuid ? e.toggleFavorite(on) : e)
+          .toList();
+
+      setElementList(
+        _Key.userTimers.name,
+        list: _userTimerList!,
+        toJson: (e) => e.toJson(),
+      );
+
+      return _userTimerList?.singleWhereOrNull((e) => e.uuid == uuid);
+    }
+
+    if (_presetTimerList?.singleWhereOrNull((e) => e.uuid == uuid) != null) {
+      _presetTimerList = (await getPresetTimerList())
+          .map((e) => e.uuid == uuid ? e.toggleFavorite(on) : e)
+          .toList();
+
+      setElementList(
+        _Key.presetTimers.name,
+        list: _presetTimerList!,
+        toJson: (e) => e.toJson(),
+      );
+
+      return _presetTimerList?.singleWhereOrNull((e) => e.uuid == uuid);
+    }
+
+    return null;
+  }
+
 // MARK: ACTIVE TIMERS
 
   @override
@@ -153,6 +186,21 @@ class PreferenceSourceImpl extends PreferenceSource {
   Future<ActiveTimer?> resetActiveTimer(ActiveTimer timer) async {
     _activeTimerList = (await getActiveTimers())
         .map((e) => e.uuid == timer.uuid ? e.reset() : e)
+        .toList();
+
+    setElementList(
+      _Key.activeTimers.name,
+      list: _activeTimerList!,
+      toJson: (e) => e.toJson(),
+    );
+
+    return getActiveTimer(timer.uuid);
+  }
+
+  @override
+  Future<ActiveTimer?> favoriteActiveTimer(ActiveTimer timer, bool on) async {
+    _activeTimerList = (await getActiveTimers())
+        .map((e) => e.item.uuid == timer.item.uuid ? e.favorite(on) : e)
         .toList();
 
     setElementList(
