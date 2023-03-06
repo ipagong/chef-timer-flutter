@@ -15,6 +15,8 @@ import 'package:chef_timer/widgets/stateful/timer_wrap_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 class TimerActionScreen extends ConsumerStatefulWidget {
   final ActiveTimer timer;
@@ -33,13 +35,14 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
   var isLocked = false;
 
-  ActiveTimer? timer;
+  late ActiveTimer timer;
   TimerItem? item;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    timer = widget.timer;
   }
 
   @override
@@ -74,12 +77,26 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
           const Duration(seconds: 1),
           builder: (context) {
             return AnimatedContainer(
-              color: ColorSet.secondary100,
+              color: Colors.transparent,
               width: MediaQuery.of(context).size.width,
-              height:
-                  MediaQuery.of(context).size.height * (timer?.timeRate ?? 0.0),
+              height: MediaQuery.of(context).size.height * (timer.timeRate),
               duration: const Duration(seconds: 1),
               curve: Curves.linear,
+              child: WaveWidget(
+                waveFrequency: 1,
+                wavePhase: 5,
+                waveAmplitude: 5,
+                config: CustomConfig(
+                  colors: [
+                    ColorSet.secondary100,
+                    ColorSet.secondary100.withAlpha(100)
+                  ],
+                  durations: [6000, 5000],
+                  heightPercentages: [-0.9, -0.9],
+                ),
+                size: Size.infinite,
+                backgroundColor: Colors.transparent,
+              ),
             );
           },
         ),
@@ -110,7 +127,6 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                       padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
                       child: MaterialInkWell(
                         onTap: () {
-                          if (timer == null) return;
                           final on = !timerState!.targetItem!.isFavorite;
                           timerNotifier.targetFavorite(on);
                           itemNotifier.favoriteToggle(
@@ -160,7 +176,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             const Duration(seconds: 1),
                             builder: (context) {
                               return Text(
-                                timer?.remainTimeString ?? "",
+                                timer.remainTimeString ?? "",
                                 textAlign: TextAlign.center,
                                 style: TextStyleSet.displayLarge(
                                     ColorSet.neutral0),
@@ -220,7 +236,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             timerNotifier.targetToggle();
                           },
                           child: Center(
-                              child: (timer?.isActive == true
+                              child: (timer.isActive == true
                                       ? SvgSet.stop
                                       : SvgSet.start)
                                   .asset()),
@@ -246,7 +262,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             child: MaterialInkWell(
                               onTap: () {
                                 setState(() {
-                                  if (timer?.isActive != false) return;
+                                  if (timer.isActive != false) return;
                                   isLocked = !isLocked;
                                 });
                               },
