@@ -176,7 +176,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             const Duration(seconds: 1),
                             builder: (context) {
                               return Text(
-                                timer.remainTimeString ?? "",
+                                timer.remainTimeString,
                                 textAlign: TextAlign.center,
                                 style: TextStyleSet.displayLarge(
                                     ColorSet.neutral0),

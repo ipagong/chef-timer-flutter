@@ -24,4 +24,6 @@ class SvgSet {
   static const SvgAsset favoriteOff = SvgAsset("favorite_off");
   static const SvgAsset backWhite = SvgAsset("back_white");
   static const SvgAsset backBlack = SvgAsset("back_black");
+
+  static const SvgAsset splashIcon = SvgAsset("splash_icon");
 }

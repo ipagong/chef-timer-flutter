@@ -13,7 +13,6 @@ import 'package:chef_timer/widgets/stateless/main_bottom_add_timer.dart';
 import 'package:chef_timer/widgets/stateless/main_title_add_timer.dart';
 import 'package:chef_timer/widgets/stateful/user_timer_selector.dart';
 import 'package:chef_timer/widgets/stateless/timer_grid_item.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

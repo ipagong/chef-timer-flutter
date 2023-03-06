@@ -1,6 +1,5 @@
 import 'package:chef_timer/constants/color_set.dart';
 import 'package:chef_timer/constants/svg_set.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
 import 'package:chef_timer/screens/base/base_screen_state.dart';
 import 'package:chef_timer/screens/timer/timer_action_screen.dart';
 import 'package:chef_timer/states/timer_item_state.dart';

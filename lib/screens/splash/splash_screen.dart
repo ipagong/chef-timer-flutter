@@ -1,5 +1,5 @@
 import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/string_set.dart';
+import 'package:chef_timer/constants/svg_set.dart';
 import 'package:chef_timer/screens/main/main_screen.dart';
 import 'package:chef_timer/utils/transition/fade_transition_route.dart';
 import 'package:flutter/material.dart';
@@ -14,28 +14,42 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
+  bool isAppear = false;
+
   @override
   void initState() {
     super.initState();
+
     FlutterNativeSplash.remove();
+
+    Future.delayed(const Duration(milliseconds: 500)).then((val) {
+      setState(() {
+        isAppear = true;
+      });
+    });
+
+    Future.delayed(const Duration(seconds: 3)).then((val) {
+      Navigator.of(context)
+          .pushReplacement(FadeTransitionRoute(const MainScreen()));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2)).then((val) {
-      Navigator.of(context)
-          .pushReplacement(FadeTransitionRoute(const MainScreen()));
-    });
-
     return Scaffold(
-        body: Container(
-      color: ColorSet.neutral0,
-      child: const Center(
-        child: Text(
-          StringSet.splashTitle,
-          style: TextStyle(color: ColorSet.neutral100),
+      body: Container(
+        color: ColorSet.neutral0,
+        child: AnimatedOpacity(
+          opacity: isAppear == false ? 0.0 : 1.0,
+          duration: const Duration(milliseconds: 300),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+            child: Center(
+              child: SvgSet.splashIcon.asset(),
+            ),
+          ),
         ),
       ),
-    ));
+    );
   }
 }
