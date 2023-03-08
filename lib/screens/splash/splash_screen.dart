@@ -1,7 +1,7 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/svg_set.dart';
-import 'package:chef_timer/screens/main/main_screen.dart';
-import 'package:chef_timer/utils/transition/fade_transition_route.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/svg_set.dart';
+import 'package:yota/screens/main/main_screen.dart';
+import 'package:yota/utils/transition/fade_transition_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';

@@ -1,6 +1,6 @@
-import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/constants/timer_option_set.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
+import 'package:yota/constants/timer_icon_set.dart';
+import 'package:yota/constants/timer_option_set.dart';
+import 'package:yota/data/models/timer_item.dart';
 
 class PreferencePresetTimers {
   static const int _minute = 60;

@@ -1,10 +1,10 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/string_set.dart';
-import 'package:chef_timer/constants/text_style_set.dart';
-import 'package:chef_timer/utils/duration_extension.dart';
-import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/stateless/bottom_sheet_drag_line.dart';
-import 'package:chef_timer/widgets/stateless/primary_confirm_button.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/string_set.dart';
+import 'package:yota/constants/text_style_set.dart';
+import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/utils/service.dart';
+import 'package:yota/widgets/stateless/bottom_sheet_drag_line.dart';
+import 'package:yota/widgets/stateless/primary_confirm_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

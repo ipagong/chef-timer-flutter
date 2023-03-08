@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "chef_timer" "\0"
+            VALUE "FileDescription", "yota" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "chef_timer" "\0"
+            VALUE "InternalName", "yota" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "chef_timer.exe" "\0"
-            VALUE "ProductName", "chef_timer" "\0"
+            VALUE "OriginalFilename", "yota.exe" "\0"
+            VALUE "ProductName", "yota" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

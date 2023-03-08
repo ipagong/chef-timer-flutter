@@ -1,11 +1,11 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/svg_set.dart';
-import 'package:chef_timer/constants/text_style_set.dart';
-import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/data/models/active_timer.dart';
-import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
-import 'package:chef_timer/widgets/stateful/slide_menu.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/svg_set.dart';
+import 'package:yota/constants/text_style_set.dart';
+import 'package:yota/constants/timer_icon_set.dart';
+import 'package:yota/data/models/active_timer.dart';
+import 'package:yota/utils/service.dart';
+import 'package:yota/widgets/stateless/material_ink_well.dart';
+import 'package:yota/widgets/stateful/slide_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_builder/timer_builder.dart';
 

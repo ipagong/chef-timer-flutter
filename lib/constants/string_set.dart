@@ -26,4 +26,6 @@ class StringSet {
 
   static const templateTimerPickerMinute = "분";
   static const templateTimerPickerSecond = "초";
+
+  static const notificationTimerEndTitle = "요리 시간이 종료되었습니다.";
 }

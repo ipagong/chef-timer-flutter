@@ -1,19 +1,19 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/string_set.dart';
-import 'package:chef_timer/constants/svg_set.dart';
-import 'package:chef_timer/constants/text_style_set.dart';
-import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/constants/timer_option_set.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
-import 'package:chef_timer/screens/base/base_screen_state.dart';
-import 'package:chef_timer/states/timer_item_state.dart';
-import 'package:chef_timer/utils/duration_extension.dart';
-import 'package:chef_timer/widgets/stateful/duration_picker_container.dart';
-import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
-import 'package:chef_timer/widgets/stateless/primary_confirm_button.dart';
-import 'package:chef_timer/widgets/stateful/timer_check_time_input.dart';
-import 'package:chef_timer/widgets/stateful/timer_icon_picker.dart';
-import 'package:chef_timer/widgets/stateful/timer_wrap_option_item.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/string_set.dart';
+import 'package:yota/constants/svg_set.dart';
+import 'package:yota/constants/text_style_set.dart';
+import 'package:yota/constants/timer_icon_set.dart';
+import 'package:yota/constants/timer_option_set.dart';
+import 'package:yota/data/models/timer_item.dart';
+import 'package:yota/screens/base/base_screen_state.dart';
+import 'package:yota/states/timer_item_state.dart';
+import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/widgets/stateful/duration_picker_container.dart';
+import 'package:yota/widgets/stateless/material_ink_well.dart';
+import 'package:yota/widgets/stateless/primary_confirm_button.dart';
+import 'package:yota/widgets/stateful/timer_check_time_input.dart';
+import 'package:yota/widgets/stateful/timer_icon_picker.dart';
+import 'package:yota/widgets/stateful/timer_wrap_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -61,10 +61,9 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
   @override
   Widget build(BuildContext context) {
     ref.listen(TimerItemStateNotifier.provider, (previous, next) {
-      if ((previous?.value?.userTimerList.length ?? 0) <
-          (next.value?.userTimerList.length ?? 0)) {
-        Navigator.pop(context);
-      }
+      final prevCount = previous?.value?.userTimerList.length ?? 0;
+      final currentCount = next.value?.userTimerList.length ?? 0;
+      if (currentCount > prevCount) Navigator.pop(context);
     });
 
     return Scaffold(

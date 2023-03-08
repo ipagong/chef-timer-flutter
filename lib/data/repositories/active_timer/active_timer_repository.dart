@@ -1,5 +1,5 @@
-import 'package:chef_timer/data/datasources/preferences/preference_source.dart';
-import 'package:chef_timer/data/models/active_timer.dart';
+import 'package:yota/data/datasources/preferences/preference_source.dart';
+import 'package:yota/data/models/active_timer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class ActiveTimerRepository {

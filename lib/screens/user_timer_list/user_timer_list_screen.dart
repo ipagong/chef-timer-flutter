@@ -1,11 +1,11 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/svg_set.dart';
-import 'package:chef_timer/screens/base/base_screen_state.dart';
-import 'package:chef_timer/screens/timer/timer_action_screen.dart';
-import 'package:chef_timer/states/timer_item_state.dart';
-import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
-import 'package:chef_timer/widgets/stateless/timer_grid_item.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/svg_set.dart';
+import 'package:yota/screens/base/base_screen_state.dart';
+import 'package:yota/screens/timer/timer_action_screen.dart';
+import 'package:yota/states/timer_item_state.dart';
+import 'package:yota/utils/service.dart';
+import 'package:yota/widgets/stateless/material_ink_well.dart';
+import 'package:yota/widgets/stateless/timer_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

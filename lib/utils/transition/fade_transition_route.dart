@@ -1,4 +1,4 @@
-import 'package:chef_timer/constants/color_set.dart';
+import 'package:yota/constants/color_set.dart';
 import 'package:flutter/material.dart';
 
 class FadeTransitionRoute<T> extends PageRoute<T> {

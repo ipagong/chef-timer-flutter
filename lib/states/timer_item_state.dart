@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:chef_timer/data/models/timer_item.dart';
-import 'package:chef_timer/data/repositories/timer_item/timer_item_repository.dart';
-import 'package:chef_timer/utils/service.dart';
+import 'package:yota/data/models/timer_item.dart';
+import 'package:yota/data/repositories/timer_item/timer_item_repository.dart';
+import 'package:yota/utils/service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

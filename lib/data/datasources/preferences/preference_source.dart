@@ -1,6 +1,6 @@
-import 'package:chef_timer/data/datasources/preferences/preference_source_base.dart';
-import 'package:chef_timer/data/models/active_timer.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
+import 'package:yota/data/datasources/preferences/preference_source_base.dart';
+import 'package:yota/data/models/active_timer.dart';
+import 'package:yota/data/models/timer_item.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class PreferenceSource extends PreferenceSourceBase {

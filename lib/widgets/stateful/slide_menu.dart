@@ -1,4 +1,4 @@
-import 'package:chef_timer/utils/indexed_iterable.dart';
+import 'package:yota/utils/indexed_iterable.dart';
 import 'package:flutter/material.dart';
 
 typedef SelectSlideMenu = void Function(int index);

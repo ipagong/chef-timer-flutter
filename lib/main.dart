@@ -1,10 +1,12 @@
-import 'package:chef_timer/screens/main/main_screen.dart';
-import 'package:chef_timer/screens/splash/splash_screen.dart';
-import 'package:chef_timer/screens/timer/timer_template_screen.dart';
-import 'package:chef_timer/screens/user_timer_list/user_timer_list_screen.dart';
-import 'package:chef_timer/states/providers.dart';
-import 'package:chef_timer/utils/global_theme.dart';
+import 'package:yota/screens/main/main_screen.dart';
+import 'package:yota/screens/splash/splash_screen.dart';
+import 'package:yota/screens/timer/timer_template_screen.dart';
+import 'package:yota/screens/user_timer_list/user_timer_list_screen.dart';
+import 'package:yota/states/providers.dart';
+import 'package:yota/utils/global_theme.dart';
+import 'package:yota/utils/local_notification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
@@ -13,9 +15,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  svg.cache.maximumSize = 1000;
 
-  await initProviders();
+  Providers.initialize();
+  LocalNotification.initialize();
+
+  svg.cache.maximumSize = 1000;
 
   SystemChrome.setPreferredOrientations(
     [
@@ -34,12 +38,19 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    LocalNotification.requestPermissions();
+
     return MaterialApp(
       theme: ThemeData(
         colorScheme: GlobalTheme.colorScheme(),
@@ -54,5 +65,16 @@ class MyApp extends StatelessWidget {
         TimerTemplateScreen.routeName: (context) => const TimerTemplateScreen(),
       },
     );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        FlutterAppBadger.removeBadge();
+        break;
+      default:
+        return;
+    }
   }
 }

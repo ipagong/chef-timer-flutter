@@ -1,4 +1,4 @@
-package com.example.chef_timer
+package io.timer.yota
 
 import io.flutter.embedding.android.FlutterActivity
 

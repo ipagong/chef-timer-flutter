@@ -1,8 +1,8 @@
-import 'package:chef_timer/data/datasources/preferences/preference_preset_timers.dart';
-import 'package:chef_timer/data/datasources/preferences/preference_source.dart';
-import 'package:chef_timer/data/models/active_timer.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
-import 'package:chef_timer/utils/service.dart';
+import 'package:yota/data/datasources/preferences/preference_preset_timers.dart';
+import 'package:yota/data/datasources/preferences/preference_source.dart';
+import 'package:yota/data/models/active_timer.dart';
+import 'package:yota/data/models/timer_item.dart';
+import 'package:yota/utils/service.dart';
 import 'package:collection/collection.dart';
 
 enum _Key {

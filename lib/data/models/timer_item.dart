@@ -1,5 +1,5 @@
-import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/constants/timer_option_set.dart';
+import 'package:yota/constants/timer_icon_set.dart';
+import 'package:yota/constants/timer_option_set.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:uuid/uuid.dart';
 

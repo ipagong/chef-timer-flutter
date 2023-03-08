@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:chef_timer/data/models/active_timer.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
-import 'package:chef_timer/data/repositories/active_timer/active_timer_repository.dart';
-import 'package:chef_timer/data/repositories/timer_item/timer_item_repository.dart';
+import 'package:yota/data/models/active_timer.dart';
+import 'package:yota/data/models/timer_item.dart';
+import 'package:yota/data/repositories/active_timer/active_timer_repository.dart';
+import 'package:yota/data/repositories/timer_item/timer_item_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

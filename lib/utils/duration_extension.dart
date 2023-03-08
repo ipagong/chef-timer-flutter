@@ -1,4 +1,4 @@
-import 'package:chef_timer/constants/string_set.dart';
+import 'package:yota/constants/string_set.dart';
 import 'package:format/format.dart';
 
 extension FormatDuration on Duration {

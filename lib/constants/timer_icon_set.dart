@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:chef_timer/utils/service_asset.dart';
+import 'package:yota/utils/service_asset.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 

@@ -1,5 +1,5 @@
-import 'package:chef_timer/data/datasources/preferences/preference_source.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
+import 'package:yota/data/datasources/preferences/preference_source.dart';
+import 'package:yota/data/models/timer_item.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

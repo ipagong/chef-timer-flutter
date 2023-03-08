@@ -1,4 +1,4 @@
-import 'package:chef_timer/utils/service_asset.dart';
+import 'package:yota/utils/service_asset.dart';
 
 class SvgSet {
   static const SvgAsset chveronRight = SvgAsset("chevron_right");

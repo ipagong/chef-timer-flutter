@@ -1,7 +1,7 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/widgets/stateless/bottom_sheet_drag_line.dart';
-import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/timer_icon_set.dart';
+import 'package:yota/widgets/stateless/bottom_sheet_drag_line.dart';
+import 'package:yota/widgets/stateless/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 typedef TimerIconCallBack = void Function(TimerIcon icon);

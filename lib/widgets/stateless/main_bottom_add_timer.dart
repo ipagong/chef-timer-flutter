@@ -1,6 +1,6 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/svg_set.dart';
-import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/svg_set.dart';
+import 'package:yota/widgets/stateless/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 class MainBottomAddTimer extends StatelessWidget {

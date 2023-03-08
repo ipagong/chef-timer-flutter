@@ -1,10 +1,10 @@
-import 'package:chef_timer/constants/color_set.dart';
-import 'package:chef_timer/constants/text_style_set.dart';
-import 'package:chef_timer/constants/timer_icon_set.dart';
-import 'package:chef_timer/data/models/timer_item.dart';
-import 'package:chef_timer/utils/duration_extension.dart';
-import 'package:chef_timer/utils/service.dart';
-import 'package:chef_timer/widgets/stateless/material_ink_well.dart';
+import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/text_style_set.dart';
+import 'package:yota/constants/timer_icon_set.dart';
+import 'package:yota/data/models/timer_item.dart';
+import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/utils/service.dart';
+import 'package:yota/widgets/stateless/material_ink_well.dart';
 import 'package:flutter/material.dart';
 
 typedef TimerItemCallback = void Function(TimerItem item);

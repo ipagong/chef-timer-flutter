@@ -1,4 +1,4 @@
-import 'package:chef_timer/data/models/timer_item.dart';
+import 'package:yota/data/models/timer_item.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'active_timer.freezed.dart';
