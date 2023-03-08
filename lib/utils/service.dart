@@ -11,6 +11,7 @@ extension Activation on TimerItem {
   ActiveTimer standBy() {
     return ActiveTimer(
       uuid: const Uuid().v4().toString(),
+      subid: const Uuid().v4().toString(),
       item: this,
       startAt: null,
       endAt: null,
@@ -46,7 +47,10 @@ extension Utils on ActiveTimer {
 
   ActiveTimer toggle() {
     if (startAt != null && endAt != null) {
-      if (isActive) LocalNotification.cancel(uuid.hashCode);
+      if (isActive) {
+        LocalNotification.cancel(subid.hashCode);
+        LocalNotification.cancel(uuid.hashCode);
+      }
       final diff = endAt!.difference(DateTime.now()).inSeconds;
 
       return copyWith(
@@ -55,8 +59,19 @@ extension Utils on ActiveTimer {
         endAt: null,
       );
     } else {
-      final endAt =
-          DateTime.now().add(Duration(seconds: remainTime ?? item.duration));
+      final time = remainTime ?? item.duration;
+      final endAt = DateTime.now().add(Duration(seconds: time));
+
+      if (item.checkDuration > 0 && time > item.duration - item.checkDuration) {
+        final checkAt = endAt
+            .subtract(Duration(seconds: item.duration - item.checkDuration));
+        LocalNotification.register(
+          id: subid.hashCode,
+          time: checkAt,
+          title: item.title,
+          message: StringSet.notificationTimerCheckTitle,
+        );
+      }
 
       LocalNotification.register(
         id: uuid.hashCode,
@@ -70,6 +85,7 @@ extension Utils on ActiveTimer {
 
   ActiveTimer reset() {
     if (isActive) {
+      LocalNotification.cancel(subid.hashCode);
       LocalNotification.cancel(uuid.hashCode);
     }
     return copyWith(remainTime: item.duration, startAt: null, endAt: null);

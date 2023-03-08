@@ -27,7 +27,7 @@ class TimerTemplateScreen extends ConsumerStatefulWidget {
       _TimerTemplateScreenState();
 }
 
-class TimerInput {
+class _TimerInput {
   TimerIcon? icon;
   String? title;
   int? timerDuration;
@@ -50,7 +50,7 @@ class TimerInput {
 class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
-  final timerInput = TimerInput();
+  final timerInput = _TimerInput();
 
   @override
   void initState() {
@@ -122,8 +122,12 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                           return DurationPickerContainer(
                               duration: timerInput.timerDuration,
                               onSelected: (duration) {
-                                setState(
-                                    () => timerInput.timerDuration = duration);
+                                setState(() {
+                                  timerInput.timerDuration = duration;
+                                });
+                                setState(() {
+                                  timerInput.checkDuration = 0;
+                                });
                               });
                         });
                   },
@@ -186,8 +190,8 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                 // 중간 타이머 옵션.
                 TimerCheckTimeInput(
                     duration: timerInput.checkDuration,
+                    maxDuration: timerInput.timerDuration,
                     onSelected: (duration) {
-                      debugPrint(duration.toString());
                       setState(() => timerInput.checkDuration = duration);
                     }),
               ],

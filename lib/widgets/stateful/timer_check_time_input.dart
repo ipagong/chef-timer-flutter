@@ -24,8 +24,8 @@ class TimerCheckTimeInput extends StatefulWidget {
 }
 
 class _TimerCheckTimeInput extends State<TimerCheckTimeInput> {
-  late int? _duration = widget.duration;
-  bool _selected = false;
+  late int? _duration;
+  late bool _selected;
 
   void showDurationPicker() {
     showModalBottomSheet(
@@ -35,6 +35,7 @@ class _TimerCheckTimeInput extends State<TimerCheckTimeInput> {
         builder: (ctx) {
           return DurationPickerContainer(
             duration: _duration,
+            maxDuration: widget.maxDuration,
             onSelected: (duration) {
               setState(() {
                 if (duration == 0) return;
@@ -49,6 +50,8 @@ class _TimerCheckTimeInput extends State<TimerCheckTimeInput> {
 
   @override
   Widget build(BuildContext context) {
+    _duration = widget.duration;
+    _selected = (_duration ?? 0) > 0;
     return InkWell(
       onTap: () {
         setState(() {

@@ -210,7 +210,9 @@ class _DurationPickerContainer extends State<DurationPickerContainer> {
                   Navigator.of(context).pop();
                 },
                 height: 80,
-                isValid: _duration > 0 && widget.duration != _duration,
+                isValid: _duration > 0 &&
+                    widget.duration != _duration &&
+                    _duration < (widget.maxDuration ?? double.infinity),
                 disableTitleColor: ColorSet.opacity3,
                 disableBackgroundColor: ColorSet.opacity4,
               ),

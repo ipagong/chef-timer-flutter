@@ -21,6 +21,7 @@ ActiveTimer _$ActiveTimerFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ActiveTimer {
   String get uuid => throw _privateConstructorUsedError;
+  String get subid => throw _privateConstructorUsedError;
   TimerItem get item => throw _privateConstructorUsedError;
   int? get remainTime => throw _privateConstructorUsedError;
   DateTime? get startAt => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $ActiveTimerCopyWith<$Res> {
   @useResult
   $Res call(
       {String uuid,
+      String subid,
       TimerItem item,
       int? remainTime,
       DateTime? startAt,
@@ -62,6 +64,7 @@ class _$ActiveTimerCopyWithImpl<$Res, $Val extends ActiveTimer>
   @override
   $Res call({
     Object? uuid = null,
+    Object? subid = null,
     Object? item = null,
     Object? remainTime = freezed,
     Object? startAt = freezed,
@@ -71,6 +74,10 @@ class _$ActiveTimerCopyWithImpl<$Res, $Val extends ActiveTimer>
       uuid: null == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      subid: null == subid
+          ? _value.subid
+          : subid // ignore: cast_nullable_to_non_nullable
               as String,
       item: null == item
           ? _value.item
@@ -110,6 +117,7 @@ abstract class _$$_ActiveTimerCopyWith<$Res>
   @useResult
   $Res call(
       {String uuid,
+      String subid,
       TimerItem item,
       int? remainTime,
       DateTime? startAt,
@@ -131,6 +139,7 @@ class __$$_ActiveTimerCopyWithImpl<$Res>
   @override
   $Res call({
     Object? uuid = null,
+    Object? subid = null,
     Object? item = null,
     Object? remainTime = freezed,
     Object? startAt = freezed,
@@ -140,6 +149,10 @@ class __$$_ActiveTimerCopyWithImpl<$Res>
       uuid: null == uuid
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
+              as String,
+      subid: null == subid
+          ? _value.subid
+          : subid // ignore: cast_nullable_to_non_nullable
               as String,
       item: null == item
           ? _value.item
@@ -166,6 +179,7 @@ class __$$_ActiveTimerCopyWithImpl<$Res>
 class _$_ActiveTimer implements _ActiveTimer {
   _$_ActiveTimer(
       {required this.uuid,
+      required this.subid,
       required this.item,
       this.remainTime,
       this.startAt,
@@ -177,6 +191,8 @@ class _$_ActiveTimer implements _ActiveTimer {
   @override
   final String uuid;
   @override
+  final String subid;
+  @override
   final TimerItem item;
   @override
   final int? remainTime;
@@ -187,7 +203,7 @@ class _$_ActiveTimer implements _ActiveTimer {
 
   @override
   String toString() {
-    return 'ActiveTimer(uuid: $uuid, item: $item, remainTime: $remainTime, startAt: $startAt, endAt: $endAt)';
+    return 'ActiveTimer(uuid: $uuid, subid: $subid, item: $item, remainTime: $remainTime, startAt: $startAt, endAt: $endAt)';
   }
 
   @override
@@ -196,6 +212,7 @@ class _$_ActiveTimer implements _ActiveTimer {
         (other.runtimeType == runtimeType &&
             other is _$_ActiveTimer &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
+            (identical(other.subid, subid) || other.subid == subid) &&
             (identical(other.item, item) || other.item == item) &&
             (identical(other.remainTime, remainTime) ||
                 other.remainTime == remainTime) &&
@@ -206,7 +223,7 @@ class _$_ActiveTimer implements _ActiveTimer {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, uuid, item, remainTime, startAt, endAt);
+      Object.hash(runtimeType, uuid, subid, item, remainTime, startAt, endAt);
 
   @JsonKey(ignore: true)
   @override
@@ -225,6 +242,7 @@ class _$_ActiveTimer implements _ActiveTimer {
 abstract class _ActiveTimer implements ActiveTimer {
   factory _ActiveTimer(
       {required final String uuid,
+      required final String subid,
       required final TimerItem item,
       final int? remainTime,
       final DateTime? startAt,
@@ -235,6 +253,8 @@ abstract class _ActiveTimer implements ActiveTimer {
 
   @override
   String get uuid;
+  @override
+  String get subid;
   @override
   TimerItem get item;
   @override

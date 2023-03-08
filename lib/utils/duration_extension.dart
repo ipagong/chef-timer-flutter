@@ -6,10 +6,11 @@ extension FormatDuration on Duration {
     String minutes = inMinutes.toString();
     String seconds = inSeconds.remainder(60).toString().padLeft(2, '0');
 
-    return format(
-        inMinutes > 0 ? StringSet.timerFormat : StringSet.timerSecondsFormat,
-        minutes,
-        seconds);
+    if (inMinutes > 0) {
+      return format(StringSet.timerFormat, minutes, seconds);
+    } else {
+      return format(StringSet.timerSecondsFormat, seconds);
+    }
   }
 
   String toRemainTime() {

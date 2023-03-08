@@ -8,6 +8,7 @@ part 'active_timer.g.dart';
 class ActiveTimer with _$ActiveTimer {
   factory ActiveTimer({
     required String uuid,
+    required String subid,
     required TimerItem item,
     int? remainTime,
     DateTime? startAt,
