@@ -92,7 +92,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                     ColorSet.secondary100.withAlpha(100)
                   ],
                   durations: [6000, 5000],
-                  heightPercentages: [-0.9, -0.9],
+                  heightPercentages: [-0.1, -0.1],
                 ),
                 size: Size.infinite,
                 backgroundColor: Colors.transparent,
