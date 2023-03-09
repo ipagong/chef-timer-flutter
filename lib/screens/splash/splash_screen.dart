@@ -22,7 +22,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
     FlutterNativeSplash.remove();
 
-    Future.delayed(const Duration(milliseconds: 500)).then((val) {
+    Future.delayed(const Duration(milliseconds: 200)).then((val) {
       setState(() {
         isAppear = true;
       });

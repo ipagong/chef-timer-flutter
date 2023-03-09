@@ -21,13 +21,6 @@ void main() async {
 
   svg.cache.maximumSize = 1000;
 
-  SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ],
-  );
-
   final container = ProviderContainer();
 
   runApp(
@@ -46,11 +39,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    LocalNotification.requestPermissions();
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    LocalNotification.requestPermissions();
-
     return MaterialApp(
       theme: ThemeData(
         colorScheme: GlobalTheme.colorScheme(),

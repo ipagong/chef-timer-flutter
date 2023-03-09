@@ -51,14 +51,9 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
     final timerState = ref.watch(timerProvider).valueOrNull;
     final timerNotifier = ref.read(timerProvider.notifier);
 
-    final itemProvider = TimerItemStateNotifier.provider;
-    final itemNotifier = ref.read(itemProvider.notifier);
+    final itemNotifier = ref.read(TimerItemStateNotifier.provider.notifier);
 
     timer = timerState?.targetTimer ?? timer;
-
-    final fireOption = widget.timer.item.fireOption.toFireOption;
-    final waterOption = widget.timer.item.waterOption.toWaterOption;
-    final checkTime = widget.timer.item.checkDuration;
 
     return Stack(
       alignment: Alignment.bottomCenter,
@@ -74,7 +69,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
         // 채워지는 색
         TimerBuilder.periodic(
-          const Duration(seconds: 1),
+          const Duration(milliseconds: 500),
           builder: (context) {
             return AnimatedContainer(
               color: Colors.transparent,
@@ -192,21 +187,25 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             spacing: 8,
                             children: [
                               TimerWrapOptionItem(
-                                title: fireOption.localString,
+                                title: timer
+                                    .item.fireOption.toFireOption.localString,
                                 selected: true,
                                 colorSet: TimerOptionColorSet.actionSet,
                               ),
-                              waterOption == TimerOptionWater.boiled
+                              timer.item.fireOption.toWaterOption ==
+                                      TimerOptionWater.boiled
                                   ? TimerWrapOptionItem(
-                                      title: waterOption.localString,
+                                      title: timer.item.fireOption.toWaterOption
+                                          .localString,
                                       selected: true,
                                       colorSet: TimerOptionColorSet.actionSet,
                                     )
                                   : const SizedBox(),
-                              checkTime > 0
+                              timer.item.checkDuration > 0
                                   ? TimerWrapOptionItem(
                                       icon: SvgSet.chipTimer,
-                                      title: Duration(seconds: checkTime)
+                                      title: Duration(
+                                              seconds: timer.item.checkDuration)
                                           .toRemainTime(),
                                       selected: true,
                                       colorSet: TimerOptionColorSet.actionSet,

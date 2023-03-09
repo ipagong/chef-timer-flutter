@@ -27,7 +27,7 @@ class TimerTemplateScreen extends ConsumerStatefulWidget {
       _TimerTemplateScreenState();
 }
 
-class _TimerInput {
+class TimerInput {
   TimerIcon? icon;
   String? title;
   int? timerDuration;
@@ -50,7 +50,7 @@ class _TimerInput {
 class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
-  final timerInput = _TimerInput();
+  final timerInput = TimerInput();
 
   @override
   void initState() {
