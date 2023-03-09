@@ -55,6 +55,8 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
     timer = timerState?.targetTimer ?? timer;
 
+    debugPrint(timer.item.fireOption.toFireOption.localString);
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -192,11 +194,11 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                                 selected: true,
                                 colorSet: TimerOptionColorSet.actionSet,
                               ),
-                              timer.item.fireOption.toWaterOption ==
+                              timer.item.waterOption.toWaterOption ==
                                       TimerOptionWater.boiled
                                   ? TimerWrapOptionItem(
-                                      title: timer.item.fireOption.toWaterOption
-                                          .localString,
+                                      title: timer.item.waterOption
+                                          .toWaterOption.localString,
                                       selected: true,
                                       colorSet: TimerOptionColorSet.actionSet,
                                     )

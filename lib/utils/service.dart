@@ -68,7 +68,7 @@ extension Utils on ActiveTimer {
         LocalNotification.register(
           id: subid.hashCode,
           time: checkAt,
-          title: item.title,
+          title: item.title.replaceAll('\n', ' '),
           message: StringSet.notificationTimerCheckTitle,
         );
       }
@@ -76,7 +76,7 @@ extension Utils on ActiveTimer {
       LocalNotification.register(
         id: uuid.hashCode,
         time: endAt,
-        title: item.title,
+        title: item.title.replaceAll('\n', ' '),
         message: StringSet.notificationTimerEndTitle,
       );
       return copyWith(startAt: DateTime.now(), endAt: endAt, remainTime: null);

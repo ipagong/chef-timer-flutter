@@ -12,10 +12,10 @@ enum TimerOptionWater {
 }
 
 extension TimerOptionTransfer on String {
-  TimerOptionFire get toWaterOption => TimerOptionFire.values
+  TimerOptionFire get toFireOption => TimerOptionFire.values
       .firstWhere((e) => e.name == this, orElse: () => TimerOptionFire.high);
 
-  TimerOptionWater get toFireOption => TimerOptionWater.values
+  TimerOptionWater get toWaterOption => TimerOptionWater.values
       .firstWhere((e) => e.name == this, orElse: () => TimerOptionWater.normal);
 }
 
@@ -32,6 +32,10 @@ extension TimerOptionFireLocalization on TimerOptionFire {
         return StringSet.templateOptionFireHigh;
     }
   }
+
+  bool get isHigh => this == TimerOptionFire.high;
+  bool get isMedium => this == TimerOptionFire.medium;
+  bool get isLow => this == TimerOptionFire.low;
 }
 
 extension TimerOptionWaterLocalization on TimerOptionWater {
@@ -45,4 +49,6 @@ extension TimerOptionWaterLocalization on TimerOptionWater {
         return StringSet.templateOptionWaterNormal;
     }
   }
+
+  bool get isBoiled => this == TimerOptionWater.boiled;
 }

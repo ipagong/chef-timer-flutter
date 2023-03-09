@@ -45,6 +45,10 @@ class TimerInput {
       checkDuration: checkDuration,
       fire: fireOption,
       water: waterOption);
+
+  toHigh() => fireOption = TimerOptionFire.high;
+  toMedium() => fireOption = TimerOptionFire.medium;
+  toLow() => fireOption = TimerOptionFire.low;
 }
 
 class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
@@ -83,118 +87,124 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
           ),
         ),
       ),
-      body: SafeArea(
-        child: Container(
-          color: ColorSet.neutral0,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TimerIconPicker(timerInput.icon,
-                    (icon) => {setState(() => timerInput.icon = icon)}),
-                //  요리 이름
-                IntrinsicWidth(
-                  child: TextFormField(
-                    maxLines: null,
-                    textAlign: TextAlign.start,
-                    enableInteractiveSelection: false,
-                    keyboardType: TextInputType.multiline,
-                    textAlignVertical: TextAlignVertical.bottom,
-                    style: TextStyleSet.titleLarge(ColorSet.neutral100),
-                    decoration: InputDecoration(
-                      hintText: StringSet.templateTitle,
-                      hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onPanDown: (_) {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SafeArea(
+          child: Container(
+            color: ColorSet.neutral0,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TimerIconPicker(timerInput.icon,
+                      (icon) => {setState(() => timerInput.icon = icon)}),
+                  //  요리 이름
+                  IntrinsicWidth(
+                    child: TextFormField(
+                      maxLines: null,
+                      textAlign: TextAlign.start,
+                      enableInteractiveSelection: false,
+                      keyboardType: TextInputType.multiline,
+                      textAlignVertical: TextAlignVertical.bottom,
+                      style: TextStyleSet.titleLarge(ColorSet.neutral100),
+                      decoration: InputDecoration(
+                        hintText: StringSet.templateTitle,
+                        hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
+                      ),
+                      onChanged: (value) {
+                        Future.delayed(const Duration(milliseconds: 100)).then(
+                            (_) => setState(() => timerInput.title = value));
+                      },
                     ),
-                    onChanged: (value) =>
-                        setState(() => timerInput.title = value),
                   ),
-                ),
 
-                //  시간 설정
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        context: context,
-                        builder: (ctx) {
-                          return DurationPickerContainer(
-                              duration: timerInput.timerDuration,
-                              onSelected: (duration) {
-                                setState(() {
-                                  timerInput.timerDuration = duration;
+                  //  시간 설정
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (ctx) {
+                            return DurationPickerContainer(
+                                duration: timerInput.timerDuration,
+                                onSelected: (duration) {
+                                  setState(() {
+                                    timerInput.timerDuration = duration;
+                                  });
+                                  setState(() {
+                                    timerInput.checkDuration = 0;
+                                  });
                                 });
-                                setState(() {
-                                  timerInput.checkDuration = 0;
-                                });
-                              });
-                        });
-                  },
-                  child: Text(
-                    Duration(seconds: timerInput.timerDuration ?? 0)
-                        .toRemainTime(),
-                    textAlign: TextAlign.center,
-                    style: TextStyleSet.displayLarge(
-                        timerInput.timerDuration != null &&
-                                timerInput.timerDuration! > 0
-                            ? ColorSet.neutral100
-                            : ColorSet.opacity2),
+                          });
+                    },
+                    child: Text(
+                      Duration(seconds: timerInput.timerDuration ?? 0)
+                          .toRemainTime(),
+                      textAlign: TextAlign.center,
+                      style: TextStyleSet.displayLarge(
+                          timerInput.timerDuration != null &&
+                                  timerInput.timerDuration! > 0
+                              ? ColorSet.neutral100
+                              : ColorSet.opacity2),
+                    ),
                   ),
-                ),
 
-                // 아이템 선택
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                  child: Wrap(
-                    direction: Axis.horizontal,
-                    alignment: WrapAlignment.center,
-                    runSpacing: 8,
-                    spacing: 8,
-                    children: [
-                      TimerWrapOptionItem(
-                        title: StringSet.templateOptionFireHigh,
-                        selected: timerInput.fireOption == TimerOptionFire.high,
-                        onSelected: (_) => setState(
-                            () => timerInput.fireOption = TimerOptionFire.high),
-                      ),
-                      TimerWrapOptionItem(
-                        title: StringSet.templateOptionFireMedium,
-                        selected:
-                            timerInput.fireOption == TimerOptionFire.medium,
-                        onSelected: (_) => setState(() =>
-                            timerInput.fireOption = TimerOptionFire.medium),
-                      ),
-                      TimerWrapOptionItem(
-                        title: StringSet.templateOptionFireLow,
-                        selected: timerInput.fireOption == TimerOptionFire.low,
-                        onSelected: (_) => setState(
-                            () => timerInput.fireOption = TimerOptionFire.low),
-                      ),
-                      TimerWrapOptionItem(
-                        title: StringSet.templateOptionWaterBoiled,
-                        selected:
-                            timerInput.waterOption == TimerOptionWater.boiled,
-                        onSelected: (selected) => {
-                          setState(() => timerInput.waterOption = (selected
-                              ? TimerOptionWater.boiled
-                              : TimerOptionWater.normal))
-                        },
-                      ),
-                    ],
+                  // 아이템 선택
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.center,
+                      runSpacing: 8,
+                      spacing: 8,
+                      children: [
+                        TimerWrapOptionItem(
+                          title: StringSet.templateOptionFireHigh,
+                          selected: timerInput.fireOption.isHigh,
+                          onSelected: (_) =>
+                              setState(() => timerInput.toHigh()),
+                        ),
+                        TimerWrapOptionItem(
+                          title: StringSet.templateOptionFireMedium,
+                          selected: timerInput.fireOption.isMedium,
+                          onSelected: (_) =>
+                              setState(() => timerInput.toMedium()),
+                        ),
+                        TimerWrapOptionItem(
+                          title: StringSet.templateOptionFireLow,
+                          selected: timerInput.fireOption.isLow,
+                          onSelected: (_) => setState(() => timerInput.toLow()),
+                        ),
+                        TimerWrapOptionItem(
+                          title: StringSet.templateOptionWaterBoiled,
+                          selected:
+                              timerInput.waterOption == TimerOptionWater.boiled,
+                          onSelected: (selected) => {
+                            setState(() => timerInput.waterOption = (selected
+                                ? TimerOptionWater.boiled
+                                : TimerOptionWater.normal))
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 50),
+                  const SizedBox(height: 50),
 
-                // 중간 타이머 옵션.
-                TimerCheckTimeInput(
-                    duration: timerInput.checkDuration,
-                    maxDuration: timerInput.timerDuration,
-                    onSelected: (duration) {
-                      setState(() => timerInput.checkDuration = duration);
-                    }),
-              ],
+                  // 중간 타이머 옵션.
+                  TimerCheckTimeInput(
+                      duration: timerInput.checkDuration,
+                      maxDuration: timerInput.timerDuration,
+                      onSelected: (duration) {
+                        setState(() => timerInput.checkDuration = duration);
+                      }),
+                ],
+              ),
             ),
           ),
         ),
