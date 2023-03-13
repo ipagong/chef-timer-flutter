@@ -79,7 +79,6 @@ class LocalNotification {
   }) async {
     tz.TZDateTime scheduledDate = tz.TZDateTime.from(time, tz.local);
 
-    debugPrint(scheduledDate.toString());
     await _plugin.zonedSchedule(
       id,
       title,

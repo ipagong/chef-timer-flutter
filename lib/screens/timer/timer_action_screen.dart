@@ -55,8 +55,6 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
     timer = timerState?.targetTimer ?? timer;
 
-    debugPrint(timer.item.fireOption.toFireOption.localString);
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
