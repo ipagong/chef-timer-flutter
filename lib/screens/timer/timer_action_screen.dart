@@ -262,10 +262,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             ),
                             child: MaterialInkWell(
                               onTap: () {
-                                setState(() {
-                                  if (timer.isActive != false) return;
-                                  isLocked = !isLocked;
-                                });
+                                setState(() => isLocked = !isLocked);
                               },
                               borderRadius: BorderRadius.circular(30),
                               child: (isLocked ? SvgSet.lockOn : SvgSet.lockOff)

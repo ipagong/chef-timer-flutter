@@ -5,7 +5,6 @@ import 'package:yota/data/repositories/timer_item/timer_item_repository.dart';
 import 'package:yota/utils/service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'timer_item_state.freezed.dart';
 
 @freezed

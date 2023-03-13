@@ -8,6 +8,7 @@ import 'package:yota/screens/user_timer_list/user_timer_list_screen.dart';
 import 'package:yota/states/active_timer_state.dart';
 import 'package:yota/states/timer_item_state.dart';
 import 'package:yota/utils/service.dart';
+import 'package:yota/utils/timer_monitor.dart';
 import 'package:yota/widgets/stateful/active_timer_list_item.dart';
 import 'package:yota/widgets/stateless/main_bottom_add_timer.dart';
 import 'package:yota/widgets/stateless/main_title_add_timer.dart';
@@ -28,7 +29,6 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends BaseScreenState<MainScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
-
   List<ActiveTimer> activeTimerList = [];
   List<TimerItem> presetTimerList = [];
   int userTimerCount = 0;
@@ -50,6 +50,8 @@ class _MainScreenState extends BaseScreenState<MainScreen>
     userTimerCount = timerItemState?.userTimerList.length ?? 0;
     activeTimerList = activeTimerState?.activeTimerList ?? activeTimerList;
     presetTimerList = timerItemState?.presetTimerList ?? presetTimerList;
+
+    TimerMonitor.instance.setup(ref);
 
     return Scaffold(
       key: _scaffoldKey,

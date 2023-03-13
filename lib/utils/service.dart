@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:yota/constants/string_set.dart';
 import 'package:yota/data/models/active_timer.dart';
 import 'package:yota/data/models/timer_item.dart';
@@ -96,6 +97,12 @@ extension Utils on ActiveTimer {
   double get timeRate =>
       (item.duration.toDouble() - remainTimeSeconds.toDouble()) /
       item.duration.toDouble();
+
+  bool get isNowEnd {
+    if (endAt == null) return false;
+    return endAt!.millisecondsSinceEpoch ~/ 1000 ==
+        DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  }
 }
 
 extension TimerString on String {
