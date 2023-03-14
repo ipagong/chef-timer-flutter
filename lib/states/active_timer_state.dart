@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:yota/data/models/active_timer.dart';
 import 'package:yota/data/models/timer_item.dart';
 import 'package:yota/data/repositories/active_timer/active_timer_repository.dart';

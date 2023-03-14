@@ -26,7 +26,6 @@ mixin _$TimerItem {
   int get duration => throw _privateConstructorUsedError;
   int get checkDuration => throw _privateConstructorUsedError;
   String get fireOption => throw _privateConstructorUsedError;
-  String get waterOption => throw _privateConstructorUsedError;
   DateTime? get favoriteAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,7 +46,6 @@ abstract class $TimerItemCopyWith<$Res> {
       int duration,
       int checkDuration,
       String fireOption,
-      String waterOption,
       DateTime? favoriteAt});
 }
 
@@ -70,7 +68,6 @@ class _$TimerItemCopyWithImpl<$Res, $Val extends TimerItem>
     Object? duration = null,
     Object? checkDuration = null,
     Object? fireOption = null,
-    Object? waterOption = null,
     Object? favoriteAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -98,10 +95,6 @@ class _$TimerItemCopyWithImpl<$Res, $Val extends TimerItem>
           ? _value.fireOption
           : fireOption // ignore: cast_nullable_to_non_nullable
               as String,
-      waterOption: null == waterOption
-          ? _value.waterOption
-          : waterOption // ignore: cast_nullable_to_non_nullable
-              as String,
       favoriteAt: freezed == favoriteAt
           ? _value.favoriteAt
           : favoriteAt // ignore: cast_nullable_to_non_nullable
@@ -124,7 +117,6 @@ abstract class _$$_TimerItemCopyWith<$Res> implements $TimerItemCopyWith<$Res> {
       int duration,
       int checkDuration,
       String fireOption,
-      String waterOption,
       DateTime? favoriteAt});
 }
 
@@ -145,7 +137,6 @@ class __$$_TimerItemCopyWithImpl<$Res>
     Object? duration = null,
     Object? checkDuration = null,
     Object? fireOption = null,
-    Object? waterOption = null,
     Object? favoriteAt = freezed,
   }) {
     return _then(_$_TimerItem(
@@ -173,10 +164,6 @@ class __$$_TimerItemCopyWithImpl<$Res>
           ? _value.fireOption
           : fireOption // ignore: cast_nullable_to_non_nullable
               as String,
-      waterOption: null == waterOption
-          ? _value.waterOption
-          : waterOption // ignore: cast_nullable_to_non_nullable
-              as String,
       favoriteAt: freezed == favoriteAt
           ? _value.favoriteAt
           : favoriteAt // ignore: cast_nullable_to_non_nullable
@@ -195,7 +182,6 @@ class _$_TimerItem implements _TimerItem {
       required this.duration,
       required this.checkDuration,
       required this.fireOption,
-      required this.waterOption,
       required this.favoriteAt});
 
   factory _$_TimerItem.fromJson(Map<String, dynamic> json) =>
@@ -214,13 +200,11 @@ class _$_TimerItem implements _TimerItem {
   @override
   final String fireOption;
   @override
-  final String waterOption;
-  @override
   final DateTime? favoriteAt;
 
   @override
   String toString() {
-    return 'TimerItem(uuid: $uuid, icon: $icon, title: $title, duration: $duration, checkDuration: $checkDuration, fireOption: $fireOption, waterOption: $waterOption, favoriteAt: $favoriteAt)';
+    return 'TimerItem(uuid: $uuid, icon: $icon, title: $title, duration: $duration, checkDuration: $checkDuration, fireOption: $fireOption, favoriteAt: $favoriteAt)';
   }
 
   @override
@@ -237,8 +221,6 @@ class _$_TimerItem implements _TimerItem {
                 other.checkDuration == checkDuration) &&
             (identical(other.fireOption, fireOption) ||
                 other.fireOption == fireOption) &&
-            (identical(other.waterOption, waterOption) ||
-                other.waterOption == waterOption) &&
             (identical(other.favoriteAt, favoriteAt) ||
                 other.favoriteAt == favoriteAt));
   }
@@ -246,7 +228,7 @@ class _$_TimerItem implements _TimerItem {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, uuid, icon, title, duration,
-      checkDuration, fireOption, waterOption, favoriteAt);
+      checkDuration, fireOption, favoriteAt);
 
   @JsonKey(ignore: true)
   @override
@@ -270,7 +252,6 @@ abstract class _TimerItem implements TimerItem {
       required final int duration,
       required final int checkDuration,
       required final String fireOption,
-      required final String waterOption,
       required final DateTime? favoriteAt}) = _$_TimerItem;
 
   factory _TimerItem.fromJson(Map<String, dynamic> json) =
@@ -288,8 +269,6 @@ abstract class _TimerItem implements TimerItem {
   int get checkDuration;
   @override
   String get fireOption;
-  @override
-  String get waterOption;
   @override
   DateTime? get favoriteAt;
   @override

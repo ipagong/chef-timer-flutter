@@ -15,8 +15,6 @@ import 'package:yota/widgets/stateful/timer_wrap_option_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timer_builder/timer_builder.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
 
 class TimerActionScreen extends ConsumerStatefulWidget {
   final ActiveTimer timer;
@@ -72,27 +70,14 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
           const Duration(milliseconds: 500),
           builder: (context) {
             return AnimatedContainer(
-              color: Colors.transparent,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * (timer.timeRate),
-              duration: const Duration(seconds: 1),
-              curve: Curves.linear,
-              child: WaveWidget(
-                waveFrequency: 1,
-                wavePhase: 5,
-                waveAmplitude: 5,
-                config: CustomConfig(
-                  colors: [
-                    ColorSet.secondary100,
-                    ColorSet.secondary100.withAlpha(100)
-                  ],
-                  durations: [6000, 5000],
-                  heightPercentages: [-0.1, -0.1],
-                ),
-                size: Size.infinite,
-                backgroundColor: Colors.transparent,
-              ),
-            );
+                color: Colors.transparent,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * (timer.timeRate),
+                duration: const Duration(seconds: 1),
+                curve: Curves.linear,
+                child: Container(
+                  color: ColorSet.secondary100,
+                ));
           },
         ),
 
@@ -126,6 +111,37 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                           timerNotifier.targetFavorite(on);
                           itemNotifier.favoriteToggle(
                               timerState.targetItem, on);
+                          if (on) {
+                            //   FToast().showToast(
+                            //       child: Container(
+                            //         width: 172,
+                            //         height: 51,
+                            //         decoration: BoxDecoration(
+                            //           borderRadius: BorderRadius.circular(26),
+                            //           color: ColorSet.neutral0,
+                            //         ),
+                            //         padding:
+                            //             const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                            //         child: Text(
+                            //           StringSet.toastMessageFavoriteOn,
+                            //           textAlign: TextAlign.center,
+                            //           style: TextStyleSet.labelLarge(
+                            //               ColorSet.neutral100),
+                            //         ),
+                            //       ),
+                            //       toastDuration: const Duration(seconds: 1),
+                            //       positionedToastBuilder: (context, child) {
+                            //         return Stack(
+                            //           alignment: Alignment.center,
+                            //           children: [
+                            //             Positioned(
+                            //               bottom: 100,
+                            //               child: child,
+                            //             ),
+                            //           ],
+                            //         );
+                            //       });
+                          }
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: (timerState?.targetItem?.isFavorite == true
@@ -161,7 +177,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                           const SizedBox(height: 16),
                           //  요리 이름
                           Text(
-                            widget.timer.item.title,
+                            widget.timer.item.title.replaceAll("\n", " "),
                             textAlign: TextAlign.center,
                             style: TextStyleSet.titleLarge(ColorSet.neutral0),
                           ),
@@ -180,38 +196,33 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                           ),
 
                           // 아이템 선택
-                          Wrap(
-                            direction: Axis.horizontal,
-                            alignment: WrapAlignment.center,
-                            runSpacing: 8,
-                            spacing: 8,
-                            children: [
-                              TimerWrapOptionItem(
-                                title: timer
-                                    .item.fireOption.toFireOption.localString,
-                                selected: true,
-                                colorSet: TimerOptionColorSet.actionSet,
-                              ),
-                              timer.item.waterOption.toWaterOption ==
-                                      TimerOptionWater.boiled
-                                  ? TimerWrapOptionItem(
-                                      title: timer.item.waterOption
-                                          .toWaterOption.localString,
-                                      selected: true,
-                                      colorSet: TimerOptionColorSet.actionSet,
-                                    )
-                                  : const SizedBox(),
-                              timer.item.checkDuration > 0
-                                  ? TimerWrapOptionItem(
-                                      icon: SvgSet.chipTimer,
-                                      title: Duration(
-                                              seconds: timer.item.checkDuration)
-                                          .toRemainTime(),
-                                      selected: true,
-                                      colorSet: TimerOptionColorSet.actionSet,
-                                    )
-                                  : const SizedBox(),
-                            ],
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              alignment: WrapAlignment.center,
+                              runSpacing: 0,
+                              spacing: 8,
+                              children: [
+                                TimerWrapOptionItem(
+                                  title: timer
+                                      .item.fireOption.toFireOption.localString,
+                                  selected: true,
+                                  colorSet: TimerOptionColorSet.actionSet,
+                                ),
+                                timer.item.checkDuration > 0
+                                    ? TimerWrapOptionItem(
+                                        icon: SvgSet.chipTimer,
+                                        title: Duration(
+                                                seconds:
+                                                    timer.item.checkDuration)
+                                            .toRemainTime(),
+                                        selected: true,
+                                        colorSet: TimerOptionColorSet.actionSet,
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            ),
                           )
                         ],
                       ),

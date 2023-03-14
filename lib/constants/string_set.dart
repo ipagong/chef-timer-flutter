@@ -29,4 +29,6 @@ class StringSet {
 
   static const notificationTimerEndTitle = "요리 시간이 종료되었습니다.";
   static const notificationTimerCheckTitle = "중간 확인 시간입니다.";
+
+  static const toastMessageFavoriteOn = "즐겨찾기 완료!";
 }

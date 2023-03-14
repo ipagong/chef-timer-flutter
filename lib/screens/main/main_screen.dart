@@ -79,6 +79,9 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                             ),
                           ),
                           onPressedToggle: (item) {
+                            if (item.remainTimeSeconds == 0) {
+                              activeTimerNotifier.reset(item);
+                            }
                             activeTimerNotifier.toggle(item);
                           },
                           onDeleteItem: (item) {
@@ -99,7 +102,7 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                         : const SizedBox(),
                   ),
                   SliverPadding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
                     sliver: SliverGrid.builder(
                       itemCount: presetTimerList.length,
                       gridDelegate:

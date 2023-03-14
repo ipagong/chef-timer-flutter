@@ -32,19 +32,21 @@ class TimerInput {
   String? title;
   int? timerDuration;
   int? checkDuration;
-  TimerOptionFire fireOption = TimerOptionFire.medium;
-  TimerOptionWater waterOption = TimerOptionWater.normal;
+  TimerOptionFire? fireOption;
 
   bool get isValid =>
-      icon != null && title != null && (timerDuration ?? 0) > 0 && true;
+      icon != null &&
+      title?.isEmpty == false &&
+      (timerDuration ?? 0) > 0 &&
+      true;
 
   TimerItem toTimerItem() => TimerItem.custom(
-      icon: icon!,
-      title: title!,
-      duration: timerDuration!,
-      checkDuration: checkDuration,
-      fire: fireOption,
-      water: waterOption);
+        icon: icon!,
+        title: title!,
+        duration: timerDuration!,
+        checkDuration: checkDuration,
+        fire: fireOption!,
+      );
 
   toHigh() => fireOption = TimerOptionFire.high;
   toMedium() => fireOption = TimerOptionFire.medium;
@@ -87,13 +89,14 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
           ),
         ),
       ),
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onPanDown: (_) {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: SafeArea(
+      body: SafeArea(
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onPanDown: (_) {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
           child: Container(
+            height: double.infinity,
             color: ColorSet.neutral0,
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -104,24 +107,25 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                       (icon) => {setState(() => timerInput.icon = icon)}),
                   //  요리 이름
                   IntrinsicWidth(
-                    child: TextFormField(
-                      maxLines: null,
-                      textAlign: TextAlign.start,
-                      enableInteractiveSelection: false,
-                      keyboardType: TextInputType.multiline,
-                      textAlignVertical: TextAlignVertical.bottom,
-                      style: TextStyleSet.titleLarge(ColorSet.neutral100),
-                      decoration: InputDecoration(
-                        hintText: StringSet.templateTitle,
-                        hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: TextField(
+                        maxLines: null,
+                        showCursor: true,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.multiline,
+                        textAlignVertical: TextAlignVertical.bottom,
+                        style: TextStyleSet.titleLarge(ColorSet.neutral100),
+                        decoration: InputDecoration(
+                          hintText: StringSet.templateTitle,
+                          hintStyle: TextStyleSet.titleLarge(ColorSet.opacity2),
+                        ),
+                        onChanged: (value) {
+                          setState(() => timerInput.title = value);
+                        },
                       ),
-                      onChanged: (value) {
-                        Future.delayed(const Duration(milliseconds: 100)).then(
-                            (_) => setState(() => timerInput.title = value));
-                      },
                     ),
                   ),
-
                   //  시간 설정
                   InkWell(
                     onTap: () {
@@ -156,7 +160,7 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
 
                   // 아이템 선택
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                     child: Wrap(
                       direction: Axis.horizontal,
                       alignment: WrapAlignment.center,
@@ -165,30 +169,20 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
                       children: [
                         TimerWrapOptionItem(
                           title: StringSet.templateOptionFireHigh,
-                          selected: timerInput.fireOption.isHigh,
+                          selected: timerInput.fireOption?.isHigh == true,
                           onSelected: (_) =>
                               setState(() => timerInput.toHigh()),
                         ),
                         TimerWrapOptionItem(
                           title: StringSet.templateOptionFireMedium,
-                          selected: timerInput.fireOption.isMedium,
+                          selected: timerInput.fireOption?.isMedium == true,
                           onSelected: (_) =>
                               setState(() => timerInput.toMedium()),
                         ),
                         TimerWrapOptionItem(
                           title: StringSet.templateOptionFireLow,
-                          selected: timerInput.fireOption.isLow,
+                          selected: timerInput.fireOption?.isLow == true,
                           onSelected: (_) => setState(() => timerInput.toLow()),
-                        ),
-                        TimerWrapOptionItem(
-                          title: StringSet.templateOptionWaterBoiled,
-                          selected:
-                              timerInput.waterOption == TimerOptionWater.boiled,
-                          onSelected: (selected) => {
-                            setState(() => timerInput.waterOption = (selected
-                                ? TimerOptionWater.boiled
-                                : TimerOptionWater.normal))
-                          },
                         ),
                       ],
                     ),
@@ -209,18 +203,20 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-        child: PrimaryConfirmButton(
-          StringSet.templateConfirmButton,
-          onTap: () {
-            if (!timerInput.isValid) return;
-            ref
-                .read(TimerItemStateNotifier.provider.notifier)
-                .addTimerItem(timerInput.toTimerItem());
-          },
-          height: 80,
-          isValid: timerInput.isValid,
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+          child: PrimaryConfirmButton(
+            StringSet.templateConfirmButton,
+            onTap: () {
+              if (!timerInput.isValid) return;
+              ref
+                  .read(TimerItemStateNotifier.provider.notifier)
+                  .addTimerItem(timerInput.toTimerItem());
+            },
+            height: 80,
+            isValid: timerInput.isValid,
+          ),
         ),
       ),
     );

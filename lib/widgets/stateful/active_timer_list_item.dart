@@ -52,7 +52,7 @@ class _ActiveTimerListItem extends State<ActiveTimerListItem>
       child: MaterialInkWell(
         onTap: () => widget.onPressedItem(widget.timer),
         child: Container(
-          height: 100,
+          height: 85,
           padding: const EdgeInsets.fromLTRB(24, 10, 24, 10),
           child: TimerBuilder.periodic(
             const Duration(seconds: 1),
@@ -61,27 +61,32 @@ class _ActiveTimerListItem extends State<ActiveTimerListItem>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 32,
-                    height: 32,
+                    width: 50,
+                    height: 50,
                     padding: const EdgeInsets.all(6),
-                    child: widget.timer.item.icon.toTimerIcon.asset(),
+                    child: Opacity(
+                      opacity: widget.timer.remainTimeSeconds > 0 ? 1.0 : 0.3,
+                      child: widget.timer.item.icon.toTimerIcon
+                          .asset(fit: BoxFit.fill),
+                    ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    widget.timer.remainTimeString,
-                    style: TextStyleSet.headlineLarge(ColorSet.neutral100),
+                  Opacity(
+                    opacity: widget.timer.remainTimeSeconds > 0 ? 1.0 : 0.3,
+                    child: Text(
+                      widget.timer.remainTimeString,
+                      style: TextStyleSet.headlineLarge(ColorSet.neutral100),
+                    ),
                   ),
                   const Spacer(),
-                  widget.timer.remainTimeSeconds > 0
-                      ? MaterialInkWell(
-                          borderRadius: BorderRadius.circular(30),
-                          onTap: () => widget.onPressedToggle(widget.timer),
-                          child: (widget.timer.isActive
-                                  ? SvgSet.timerOff
-                                  : SvgSet.timerOn)
-                              .asset(),
-                        )
-                      : const SizedBox()
+                  MaterialInkWell(
+                    borderRadius: BorderRadius.circular(30),
+                    onTap: () => widget.onPressedToggle(widget.timer),
+                    child: (widget.timer.isActive
+                            ? SvgSet.timerOff
+                            : SvgSet.timerOn)
+                        .asset(),
+                  )
                 ],
               );
             },

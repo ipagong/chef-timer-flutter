@@ -15,7 +15,6 @@ class TimerItem with _$TimerItem {
     required int duration,
     required int checkDuration,
     required String fireOption,
-    required String waterOption,
     required DateTime? favoriteAt,
   }) = _TimerItem;
 
@@ -27,7 +26,6 @@ class TimerItem with _$TimerItem {
     required String title,
     required int duration,
     required TimerOptionFire fire,
-    required TimerOptionWater water,
     int? checkDuration,
   }) =>
       TimerItem(
@@ -37,7 +35,6 @@ class TimerItem with _$TimerItem {
         duration: duration,
         checkDuration: checkDuration ?? 0,
         fireOption: fire.name,
-        waterOption: water.name,
         favoriteAt: null,
       );
 
@@ -46,7 +43,6 @@ class TimerItem with _$TimerItem {
     required String title,
     required int duration,
     required TimerOptionFire fire,
-    required TimerOptionWater water,
     int? checkDuration,
   }) =>
       TimerItem(
@@ -56,7 +52,6 @@ class TimerItem with _$TimerItem {
         duration: duration,
         checkDuration: checkDuration ?? 0,
         fireOption: fire.name,
-        waterOption: water.name,
         favoriteAt: null,
       );
 }

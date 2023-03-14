@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +32,7 @@ class TimerMonitor with WidgetsBindingObserver {
 
       if (list.isEmpty) return;
       if (list.singleWhereOrNull((element) => element.isNowEnd) != null) {
-        HapticFeedback.vibrate();
+        HapticFeedback.heavyImpact();
       }
     });
   }
