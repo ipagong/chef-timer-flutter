@@ -1,4 +1,4 @@
-import 'package:yota/data/datasources/preferences/preference_preset_timers.dart';
+import 'package:yota/data/datasources/preferences/preference_preset_Timers.dart';
 import 'package:yota/data/datasources/preferences/preference_source.dart';
 import 'package:yota/data/models/active_timer.dart';
 import 'package:yota/data/models/timer_item.dart';
@@ -6,9 +6,9 @@ import 'package:yota/utils/service.dart';
 import 'package:collection/collection.dart';
 
 enum _Key {
-  presetTimers,
-  userTimers,
-  activeTimers,
+  presetTimer,
+  userTimer,
+  activeTimer,
 }
 
 class PreferenceSourceImpl extends PreferenceSource {
@@ -27,15 +27,15 @@ class PreferenceSourceImpl extends PreferenceSource {
   }
 
   Future<List<TimerItem>> _syncPresetTimers() async =>
-      _presetTimerList ??= await getElemntList(_Key.presetTimers.name,
+      _presetTimerList ??= await getElemntList(_Key.presetTimer.name,
           fromJson: (e) => TimerItem.fromJson(e));
 
   Future<List<TimerItem>> _syncUserTimers() async =>
-      _userTimerList ??= await getElemntList(_Key.userTimers.name,
+      _userTimerList ??= await getElemntList(_Key.userTimer.name,
           fromJson: (e) => TimerItem.fromJson(e));
 
   Future<List<ActiveTimer>> _syncActiveTimers() async =>
-      _activeTimerList ??= await getElemntList(_Key.activeTimers.name,
+      _activeTimerList ??= await getElemntList(_Key.activeTimer.name,
           fromJson: (e) => ActiveTimer.fromJson(e));
 
   Future<void> _setupPreset() async {
@@ -64,7 +64,7 @@ class PreferenceSourceImpl extends PreferenceSource {
   @override
   Future<List<TimerItem>> setPresetTimerList(List<TimerItem> list) async {
     _presetTimerList = await setElementList(
-      _Key.presetTimers.name,
+      _Key.presetTimer.name,
       list: list,
       toJson: (e) => e.toJson(),
     );
@@ -82,7 +82,7 @@ class PreferenceSourceImpl extends PreferenceSource {
       ..add(timer);
 
     return setElementList(
-      _Key.userTimers.name,
+      _Key.userTimer.name,
       list: _userTimerList!,
       toJson: (e) => e.toJson(),
     );
@@ -94,7 +94,7 @@ class PreferenceSourceImpl extends PreferenceSource {
       ..removeWhere((e) => e.uuid == uuid);
 
     return setElementList(
-      _Key.userTimers.name,
+      _Key.userTimer.name,
       list: _userTimerList!,
       toJson: (e) => e.toJson(),
     );
@@ -108,7 +108,7 @@ class PreferenceSourceImpl extends PreferenceSource {
           .toList();
 
       setElementList(
-        _Key.userTimers.name,
+        _Key.userTimer.name,
         list: _userTimerList!,
         toJson: (e) => e.toJson(),
       );
@@ -122,7 +122,7 @@ class PreferenceSourceImpl extends PreferenceSource {
           .toList();
 
       setElementList(
-        _Key.presetTimers.name,
+        _Key.presetTimer.name,
         list: _presetTimerList!,
         toJson: (e) => e.toJson(),
       );
@@ -144,7 +144,7 @@ class PreferenceSourceImpl extends PreferenceSource {
       ..add(timer);
 
     return setElementList(
-      _Key.activeTimers.name,
+      _Key.activeTimer.name,
       list: _activeTimerList!,
       toJson: (e) => e.toJson(),
     );
@@ -156,7 +156,7 @@ class PreferenceSourceImpl extends PreferenceSource {
       ..removeWhere((e) => e.uuid == uuid);
 
     return setElementList(
-      _Key.activeTimers.name,
+      _Key.activeTimer.name,
       list: _activeTimerList!,
       toJson: (e) => e.toJson(),
     );
@@ -174,7 +174,7 @@ class PreferenceSourceImpl extends PreferenceSource {
         .toList();
 
     setElementList(
-      _Key.activeTimers.name,
+      _Key.activeTimer.name,
       list: _activeTimerList!,
       toJson: (e) => e.toJson(),
     );
@@ -189,7 +189,7 @@ class PreferenceSourceImpl extends PreferenceSource {
         .toList();
 
     setElementList(
-      _Key.activeTimers.name,
+      _Key.activeTimer.name,
       list: _activeTimerList!,
       toJson: (e) => e.toJson(),
     );
@@ -204,7 +204,7 @@ class PreferenceSourceImpl extends PreferenceSource {
         .toList();
 
     setElementList(
-      _Key.activeTimers.name,
+      _Key.activeTimer.name,
       list: _activeTimerList!,
       toJson: (e) => e.toJson(),
     );

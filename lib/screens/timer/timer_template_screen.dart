@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:yota/constants/color_set.dart';
 import 'package:yota/constants/string_set.dart';
 import 'package:yota/constants/svg_set.dart';
@@ -61,6 +60,8 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
     with WidgetsBindingObserver {
   final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
   final timerInput = TimerInput();
+
+  TimerItem? _template;
 
   @override
   void initState() {
@@ -208,16 +209,20 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
             StringSet.templateConfirmButton,
             onTap: () {
               if (!timerInput.isValid) return;
-              final timer = timerInput.toTimerItem();
+              if (_template != null) return;
+
+              _template = timerInput.toTimerItem();
+              if (_template == null) return;
+
               ref
                   .read(TimerItemStateNotifier.provider.notifier)
-                  .addTimerItem(timer);
+                  .addTimerItem(_template!);
 
               Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TimerActionScreen(timer.standBy()),
+                  builder: (context) => TimerActionScreen(_template!.standBy()),
                 ),
               );
             },

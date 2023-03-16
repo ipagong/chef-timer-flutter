@@ -4,8 +4,8 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M8 13H23V19H8C5.79086 19 4 17.6569 4 16C4 14.3431 5.79086 13 8 13Z" fill="#EDB868"/>
 </mask>
 <g mask="url(#mask0_76_5453)">
-<path d="M23 18H-5.96046e-07V19H23V18Z" fill="#FDB549"/>
-<path d="M20 16H-0.999999V17H20V16Z" fill="#FDB549"/>
+<path d="M23 18H0V19H23V18Z" fill="#FDB549"/>
+<path d="M20 16H-1V17H20V16Z" fill="#FDB549"/>
 <path d="M23 14H-1V15H23V14Z" fill="#FDB549"/>
 </g>
 <ellipse cx="4.5" cy="3" rx="4.5" ry="3" transform="matrix(-1 0 0 1 28 13)" fill="#FFD597"/>
