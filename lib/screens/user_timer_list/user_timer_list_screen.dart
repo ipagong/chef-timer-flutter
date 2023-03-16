@@ -1,5 +1,7 @@
 import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/string_set.dart';
 import 'package:yota/constants/svg_set.dart';
+import 'package:yota/constants/text_style_set.dart';
 import 'package:yota/screens/base/base_screen_state.dart';
 import 'package:yota/screens/timer/timer_action_screen.dart';
 import 'package:yota/states/timer_item_state.dart';
@@ -39,6 +41,10 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
       key: _scaffoldKey,
       backgroundColor: ColorSet.neutral0,
       appBar: AppBar(
+        title: Text(
+          StringSet.mainCustomTimerTitle,
+          style: TextStyleSet.titleSmall(ColorSet.neutral100),
+        ),
         backgroundColor: Colors.transparent,
         leadingWidth: 80,
         leading: Container(

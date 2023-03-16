@@ -18,6 +18,12 @@ class TimerItem with _$TimerItem {
     required DateTime? favoriteAt,
   }) = _TimerItem;
 
+  @override
+  bool operator ==(Object other) => other is TimerItem && uuid == other.uuid;
+
+  @override
+  int get hashCode => uuid.hashCode;
+
   factory TimerItem.fromJson(Map<String, dynamic> json) =>
       _$TimerItemFromJson(json);
 

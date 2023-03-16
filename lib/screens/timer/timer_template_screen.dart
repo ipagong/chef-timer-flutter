@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:yota/constants/color_set.dart';
 import 'package:yota/constants/string_set.dart';
 import 'package:yota/constants/svg_set.dart';
@@ -6,8 +7,10 @@ import 'package:yota/constants/timer_icon_set.dart';
 import 'package:yota/constants/timer_option_set.dart';
 import 'package:yota/data/models/timer_item.dart';
 import 'package:yota/screens/base/base_screen_state.dart';
+import 'package:yota/screens/timer/timer_action_screen.dart';
 import 'package:yota/states/timer_item_state.dart';
 import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/utils/service.dart';
 import 'package:yota/widgets/stateful/duration_picker_container.dart';
 import 'package:yota/widgets/stateless/material_ink_well.dart';
 import 'package:yota/widgets/stateless/primary_confirm_button.dart';
@@ -37,8 +40,9 @@ class TimerInput {
   bool get isValid =>
       icon != null &&
       title?.isEmpty == false &&
-      (timerDuration ?? 0) > 0 &&
-      true;
+      timerDuration != null &&
+      timerDuration! > 0 &&
+      fireOption != null;
 
   TimerItem toTimerItem() => TimerItem.custom(
         icon: icon!,
@@ -66,12 +70,6 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(TimerItemStateNotifier.provider, (previous, next) {
-      final prevCount = previous?.value?.userTimerList.length ?? 0;
-      final currentCount = next.value?.userTimerList.length ?? 0;
-      if (currentCount > prevCount) Navigator.pop(context);
-    });
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorSet.neutral0,
@@ -210,9 +208,18 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
             StringSet.templateConfirmButton,
             onTap: () {
               if (!timerInput.isValid) return;
+              final timer = timerInput.toTimerItem();
               ref
                   .read(TimerItemStateNotifier.provider.notifier)
-                  .addTimerItem(timerInput.toTimerItem());
+                  .addTimerItem(timer);
+
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TimerActionScreen(timer.standBy()),
+                ),
+              );
             },
             height: 80,
             isValid: timerInput.isValid,

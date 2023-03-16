@@ -38,8 +38,6 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
   late ActiveTimer timer;
   TimerItem? item;
 
-  FToast fToast = FToast();
-
   @override
   void initState() {
     super.initState();
