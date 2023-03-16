@@ -1,12 +1,15 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:yota/constants/color_set.dart';
 import 'package:yota/constants/string_set.dart';
+import 'package:yota/constants/text_style_set.dart';
 import 'package:yota/data/models/active_timer.dart';
 import 'package:yota/data/models/timer_item.dart';
 import 'package:yota/utils/duration_extension.dart';
 import 'package:yota/utils/indexed_iterable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:yota/utils/local_notification.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 extension Activation on TimerItem {
   ActiveTimer standBy() {
@@ -111,4 +114,37 @@ extension TimerString on String {
       .mapIndexed(
           (e, i) => (int.tryParse(e) ?? 0) * (i > 0 ? pow(60, i).toInt() : 1))
       .reduce((v, e) => (v + e));
+}
+
+extension ServiceToast on FToast {
+  show(String msg) {
+    FToast().showToast(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(26),
+          color: ColorSet.neutral0,
+        ),
+        padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+        child: Text(
+          msg,
+          textAlign: TextAlign.center,
+          style: TextStyleSet.labelLarge(ColorSet.neutral100),
+        ),
+      ),
+      toastDuration: const Duration(seconds: 1),
+      positionedToastBuilder: (context, child) {
+        return SafeArea(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                top: 0,
+                child: child,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

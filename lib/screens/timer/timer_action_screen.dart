@@ -1,4 +1,6 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:yota/constants/color_set.dart';
+import 'package:yota/constants/string_set.dart';
 import 'package:yota/constants/svg_set.dart';
 import 'package:yota/constants/text_style_set.dart';
 import 'package:yota/constants/timer_icon_set.dart';
@@ -36,6 +38,8 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
   late ActiveTimer timer;
   TimerItem? item;
 
+  FToast fToast = FToast();
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +49,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
 
   @override
   Widget build(BuildContext context) {
+    FToast().init(context);
     final timerProvider = ActiveTimerStateNotifier.provider(widget.timer);
     final timerState = ref.watch(timerProvider).valueOrNull;
     final timerNotifier = ref.read(timerProvider.notifier);
@@ -112,35 +117,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                           itemNotifier.favoriteToggle(
                               timerState.targetItem, on);
                           if (on) {
-                            //   FToast().showToast(
-                            //       child: Container(
-                            //         width: 172,
-                            //         height: 51,
-                            //         decoration: BoxDecoration(
-                            //           borderRadius: BorderRadius.circular(26),
-                            //           color: ColorSet.neutral0,
-                            //         ),
-                            //         padding:
-                            //             const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                            //         child: Text(
-                            //           StringSet.toastMessageFavoriteOn,
-                            //           textAlign: TextAlign.center,
-                            //           style: TextStyleSet.labelLarge(
-                            //               ColorSet.neutral100),
-                            //         ),
-                            //       ),
-                            //       toastDuration: const Duration(seconds: 1),
-                            //       positionedToastBuilder: (context, child) {
-                            //         return Stack(
-                            //           alignment: Alignment.center,
-                            //           children: [
-                            //             Positioned(
-                            //               bottom: 100,
-                            //               child: child,
-                            //             ),
-                            //           ],
-                            //         );
-                            //       });
+                            FToast().show(StringSet.toastMessageFavoriteOn);
                           }
                         },
                         borderRadius: BorderRadius.circular(100),
