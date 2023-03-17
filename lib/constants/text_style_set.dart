@@ -7,6 +7,12 @@ class TextStyleSet {
       color: color,
       fontFamily: 'Pretendard');
 
+  static TextStyle headlineMedium(Color color) => TextStyle(
+      fontSize: 28,
+      fontWeight: FontWeight.w900,
+      color: color,
+      fontFamily: 'Pretendard');
+
   static TextStyle headlineLarge(Color color) => TextStyle(
       fontSize: 40,
       fontWeight: FontWeight.w900,

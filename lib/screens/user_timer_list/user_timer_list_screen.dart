@@ -44,7 +44,7 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
       appBar: AppBar(
         title: Text(
           StringSet.mainCustomTimerTitle,
-          style: TextStyleSet.titleSmall(ColorSet.neutral100),
+          style: TextStyleSet.titleMedium(ColorSet.neutral100),
         ),
         backgroundColor: Colors.transparent,
         leadingWidth: 80,

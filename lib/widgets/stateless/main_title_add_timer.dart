@@ -19,7 +19,7 @@ class MainTitleAddTimer extends StatelessWidget {
         children: [
           Text(
             StringSet.mainTitle,
-            style: TextStyleSet.headlineLarge(ColorSet.neutral100),
+            style: TextStyleSet.headlineMedium(ColorSet.neutral100),
           ),
           const Spacer(),
           InkWell(
