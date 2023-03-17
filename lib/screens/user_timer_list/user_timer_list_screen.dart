@@ -59,44 +59,42 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
           ),
         ),
       ),
-      body: SafeArea(
-        child: Container(
-          color: ColorSet.neutral0,
-          child: CustomScrollView(
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.all(16),
-                sliver: SliverGrid.builder(
-                  itemCount: userTimerList.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 165 / 221,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemBuilder: (BuildContext ctx, int index) => TimerGridItem(
-                    userTimerList[index],
-                    (item) {
-                      EventLog.send(
-                          event: Event.push_timer_screen,
-                          parameters: {
-                            "type": item.isCustom ? "custom" : "preset",
-                            "from": "user",
-                            "title": item.title
-                          });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              TimerActionScreen(item.standBy()),
-                        ),
-                      );
-                    },
-                  ),
+      body: Container(
+        color: ColorSet.neutral0,
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.all(16),
+              sliver: SliverGrid.builder(
+                itemCount: userTimerList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 165 / 221,
+                  crossAxisSpacing: 10,
+                ),
+                itemBuilder: (BuildContext ctx, int index) => TimerGridItem(
+                  userTimerList[index],
+                  (item) {
+                    EventLog.send(event: Event.push_timer_screen, parameters: {
+                      "type": item.isCustom ? "custom" : "preset",
+                      "from": "user",
+                      "title": item.title
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TimerActionScreen(item.standBy()),
+                      ),
+                    );
+                  },
                 ),
               ),
-            ],
-          ),
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(height: MediaQuery.of(context).padding.bottom),
+            ),
+          ],
         ),
       ),
     );

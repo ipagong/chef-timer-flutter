@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,8 +36,13 @@ class TimerMonitor with WidgetsBindingObserver {
         LocalNotification.cancelAll();
         return;
       }
+
       if (list.singleWhereOrNull((element) => element.isNowEnd) != null) {
-        HapticFeedback.vibrate();
+        await HapticFeedback.vibrate();
+        await AudioPlayer().play(
+          AssetSource('sounds/ding_sound.wav'),
+          mode: PlayerMode.lowLatency,
+        );
       }
     });
   }

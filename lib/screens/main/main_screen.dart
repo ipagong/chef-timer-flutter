@@ -57,126 +57,127 @@ class _MainScreenState extends BaseScreenState<MainScreen>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: ColorSet.neutral0,
-      body: SafeArea(
-        child: Container(
-          color: ColorSet.neutral0,
-          child: Column(children: [
-            Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: MainTitleAddTimer(() {
-                      EventLog.send(
-                        event: Event.push_timer_template,
-                        parameters: {"from": "top"},
-                      );
-                      Navigator.pushNamed(
-                          context, TimerTemplateScreen.routeName);
-                    }),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ActiveTimerListItem(
-                          activeTimerList[index],
-                          onPressedItem: (timer) {
-                            EventLog.send(
-                              event: Event.push_timer_screen,
-                              parameters: {
-                                "type":
-                                    timer.item.isCustom ? "custom" : "preset",
-                                "from": "active",
-                                "title": timer.item.title
-                              },
-                            );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TimerActionScreen(timer),
-                              ),
-                            );
-                          },
-                          onPressedToggle: (timer) {
-                            if (timer.remainTimeSeconds == 0) {
-                              activeTimerNotifier.reset(timer);
-                            }
-                            EventLog.send(
-                              event: Event.toggle_active_timer,
-                              parameters: {
-                                "from": "list",
-                                "type":
-                                    timer.item.isCustom ? "custom" : "preset",
-                                "title": timer.item.title,
-                                "duration": timer.item.duration.toString(),
-                                "check_duration":
-                                    timer.item.checkDuration.toString()
-                              },
-                            );
-                            activeTimerNotifier.toggle(timer);
-                          },
-                          onDeleteItem: (timer) {
-                            EventLog.send(event: Event.delete_active_timer);
-                            activeTimerNotifier.remove(timer);
-                          },
-                        );
-                      },
-                      childCount: activeTimerList.length,
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: userTimerCount > 0
-                        ? UserTimerSelector(
-                            userTimerCount,
-                            () => Navigator.pushNamed(
-                                context, UserTimerListScreen.routeName),
-                          )
-                        : const SizedBox(),
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-                    sliver: SliverGrid.builder(
-                      itemCount: presetTimerList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 165 / 221,
-                              crossAxisSpacing: 10),
-                      itemBuilder: (BuildContext ctx, int index) =>
-                          TimerGridItem(
-                        presetTimerList[index],
-                        (item) {
+      body: Container(
+        color: ColorSet.neutral0,
+        child: Column(children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SizedBox(height: MediaQuery.of(context).padding.top),
+                ),
+                SliverToBoxAdapter(
+                  child: MainTitleAddTimer(() {
+                    EventLog.send(
+                      event: Event.push_timer_template,
+                      parameters: {"from": "top"},
+                    );
+                    Navigator.pushNamed(context, TimerTemplateScreen.routeName);
+                  }),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return ActiveTimerListItem(
+                        activeTimerList[index],
+                        onPressedItem: (timer) {
                           EventLog.send(
                             event: Event.push_timer_screen,
                             parameters: {
-                              "type": item.isCustom ? "custom" : "preset",
-                              "from": "main",
-                              "title": item.title
+                              "type": timer.item.isCustom ? "custom" : "preset",
+                              "from": "active",
+                              "title": timer.item.title
                             },
                           );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  TimerActionScreen(item.standBy()),
+                              builder: (context) => TimerActionScreen(timer),
                             ),
                           );
                         },
-                      ),
+                        onPressedToggle: (timer) {
+                          if (timer.remainTimeSeconds == 0) {
+                            activeTimerNotifier.reset(timer);
+                          }
+                          EventLog.send(
+                            event: Event.toggle_active_timer,
+                            parameters: {
+                              "from": "list",
+                              "type": timer.item.isCustom ? "custom" : "preset",
+                              "title": timer.item.title,
+                              "duration": timer.item.duration.toString(),
+                              "check_duration":
+                                  timer.item.checkDuration.toString()
+                            },
+                          );
+                          activeTimerNotifier.toggle(timer);
+                        },
+                        onDeleteItem: (timer) {
+                          EventLog.send(event: Event.delete_active_timer);
+                          activeTimerNotifier.remove(timer);
+                        },
+                      );
+                    },
+                    childCount: activeTimerList.length,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: userTimerCount > 0
+                      ? UserTimerSelector(
+                          userTimerCount,
+                          () => Navigator.pushNamed(
+                              context, UserTimerListScreen.routeName),
+                        )
+                      : const SizedBox(),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+                  sliver: SliverGrid.builder(
+                    itemCount: presetTimerList.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 165 / 221,
+                            crossAxisSpacing: 10),
+                    itemBuilder: (BuildContext ctx, int index) => TimerGridItem(
+                      presetTimerList[index],
+                      (item) {
+                        EventLog.send(
+                          event: Event.push_timer_screen,
+                          parameters: {
+                            "type": item.isCustom ? "custom" : "preset",
+                            "from": "main",
+                            "title": item.title
+                          },
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TimerActionScreen(item.standBy()),
+                          ),
+                        );
+                      },
                     ),
                   ),
-                  SliverToBoxAdapter(child: MainBottomAddTimer(() {
-                    EventLog.send(
-                      event: Event.push_timer_template,
-                      parameters: {"from": "bottom"},
-                    );
-                    Navigator.pushNamed(context, TimerTemplateScreen.routeName);
-                  }))
-                ],
-              ),
+                ),
+                SliverToBoxAdapter(child: MainBottomAddTimer(() {
+                  EventLog.send(
+                    event: Event.push_timer_template,
+                    parameters: {"from": "bottom"},
+                  );
+                  Navigator.pushNamed(context, TimerTemplateScreen.routeName);
+                })),
+                SliverToBoxAdapter(
+                  child:
+                      SizedBox(height: MediaQuery.of(context).padding.bottom),
+                ),
+              ],
             ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }
