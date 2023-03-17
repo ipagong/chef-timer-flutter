@@ -13,16 +13,11 @@ class TimerItem with _$TimerItem {
     required String icon,
     required String title,
     required int duration,
+    required bool isCustom,
     required int checkDuration,
     required String fireOption,
     required DateTime? favoriteAt,
   }) = _TimerItem;
-
-  @override
-  bool operator ==(Object other) => other is TimerItem && uuid == other.uuid;
-
-  @override
-  int get hashCode => uuid.hashCode;
 
   factory TimerItem.fromJson(Map<String, dynamic> json) =>
       _$TimerItemFromJson(json);
@@ -40,6 +35,7 @@ class TimerItem with _$TimerItem {
         title: title,
         duration: duration,
         checkDuration: checkDuration ?? 0,
+        isCustom: false,
         fireOption: fire.name,
         favoriteAt: null,
       );
@@ -56,6 +52,7 @@ class TimerItem with _$TimerItem {
         icon: icon.name,
         title: title,
         duration: duration,
+        isCustom: true,
         checkDuration: checkDuration ?? 0,
         fireOption: fire.name,
         favoriteAt: null,

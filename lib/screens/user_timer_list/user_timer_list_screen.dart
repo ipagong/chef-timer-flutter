@@ -5,6 +5,7 @@ import 'package:yota/constants/text_style_set.dart';
 import 'package:yota/screens/base/base_screen_state.dart';
 import 'package:yota/screens/timer/timer_action_screen.dart';
 import 'package:yota/states/timer_item_state.dart';
+import 'package:yota/utils/event_log.dart';
 import 'package:yota/utils/service.dart';
 import 'package:yota/widgets/stateless/material_ink_well.dart';
 import 'package:yota/widgets/stateless/timer_grid_item.dart';
@@ -75,12 +76,22 @@ class _UserTimerListState extends BaseScreenState<UserTimerListScreen>
                   ),
                   itemBuilder: (BuildContext ctx, int index) => TimerGridItem(
                     userTimerList[index],
-                    (item) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TimerActionScreen(item.standBy()),
-                      ),
-                    ),
+                    (item) {
+                      EventLog.send(
+                          event: Event.push_timer_screen,
+                          parameters: {
+                            "type": item.isCustom ? "custom" : "preset",
+                            "from": "user",
+                            "title": item.title
+                          });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TimerActionScreen(item.standBy()),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

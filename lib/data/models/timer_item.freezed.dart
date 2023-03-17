@@ -24,6 +24,7 @@ mixin _$TimerItem {
   String get icon => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int get duration => throw _privateConstructorUsedError;
+  bool get isCustom => throw _privateConstructorUsedError;
   int get checkDuration => throw _privateConstructorUsedError;
   String get fireOption => throw _privateConstructorUsedError;
   DateTime? get favoriteAt => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $TimerItemCopyWith<$Res> {
       String icon,
       String title,
       int duration,
+      bool isCustom,
       int checkDuration,
       String fireOption,
       DateTime? favoriteAt});
@@ -66,6 +68,7 @@ class _$TimerItemCopyWithImpl<$Res, $Val extends TimerItem>
     Object? icon = null,
     Object? title = null,
     Object? duration = null,
+    Object? isCustom = null,
     Object? checkDuration = null,
     Object? fireOption = null,
     Object? favoriteAt = freezed,
@@ -87,6 +90,10 @@ class _$TimerItemCopyWithImpl<$Res, $Val extends TimerItem>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as int,
+      isCustom: null == isCustom
+          ? _value.isCustom
+          : isCustom // ignore: cast_nullable_to_non_nullable
+              as bool,
       checkDuration: null == checkDuration
           ? _value.checkDuration
           : checkDuration // ignore: cast_nullable_to_non_nullable
@@ -115,6 +122,7 @@ abstract class _$$_TimerItemCopyWith<$Res> implements $TimerItemCopyWith<$Res> {
       String icon,
       String title,
       int duration,
+      bool isCustom,
       int checkDuration,
       String fireOption,
       DateTime? favoriteAt});
@@ -135,6 +143,7 @@ class __$$_TimerItemCopyWithImpl<$Res>
     Object? icon = null,
     Object? title = null,
     Object? duration = null,
+    Object? isCustom = null,
     Object? checkDuration = null,
     Object? fireOption = null,
     Object? favoriteAt = freezed,
@@ -156,6 +165,10 @@ class __$$_TimerItemCopyWithImpl<$Res>
           ? _value.duration
           : duration // ignore: cast_nullable_to_non_nullable
               as int,
+      isCustom: null == isCustom
+          ? _value.isCustom
+          : isCustom // ignore: cast_nullable_to_non_nullable
+              as bool,
       checkDuration: null == checkDuration
           ? _value.checkDuration
           : checkDuration // ignore: cast_nullable_to_non_nullable
@@ -180,6 +193,7 @@ class _$_TimerItem implements _TimerItem {
       required this.icon,
       required this.title,
       required this.duration,
+      required this.isCustom,
       required this.checkDuration,
       required this.fireOption,
       required this.favoriteAt});
@@ -196,6 +210,8 @@ class _$_TimerItem implements _TimerItem {
   @override
   final int duration;
   @override
+  final bool isCustom;
+  @override
   final int checkDuration;
   @override
   final String fireOption;
@@ -204,7 +220,7 @@ class _$_TimerItem implements _TimerItem {
 
   @override
   String toString() {
-    return 'TimerItem(uuid: $uuid, icon: $icon, title: $title, duration: $duration, checkDuration: $checkDuration, fireOption: $fireOption, favoriteAt: $favoriteAt)';
+    return 'TimerItem(uuid: $uuid, icon: $icon, title: $title, duration: $duration, isCustom: $isCustom, checkDuration: $checkDuration, fireOption: $fireOption, favoriteAt: $favoriteAt)';
   }
 
   @override
@@ -217,6 +233,8 @@ class _$_TimerItem implements _TimerItem {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.duration, duration) ||
                 other.duration == duration) &&
+            (identical(other.isCustom, isCustom) ||
+                other.isCustom == isCustom) &&
             (identical(other.checkDuration, checkDuration) ||
                 other.checkDuration == checkDuration) &&
             (identical(other.fireOption, fireOption) ||
@@ -228,7 +246,7 @@ class _$_TimerItem implements _TimerItem {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, uuid, icon, title, duration,
-      checkDuration, fireOption, favoriteAt);
+      isCustom, checkDuration, fireOption, favoriteAt);
 
   @JsonKey(ignore: true)
   @override
@@ -250,6 +268,7 @@ abstract class _TimerItem implements TimerItem {
       required final String icon,
       required final String title,
       required final int duration,
+      required final bool isCustom,
       required final int checkDuration,
       required final String fireOption,
       required final DateTime? favoriteAt}) = _$_TimerItem;
@@ -265,6 +284,8 @@ abstract class _TimerItem implements TimerItem {
   String get title;
   @override
   int get duration;
+  @override
+  bool get isCustom;
   @override
   int get checkDuration;
   @override

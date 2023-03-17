@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "271414698780",
+    "project_id": "yota-bf74b",
+    "storage_bucket": "yota-bf74b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271414698780:android:1a75ece7638101ab2cd0d9",
+        "android_client_info": {
+          "package_name": "io.timer.yota"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271414698780-4ee011akb9k7fkqvvurl33r1054c5llc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjOZ80mh8EgyzWmG43tnUPNE6BP35CHtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271414698780-4ee011akb9k7fkqvvurl33r1054c5llc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "271414698780-udh97k39b5ghtd6h4it9ka1f3shf396g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.timer.yota"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

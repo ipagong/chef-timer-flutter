@@ -50,6 +50,7 @@ class ActiveTimerStateNotifier
     if (await _activeRepository.getActiveTimer(timer.uuid) == null) {
       await _activeRepository.addActiveTimer(timer);
     }
+
     _refreshAction(() => _activeRepository.toggleActiveTimer(timer));
   }
 

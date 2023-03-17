@@ -11,6 +11,7 @@ import 'package:yota/screens/base/base_screen_state.dart';
 import 'package:yota/states/active_timer_state.dart';
 import 'package:yota/states/timer_item_state.dart';
 import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/utils/event_log.dart';
 import 'package:yota/utils/service.dart';
 import 'package:yota/widgets/stateless/material_ink_well.dart';
 import 'package:yota/widgets/stateful/timer_wrap_option_item.dart';
@@ -218,6 +219,18 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                         child: MaterialInkWell(
                           borderRadius: BorderRadius.circular(50),
                           onTap: () {
+                            EventLog.send(
+                              event: Event.toggle_active_timer,
+                              parameters: {
+                                "from": "detail",
+                                "type":
+                                    timer.item.isCustom ? "custom" : "preset",
+                                "title": timer.item.title,
+                                "duration": timer.item.duration.toString(),
+                                "check_duration":
+                                    timer.item.checkDuration.toString()
+                              },
+                            );
                             timerNotifier.targetToggle();
                           },
                           child: Center(
@@ -246,6 +259,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             ),
                             child: MaterialInkWell(
                               onTap: () {
+                                EventLog.send(event: Event.lock_active_timer);
                                 setState(() => isLocked = !isLocked);
                               },
                               borderRadius: BorderRadius.circular(30),
@@ -263,6 +277,7 @@ class _TimerActionScreenState extends BaseScreenState<TimerActionScreen>
                             ),
                             child: MaterialInkWell(
                               onTap: () {
+                                EventLog.send(event: Event.reset_active_timer);
                                 timerNotifier.targetReset();
                               },
                               borderRadius: BorderRadius.circular(30),

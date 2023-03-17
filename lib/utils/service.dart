@@ -6,6 +6,7 @@ import 'package:yota/constants/text_style_set.dart';
 import 'package:yota/data/models/active_timer.dart';
 import 'package:yota/data/models/timer_item.dart';
 import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/utils/event_log.dart';
 import 'package:yota/utils/indexed_iterable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:yota/utils/local_notification.dart';
@@ -92,6 +93,7 @@ extension Utils on ActiveTimer {
       LocalNotification.cancel(subid.hashCode);
       LocalNotification.cancel(uuid.hashCode);
     }
+
     return copyWith(remainTime: item.duration, startAt: null, endAt: null);
   }
 

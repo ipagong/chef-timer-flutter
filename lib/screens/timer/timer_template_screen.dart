@@ -9,6 +9,7 @@ import 'package:yota/screens/base/base_screen_state.dart';
 import 'package:yota/screens/timer/timer_action_screen.dart';
 import 'package:yota/states/timer_item_state.dart';
 import 'package:yota/utils/duration_extension.dart';
+import 'package:yota/utils/event_log.dart';
 import 'package:yota/utils/service.dart';
 import 'package:yota/widgets/stateful/duration_picker_container.dart';
 import 'package:yota/widgets/stateless/material_ink_well.dart';
@@ -212,7 +213,16 @@ class _TimerTemplateScreenState extends BaseScreenState<TimerTemplateScreen>
               if (_template != null) return;
 
               _template = timerInput.toTimerItem();
+
               if (_template == null) return;
+
+              EventLog.send(
+                event: Event.create_custom_timer,
+                parameters: {
+                  "duration": _template!.duration.toString(),
+                  "check_duration": _template!.checkDuration.toString()
+                },
+              );
 
               ref
                   .read(TimerItemStateNotifier.provider.notifier)

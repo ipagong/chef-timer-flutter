@@ -11,6 +11,7 @@ _$_TimerItem _$$_TimerItemFromJson(Map<String, dynamic> json) => _$_TimerItem(
       icon: json['icon'] as String,
       title: json['title'] as String,
       duration: json['duration'] as int,
+      isCustom: json['isCustom'] as bool,
       checkDuration: json['checkDuration'] as int,
       fireOption: json['fireOption'] as String,
       favoriteAt: json['favoriteAt'] == null
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$_TimerItemToJson(_$_TimerItem instance) =>
       'icon': instance.icon,
       'title': instance.title,
       'duration': instance.duration,
+      'isCustom': instance.isCustom,
       'checkDuration': instance.checkDuration,
       'fireOption': instance.fireOption,
       'favoriteAt': instance.favoriteAt?.toIso8601String(),

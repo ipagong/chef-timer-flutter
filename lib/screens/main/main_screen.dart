@@ -7,6 +7,7 @@ import 'package:yota/screens/timer/timer_template_screen.dart';
 import 'package:yota/screens/user_timer_list/user_timer_list_screen.dart';
 import 'package:yota/states/active_timer_state.dart';
 import 'package:yota/states/timer_item_state.dart';
+import 'package:yota/utils/event_log.dart';
 import 'package:yota/utils/service.dart';
 import 'package:yota/utils/timer_monitor.dart';
 import 'package:yota/widgets/stateful/active_timer_list_item.dart';
@@ -64,28 +65,58 @@ class _MainScreenState extends BaseScreenState<MainScreen>
               child: CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
-                    child: MainTitleAddTimer(() => Navigator.pushNamed(
-                        context, TimerTemplateScreen.routeName)),
+                    child: MainTitleAddTimer(() {
+                      EventLog.send(
+                        event: Event.push_timer_template,
+                        parameters: {"from": "top"},
+                      );
+                      Navigator.pushNamed(
+                          context, TimerTemplateScreen.routeName);
+                    }),
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ActiveTimerListItem(
                           activeTimerList[index],
-                          onPressedItem: (item) => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TimerActionScreen(item),
-                            ),
-                          ),
-                          onPressedToggle: (item) {
-                            if (item.remainTimeSeconds == 0) {
-                              activeTimerNotifier.reset(item);
-                            }
-                            activeTimerNotifier.toggle(item);
+                          onPressedItem: (timer) {
+                            EventLog.send(
+                              event: Event.push_timer_screen,
+                              parameters: {
+                                "type":
+                                    timer.item.isCustom ? "custom" : "preset",
+                                "from": "active",
+                                "title": timer.item.title
+                              },
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TimerActionScreen(timer),
+                              ),
+                            );
                           },
-                          onDeleteItem: (item) {
-                            activeTimerNotifier.remove(item);
+                          onPressedToggle: (timer) {
+                            if (timer.remainTimeSeconds == 0) {
+                              activeTimerNotifier.reset(timer);
+                            }
+                            EventLog.send(
+                              event: Event.toggle_active_timer,
+                              parameters: {
+                                "from": "list",
+                                "type":
+                                    timer.item.isCustom ? "custom" : "preset",
+                                "title": timer.item.title,
+                                "duration": timer.item.duration.toString(),
+                                "check_duration":
+                                    timer.item.checkDuration.toString()
+                              },
+                            );
+                            activeTimerNotifier.toggle(timer);
+                          },
+                          onDeleteItem: (timer) {
+                            EventLog.send(event: Event.delete_active_timer);
+                            activeTimerNotifier.remove(timer);
                           },
                         );
                       },
@@ -114,19 +145,33 @@ class _MainScreenState extends BaseScreenState<MainScreen>
                       itemBuilder: (BuildContext ctx, int index) =>
                           TimerGridItem(
                         presetTimerList[index],
-                        (item) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                TimerActionScreen(item.standBy()),
-                          ),
-                        ),
+                        (item) {
+                          EventLog.send(
+                            event: Event.push_timer_screen,
+                            parameters: {
+                              "type": item.isCustom ? "custom" : "preset",
+                              "from": "main",
+                              "title": item.title
+                            },
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  TimerActionScreen(item.standBy()),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
-                  SliverToBoxAdapter(
-                      child: MainBottomAddTimer(() => Navigator.pushNamed(
-                          context, TimerTemplateScreen.routeName)))
+                  SliverToBoxAdapter(child: MainBottomAddTimer(() {
+                    EventLog.send(
+                      event: Event.push_timer_template,
+                      parameters: {"from": "bottom"},
+                    );
+                    Navigator.pushNamed(context, TimerTemplateScreen.routeName);
+                  }))
                 ],
               ),
             ),

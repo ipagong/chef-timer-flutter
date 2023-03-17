@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yota/data/repositories/active_timer/active_timer_repository.dart';
+import 'package:yota/utils/local_notification.dart';
 import 'package:yota/utils/service.dart';
 
 class TimerMonitor with WidgetsBindingObserver {
@@ -30,9 +31,12 @@ class TimerMonitor with WidgetsBindingObserver {
       if (_repository == null) return;
       final list = await _repository!.getActiveTimerList();
 
-      if (list.isEmpty) return;
+      if (list.where((e) => e.isActive).isEmpty) {
+        LocalNotification.cancelAll();
+        return;
+      }
       if (list.singleWhereOrNull((element) => element.isNowEnd) != null) {
-        HapticFeedback.heavyImpact();
+        HapticFeedback.vibrate();
       }
     });
   }
